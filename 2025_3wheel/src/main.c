@@ -4,45 +4,75 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include <math.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 #include <zephyr/device.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/devicetree.h>
-#include <zephyr/drivers/can.h>
-#include <zephyr/debug/thread_analyzer.h>
 #include <zephyr/kernel.h>
-#include <zephyr/sys/printk.h>
 #include <zephyr/drivers/motor.h>
+#include <zephyr/drivers/sbus.h>
 #include <ares/board/init.c>
 #include <ares/ekf/imu_task.c>
 #include <ares/vofa/justfloat.c>
+#include "ares/ekf/QuaternionEKF.h"
+#include "devices.h"
+#include "zephyr/debug/thread_analyzer.h"
+#include <zephyr/zbus/zbus.h>
+#include <zephyr/drivers/chassis.h>
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
-/* Devicetree */
-#define UART_NODE DT_ALIAS(vofa)
-const struct device *uart_dev = DEVICE_DT_GET(UART_NODE);
+float steermotor1_angle = 0;
+float steermotor2_angle = 0;
+float steermotor3_angle = 0;
 
-#define ACCEL_NODE DT_NODELABEL(bmi08x_accel)
-const struct device *accel_dev = DEVICE_DT_GET(ACCEL_NODE);
+float steermotor1_speed = 0;
+float steermotor2_speed = 0;
+float steermotor3_speed = 0;
 
-#define GYRO_NODE DT_NODELABEL(bmi08x_gyro)
-const struct device *gyro_dev = DEVICE_DT_GET(GYRO_NODE);
-
-#define MOTOR1_NODE DT_INST(0, dm_motor)
-
-const struct device *motor1 = DEVICE_DT_GET(MOTOR1_NODE);
+int sbus_get_bool(const struct device *sbus, int channel)
+{
+	sbus_get_digit(sbus, channel);
+	return ((int)sbus_get_percent(sbus, channel)) > 0.5;
+}
 
 /* CAN Feedback to console*/
-K_THREAD_STACK_DEFINE(feedback_stack_area, 2048); // 定义线程栈
 void console_feedback(void *arg1, void *arg2, void *arg3)
 {
-	while (1) {
-		thread_analyzer_print(NULL);
+	float angle = 0;
 
-		LOG_INF("rpm: motor1: %.2f\n", (double)motor_get_speed(motor1));
-		k_msleep(500);
+	int cnt = 0;
+	while (1) {
+		angle += sbus_get_percent(sbus, 0) * 5;
+		chassis_set_speed(chassis, sbus_get_percent(sbus, 3) * 3,
+				  sbus_get_percent(sbus, 1) * 3);
+		chassis_set_angle(chassis, angle);
+		k_msleep(50);
+	}
+}
+K_THREAD_DEFINE(feedback_thread, 1536, console_feedback, NULL, NULL, NULL, -1, 0, 100);
+
+int pub_cnt = 0;
+
+ZBUS_CHAN_DEFINE(chassis_sensor_zbus,                          /* Name */
+		 struct pos_data,                              /* Message type */
+		 NULL,                                         /* Validator */
+		 NULL,                                         /* User Data */
+		 ZBUS_OBSERVERS(chassis_sensor_msg_suscriber), /* observers */
+		 ZBUS_MSG_INIT(.Yaw = 0, .accel = {0})         /* Initial value */
+);
+
+void Sensor_update_cb(QEKF_INS_t *QEKF)
+{
+	struct pos_data pos = {0};
+	pos.Yaw = QEKF->Yaw;
+	pos.accel[0] = QEKF->Accel[X];
+	pos.accel[1] = QEKF->Accel[Y];
+	pos.accel[2] = QEKF->Accel[Z];
+	if (pub_cnt++ % 20 == 0) {
+		zbus_chan_pub(&chassis_sensor_zbus, &pos, K_MSEC(5));
 	}
 }
 
@@ -50,21 +80,22 @@ int main(void)
 {
 	board_init();
 
-	struct JFData *data = jf_send_init(uart_dev, 25, 4);
+	struct JFData *data = jf_send_init(uart_dev, 50);
+
+	jf_channel_add(data, &QEKF_INS.q[0], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.q[1], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.q[2], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.q[3], PTR_FLOAT);
 
 	k_sleep(K_MSEC(50));
 	IMU_Sensor_trig_init(accel_dev, gyro_dev);
 
-	/* Start Feedback thread*/
-	struct k_thread feedback_thread_data;
-	k_thread_create(&feedback_thread_data, feedback_stack_area,
-			K_THREAD_STACK_SIZEOF(feedback_stack_area), console_feedback,
-			(void *)motor1, NULL, NULL, 0, 0, K_MSEC(300));
+	IMU_Sensor_set_update_cb(Sensor_update_cb);
 
-	int t = 0;
+	chassis_set_sensor_zbus(chassis, &chassis_sensor_zbus);
+	chassis_set_angle(chassis, 0);
+
 	while (1) {
-		memcpy(data->fdata, QEKF_INS.q, sizeof(QEKF_INS.q));
-		k_msleep(25);
-		t += 50;
+		k_sleep(K_MSEC(500));
 	}
 }
