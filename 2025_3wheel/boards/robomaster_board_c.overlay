@@ -49,8 +49,8 @@
 			gear_ratio = "15.76";
 			status = "okay";
 			can_channel = <&canbus1>;
-			controllers = <&wheel_speed_pid>;
-			capabilities = "speed";
+			controllers = <&wheel_angle_pid &wheel_speed_pid>;
+			capabilities = "angle", "speed";
 		};
 
 		motor_wheel1: motor_wheel1{
@@ -62,8 +62,8 @@
 			gear_ratio = "15.76";
 			status = "okay";
 			can_channel = <&canbus1>;
-			controllers = <&wheel_speed_pid>;
-			capabilities = "speed";
+			controllers = <&wheel_angle_pid &wheel_speed_pid>;
+			capabilities = "angle", "speed";
 		};
 
 		motor_wheel2: motor_wheel2{
@@ -75,8 +75,8 @@
 			gear_ratio = "15.76";
 			status = "okay";
 			can_channel = <&canbus1>;
-			controllers = <&wheel_speed_pid>;
-			capabilities = "speed";
+			controllers = <&wheel_angle_pid &wheel_speed_pid>;
+			capabilities = "angle", "speed";
 		};
 
 		motor_steer0: motor_steer0{
@@ -123,34 +123,39 @@
 		wheel_speed_pid: wheel_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "1";
-			k_i = "0";
-			k_d = "180";
+			k_p = "2.65";
+			k_d = "60";
+			detri_lpf = "0.985";
+		};
+
+		wheel_angle_pid: wheel_angle_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "3";
+			k_d = "640";
+			detri_lpf = "0.985";
 		};
 
 		steer_speed_pid: steer_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.007";
-			k_i = "0";
-			k_d = "180";
+			k_p = "0.0195";
+			k_d = "4.85";
+			detri_lpf = "0.95";
 		};
 
 		steer_angle_pid: steer_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "1.8";
-			k_i = "0";
-			k_d = "120";
+			k_p = "2.0";
+			k_d = "0";
+			detri_lpf = "0.9985";
 		};
 
 		chassis_roll_angle_pid: chassis_roll_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
 			k_p = "0.4";
-			k_i = "0.3";
-			k_d = "3880";
-			i_max = "2";
 		};
 	};
 	
