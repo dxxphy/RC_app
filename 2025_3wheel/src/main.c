@@ -24,6 +24,10 @@
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
+#ifndef PI
+#define PI 3.14159265f
+#endif
+
 float steermotor1_angle = 0;
 float steermotor2_angle = 0;
 float steermotor3_angle = 0;
@@ -46,10 +50,18 @@ void console_feedback(void *arg1, void *arg2, void *arg3)
 	int cnt = 0;
 	while (1) {
 		angle += sbus_get_percent(sbus, 0) * 5;
-		chassis_set_speed(chassis, sbus_get_percent(sbus, 3) * 3,
-				  sbus_get_percent(sbus, 1) * 3);
-		chassis_set_angle(chassis, angle);
-		k_msleep(50);
+		float X = sbus_get_percent(sbus, 3);
+		float Y = sbus_get_percent(sbus, 1);
+		// 计算摇杆角度
+		// Calculate joystick angle in degrees
+		float joystick_angle = atan2f(Y, X) * 180.0f / PI;
+
+		float percentage = sqrtf(X * X + Y * Y) * cosf(fmodf(joystick_angle, 45));
+
+		chassis_set_speed(chassis, X * 3, Y * 3);
+		chassis_set_gyro(chassis, -sbus_get_percent(sbus, 0) * 10.0f);
+
+		k_msleep(20);
 	}
 }
 K_THREAD_DEFINE(feedback_thread, 1536, console_feedback, NULL, NULL, NULL, -1, 0, 100);
