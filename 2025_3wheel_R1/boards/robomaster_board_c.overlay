@@ -156,7 +156,8 @@
 		chassis_roll_angle_pid: chassis_roll_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.27";
+			k_p = "0.33";
+			k_d = "3";
 		};
 	};
 	

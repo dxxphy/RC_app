@@ -50,6 +50,7 @@ void console_feedback(void *arg1, void *arg2, void *arg3)
 	int cnt = 0;
 	while (1) {
 		angle += sbus_get_percent(sbus, 0) * 5;
+		angle = fmodf(angle, 360);
 		float X = sbus_get_percent(sbus, 3);
 		float Y = sbus_get_percent(sbus, 1);
 		// 计算摇杆角度
@@ -60,6 +61,7 @@ void console_feedback(void *arg1, void *arg2, void *arg3)
 
 		chassis_set_speed(chassis, X * 3, Y * 3);
 		chassis_set_gyro(chassis, -sbus_get_percent(sbus, 0) * 10.0f);
+		// chassis_set_angle(2wchassis, angle);
 
 		k_msleep(20);
 	}
