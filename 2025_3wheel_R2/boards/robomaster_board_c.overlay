@@ -2,9 +2,9 @@
 	chassis: chassis {
 		compatible = "ares,chassis";
 		status = "okay";
-		wheels = <&steerwheel1 0 2592>,
-					  <&steerwheel2 2245 (-1296)>,
-					  <&steerwheel3 (-2245) (-1296)>;
+		wheels = <&steerwheel3  0 2592>,
+				<&steerwheel1 2245 (-1296)>,
+				<&steerwheel2 (-2245) (-1296)>;
 		angle-pid = <&chassis_roll_angle_pid>;
 		track_angle;
 	};
@@ -16,7 +16,7 @@
 			steer-motor = <&motor_steer0>;
 			wheel-motor = <&motor_wheel0>;
 			wheel-radius = "0.555";
-			angle-offset = "60";
+			angle-offset = "-139.69";
 		};
 
 		steerwheel2: steerwheel2 {
@@ -26,7 +26,7 @@
 			steer-motor = <&motor_steer1>;
 			wheel-motor = <&motor_wheel1>;
 			wheel-radius = "0.555";
-			angle-offset = "300";
+			angle-offset = "19.69";
 		};
 
 		steerwheel3: steerwheel3 {
@@ -36,7 +36,7 @@
 			steer-motor = <&motor_steer2>;
 			wheel-motor = <&motor_wheel2>;
 			wheel-radius = "0.555";
-			angle-offset = "60";
+			angle-offset = "-60";
 		};
 	};
 
@@ -148,7 +148,7 @@
 		steer_angle_pid: steer_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "2.0";
+			k_p = "1.2";
 			k_d = "0";
 			detri_lpf = "0.9985";
 		};
