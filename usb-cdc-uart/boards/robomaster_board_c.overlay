@@ -1,0 +1,28 @@
+/ {
+	motor0: motor0{
+		compatible = "dm,motor";
+		id = <1>;
+		rx_id = <0x00>;
+		tx_id = <0x01>;
+		gear_ratio = "1";
+		v_max = "785";
+		status = "okay";
+		can_channel = <&canbus1>;
+		controllers = <&speed_pid>;
+		capabilities = "speed";
+	};
+
+	pid {
+		speed_pid: speed_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "1.8";
+			k_i = "2.0";
+			k_d = "2";
+		};
+	};
+	sbus0: sbus0 {
+		compatible = "ares,sbus";
+		status = "okay";
+	};
+};

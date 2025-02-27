@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include "ares/ekf/QuaternionEKF.h"
 #include "zephyr/arch/arch_interface.h"
 #include <stddef.h>
 #include <stdint.h>
@@ -16,12 +15,12 @@
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
-#include <ares/vofa/justfloat.c>
-#include <ares/ekf/imu_task.c>
-#include <ares/board/init.c>
+#include <ares/vofa/justfloat.h>
+#include <ares/ekf/imu_task.h>
+#include <ares/ekf/algorithm.h>
+#include <ares/board/init.h>
 #include <sys/_intsup.h>
 #include <zephyr/debug/thread_analyzer.h>
-#include <ares/ekf/algorithm.h>
 
 #undef PI
 #define PI 3.14159265f
@@ -50,12 +49,15 @@ float accel[3];
 float speed[3];
 float pos[3];
 
+float current_temp;
+
 void console_feedback(void *arg1, void *arg2, void *arg3)
 {
 	int n = 0;
 
-	while (current_temp < target_temp) {
+	while (current_temp < 50) {
 		k_msleep(750);
+		current_temp = IMU_temp_read(accel_dev);
 	}
 
 	LOG_INF("Started reading IMU data");
@@ -84,10 +86,6 @@ int main(void)
 	jf_channel_add(jf, &speed[1], PTR_FLOAT);
 	jf_channel_add(jf, &speed[2], PTR_FLOAT);
 
-	jf_channel_add(jf, &QEKF_INS.AccelBias[0], PTR_FLOAT);
-	jf_channel_add(jf, &QEKF_INS.AccelBias[1], PTR_FLOAT);
-	jf_channel_add(jf, &QEKF_INS.AccelBias[2], PTR_FLOAT);
-
 	jf_channel_add(jf, &QEKF_INS.q[0], PTR_FLOAT);
 	jf_channel_add(jf, &QEKF_INS.q[1], PTR_FLOAT);
 	jf_channel_add(jf, &QEKF_INS.q[2], PTR_FLOAT);
@@ -96,6 +94,11 @@ int main(void)
 	jf_channel_add(jf, &accel[0], PTR_FLOAT);
 	jf_channel_add(jf, &accel[1], PTR_FLOAT);
 	jf_channel_add(jf, &accel[2], PTR_FLOAT);
+
+	jf_channel_add(jf, &QEKF_INS.Gyro[0], PTR_FLOAT);
+	jf_channel_add(jf, &QEKF_INS.Gyro[1], PTR_FLOAT);
+	jf_channel_add(jf, &QEKF_INS.Gyro[2], PTR_FLOAT);
+
 	jf_channel_add(jf, &QEKF_INS.g, PTR_FLOAT);
 
 	IMU_Sensor_trig_init(accel_dev, gyro_dev);
