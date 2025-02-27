@@ -13,12 +13,11 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/motor.h>
 #include <zephyr/drivers/sbus.h>
-#include <ares/board/init.c>
-#include <ares/ekf/imu_task.c>
-#include <ares/vofa/justfloat.c>
+#include <ares/board/init.h>
+#include <ares/ekf/imu_task.h>
+#include <ares/vofa/justfloat.h>
 #include "ares/ekf/QuaternionEKF.h"
 #include "devices.h"
-#include "zephyr/debug/thread_analyzer.h"
 #include <zephyr/zbus/zbus.h>
 #include <zephyr/drivers/chassis.h>
 
@@ -47,12 +46,12 @@ void console_feedback(void *arg1, void *arg2, void *arg3)
 {
 	float angle = 0;
 
-	int cnt = 0;
 	while (1) {
 		angle += sbus_get_percent(sbus, 0) * 5;
 		angle = fmodf(angle, 360);
 		float X = sbus_get_percent(sbus, 3);
 		float Y = sbus_get_percent(sbus, 1);
+
 		// 计算摇杆角度
 		// Calculate joystick angle in degrees
 		float joystick_angle = atan2f(Y, X) * 180.0f / PI;
@@ -70,14 +69,6 @@ K_THREAD_DEFINE(feedback_thread, 1536, console_feedback, NULL, NULL, NULL, -1, 0
 
 int pub_cnt = 0;
 
-ZBUS_CHAN_DEFINE(chassis_sensor_zbus,                          /* Name */
-		 struct pos_data,                              /* Message type */
-		 NULL,                                         /* Validator */
-		 NULL,                                         /* User Data */
-		 ZBUS_OBSERVERS(chassis_sensor_msg_suscriber), /* observers */
-		 ZBUS_MSG_INIT(.Yaw = 0, .accel = {0})         /* Initial value */
-);
-
 void Sensor_update_cb(QEKF_INS_t *QEKF)
 {
 	struct pos_data pos = {0};
@@ -86,7 +77,7 @@ void Sensor_update_cb(QEKF_INS_t *QEKF)
 	pos.accel[1] = QEKF->Accel[Y];
 	pos.accel[2] = QEKF->Accel[Z];
 	if (pub_cnt++ % 20 == 0) {
-		zbus_chan_pub(&chassis_sensor_zbus, &pos, K_MSEC(5));
+		chassis_update_sensor(chassis, &pos);
 	}
 }
 
@@ -101,12 +92,19 @@ int main(void)
 	jf_channel_add(data, &QEKF_INS.q[2], PTR_FLOAT);
 	jf_channel_add(data, &QEKF_INS.q[3], PTR_FLOAT);
 
+	jf_channel_add(data, &QEKF_INS.Gyro[0], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.Gyro[1], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.Gyro[2], PTR_FLOAT);
+
+	jf_channel_add(data, &QEKF_INS.GyroBias[X], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.GyroBias[Y], PTR_FLOAT);
+	jf_channel_add(data, &QEKF_INS.GyroBias[Z], PTR_FLOAT);
+
 	k_sleep(K_MSEC(50));
 	IMU_Sensor_trig_init(accel_dev, gyro_dev);
 
 	IMU_Sensor_set_update_cb(Sensor_update_cb);
 
-	chassis_set_sensor_zbus(chassis, &chassis_sensor_zbus);
 	chassis_set_angle(chassis, 0);
 
 	while (1) {
