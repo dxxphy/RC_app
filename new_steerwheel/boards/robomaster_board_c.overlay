@@ -1,0 +1,188 @@
+/ {
+	chassis: chassis {
+		compatible = "ares,chassis";
+		status = "okay";
+		wheels = <&steerwheel1 (-2500) 1750>,
+				<&steerwheel2  2500  1750>,
+				<&steerwheel3 0 (-3501)>;
+		angle-pid = <&chassis_roll_angle_pid>;
+		max_linear_accel = "40";
+		max_gyro = "20";
+	};
+	steerwheel {
+		steerwheel1: steerwheel1 {
+			#wheel-cells = <2>;
+			compatible = "ares,steerwheel";
+			status = "okay";
+			steer-motor = <&motor_steer0>;
+			wheel-motor = <&motor_wheel0>;
+			wheel-radius = "5.55";
+			angle-offset = "120";
+		};
+
+		steerwheel2: steerwheel2 {
+			#wheel-cells = <2>;
+			compatible = "ares,steerwheel";
+			status = "okay";
+			steer-motor = <&motor_steer1>;
+			wheel-motor = <&motor_wheel1>;
+			wheel-radius = "5.55";
+			angle-offset = "180";
+		};
+
+		steerwheel3: steerwheel3 {
+			#wheel-cells = <2>;
+			compatible = "ares,steerwheel";
+			status = "okay";
+			steer-motor = <&motor_steer2>;
+			wheel-motor = <&motor_wheel2>;
+			wheel-radius = "5.55";
+			angle-offset = "0";
+		};
+	};
+
+	rm_motor {
+		motor_wheel0: motor_wheel0{
+			compatible = "dji,motor";
+            is_m3508;
+			id = <1>;
+            rx_id = <0x201>;
+            tx_id = <0x200>;
+			gear_ratio = "15.7647";
+			status = "okay";
+			can_channel = <&can1>;
+			controllers = <&wheel_angle_pid &wheel_speed_pid>;
+			capabilities = "angle", "speed";
+		};
+
+		motor_wheel1: motor_wheel1{
+			compatible = "dji,motor";
+            is_m3508;
+			id = <2>;
+            rx_id = <0x202>;
+            tx_id = <0x200>;
+			gear_ratio = "15.7647";
+			status = "okay";
+			can_channel = <&can1>;
+			controllers = <&wheel_angle_pid &wheel_speed_pid>;
+			capabilities = "angle", "speed";
+		};
+
+		motor_wheel2: motor_wheel2{
+			compatible = "dji,motor";
+            is_m3508;
+			id = <3>;
+            rx_id = <0x203>;
+            tx_id = <0x200>;
+			gear_ratio = "15.7647";
+			status = "okay";
+			can_channel = <&can1>;
+			controllers = <&wheel_angle_pid &wheel_speed_pid>;
+			capabilities = "angle", "speed";
+		};
+
+		motor_steer0: motor_steer0{
+			compatible = "dji,motor";
+			is_m2006;
+			id = <4>;
+			rx_id = <0x204>;
+			tx_id = <0x1FF>;
+			gear_ratio = "36.0";
+			status = "okay";
+			can_channel = <&can1>;
+			controllers = <&steer_angle_pid &steer_speed_pid>;
+			capabilities = "angle", "speed";
+		};
+
+		motor_steer1: motor_steer1{
+			compatible = "dji,motor";
+			is_m2006;
+			id = <5>;
+			rx_id = <0x205>;
+			tx_id = <0x1FF>;
+			gear_ratio = "36.0";
+			status = "okay";
+			can_channel = <&can1>;
+			controllers = <&steer_angle_pid &steer_speed_pid>;
+			capabilities = "angle", "speed";
+		};
+
+		motor_steer2: motor_steer2{
+			compatible = "dji,motor";
+			is_m2006;
+			id = <6>;
+			rx_id = <0x206>;
+			tx_id = <0x1FF>;
+			gear_ratio = "36.0";
+			status = "okay";
+			can_channel = <&can1>;
+			controllers = <&steer_angle_pid &steer_speed_pid>;
+			capabilities = "angle", "speed";
+		};
+	};
+
+	sbus0: sbus0 {
+		compatible = "ares,sbus";
+		status = "okay";
+	};
+	pid {
+		chassis_roll_angle_pid: chassis_roll_angle_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.09";
+			k_d = "0.27";
+		};
+		steer_speed_pid: steer_speed_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "1.25";
+			k_d = "28.5";
+			detri_lpf = "0.95";
+		};
+
+		steer_angle_pid: steer_angle_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.85";
+			k_d = "20";
+			detri_lpf = "0.9985";
+		};
+		wheel_speed_pid: wheel_speed_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.12";
+			k_d = "0.2";
+			detri_lpf = "0.85";
+			out_max = "4";
+		};
+
+		wheel_angle_pid: wheel_angle_pid {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "3.7";
+			detri_lpf = "0.85";
+		};
+	};
+	
+	pwm_button {
+		compatible = "gpio-keys";
+		pwm_button1: button_1 {
+			gpios = <&gpioe 9 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "PWM Button";
+			zephyr,code = <INPUT_KEY_1>;
+		};
+		pwm_button2: button_2 {
+			gpios = <&gpioe 11 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "PWM Button";
+			zephyr,code = <INPUT_KEY_2>;
+		};
+		pwm_button3: button_3 {
+			gpios = <&gpioe 13 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "PWM Button";
+			zephyr,code = <INPUT_KEY_3>;
+		};
+	};
+};
+&cdc_acm_uart0 {
+	status = "disabled";
+};
