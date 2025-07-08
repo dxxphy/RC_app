@@ -76,12 +76,12 @@ void five_init(Five *link, float l1, float l2, float l3, float l4, float l5) {
 /**
   * @brief 更新末端坐标
   * @param link 五连杆参数
-  * @param l 末端与篮筐的距离
-  * @param angle 机器人朝向与机器人-篮筐连线的夹角
+  * @param X 末端坐标 X
+  * @param Y 末端坐标 Y
   */
-void update_position(Five *link, float l, float angle) {
-  link->X_C = l*sinf(angle * (M_PI / 180.0f));
-  link->Y_C = l*cosf(angle * (M_PI / 180.0f));
+void update_position(Five *link, float X, float Y) {
+  link->X_C = X;
+  link->Y_C = Y;
 }
 
 //辅助函数
@@ -225,27 +225,6 @@ void range_check(float* angle_1, float* angle_2)
 }
 
 /**
- * @brief 电机控制 
- * @param dev 电机设备
- * @param angle 目标角度
- */
-void motor_set(const struct device * dev_1, const struct device *dev_2, 
-  float torque, float speed,float angle_1, float angle_2) 
-{
-
-  range_check(&angle_1, &angle_2);
-  // motor_set_torque(dev_1, torque);
-  motor_set_speed(dev_1, speed);
-  motor_set_angle(dev_1, angle_1);
-
-  // motor_set_torque(dev_2, torque);
-  motor_set_speed(dev_2, speed);
-  motor_set_angle(dev_2, angle_2);
-}
-
-
-
-/**
  *@brief 电机位置初始化
  */
 void init_position() {
@@ -253,29 +232,21 @@ void init_position() {
   int i = 0;
   while(i<100)
   {
-    motor_set(motor1, motor2, 0.0f, 5.0f, (10.0f+i), -(10.0f+i));
+    motor_set_mit(motor1,0.0f, (10.0f+i), 0.0f);
+    motor_set_mit(motor2,0.0f, -(10.0f+i), 0.0f);
     i++;
     k_sleep(K_MSEC(10));
   }
-  k_sleep(K_MSEC(100));
-  motor_set_speed(motor1, 0.0f);
-  motor_set_torque(motor1, 0.1f);
-  motor_set_angle(motor1, motor_get_angle(motor1));
-
-  motor_set_speed(motor2, 0.0f);
-  motor_set_torque(motor2, 0.1f);
-  motor_set_angle(motor2, motor_get_angle(motor2));
+  // k_sleep(K_MSEC(100));
+  // motor_set_mit(motor1,0.0f,motor_get_angle(motor1),0.1f);
+  // motor_set_mit(motor2,0.0f,motor_get_angle(motor2),0.1f);
 
   k_sleep(K_MSEC(500));
-  motor_control(motor1, SET_ZERO_OFFSET);
-  motor_set_speed(motor1, 0.0f);
-  motor_set_torque(motor1, 0.0f);
-  motor_set_angle(motor1, 0.0f);
+  motor_control(motor1, SET_ZERO);
+  motor_set_mit(motor1, 0.0f, 0.0f, 0.0f);
   k_sleep(K_MSEC(1));
-  motor_control(motor2, SET_ZERO_OFFSET);
-  motor_set_speed(motor2, 0.0f);
-  motor_set_torque(motor2, 0.0f);
-  motor_set_angle(motor2, 0.0f);
+  motor_control(motor2, SET_ZERO);
+  motor_set_mit(motor2, 0.0f, 0.0f, 0.0f);
   k_sleep(K_MSEC(1));
   
 }
@@ -284,25 +255,19 @@ void init_position() {
 /**
  * @brief 电机位置控制
  * @param link 五连杆参数
- * @param l 末端与篮筐的距离
- * @param angle 机器人朝向与机器人-篮筐连线的夹角
+ * @param X 末端坐标 X
+ * @param Y 末端坐标 Y
  */
-void go_to_position(Five *link, float l, float angle) {
+void go_to_position(Five *link, float X, float Y) {
 
-  update_position(link, l, angle);//更新末端坐标
+  update_position(link, X, Y);//更新末端坐标
   inverse_kinematics(link, &phi1, &phi2, &phi3, &phi4); //逆运动学解算
 
   // int i=0;
   // int n=40; // 分段数
 
-    motor_set_speed(motor1, 0.0f);
-    motor_set_torque(motor1, 0.1f);
-    motor_set_angle(motor1, (((phi1 / M_PI) * 180.f) - orig_angle_1 + last_target_angle1 )  - last_target_angle1);
-  
-    motor_set_speed(motor2, 0.0f);
-    motor_set_torque(motor2, 0.1f);
-    motor_set_angle(motor2, (-last_target_angle2 + orig_angle_2 - ((phi4 / M_PI) * 180.f))  + last_target_angle2 );
-
+    motor_set_mit(motor1, 0.0f, (((phi1 / M_PI) * 180.f) - orig_angle_1 + last_target_angle1 ) - last_target_angle1, 0.1f);
+    motor_set_mit(motor2, 0.0f, (-last_target_angle2 + orig_angle_2 - ((phi4 / M_PI) * 180.f)) + last_target_angle2, 0.1f);
   // while(i < n)
   // {
   //   // motor_set(motor1, motor2, 0.0f, 10.0f,
@@ -350,9 +315,9 @@ int main(void) {
 
   k_sleep(K_MSEC(1000));
 
-  go_to_position(&link, 260.0f, 0.0f);//取球坐标
+  go_to_position(&link, 0.0f, 260.0f);//取球坐标
   k_sleep(K_MSEC(1000));
-  go_to_position(&link, 489.8f, 0.0f);//扣篮坐标（假设）
+  go_to_position(&link, 0.0f, 489.8f);//扣篮坐标（假设）
 
 
   //画圆，圆心（350,0），r = 80
