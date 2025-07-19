@@ -1,0 +1,1642 @@
+/dts-v1/;
+
+/* node '/' defined in zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;                     /* in zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;                        /* in zephyr/dts/common/skeleton.dtsi:11 */
+	model = "DJI Robomaster Development Board C"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:14 */
+	compatible = "dji,robomaster-board-c";        /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:15 */
+
+	/* node '/chosen' defined in zephyr/dts/common/skeleton.dtsi:12 */
+	chosen {
+		zephyr,flash-controller = &flash;  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:26 */
+		zephyr,cortex-m-idle-timer = &rtc; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:27 */
+		zephyr,entropy = &rng;             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:12 */
+		zephyr,console = &usart1;          /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:18 */
+		zephyr,shell-uart = &usart1;       /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:19 */
+		zephyr,sram = &sram0;              /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:20 */
+		zephyr,button = &user_button;      /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:21 */
+		zephyr,flash = &flash0;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:22 */
+		zephyr,ccm = &ccm0;                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:23 */
+		ares,pwm = &heater;                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:24 */
+		sbus,uart = &usart3;               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:25 */
+		ares,usb = &cdc_acm_uart0;         /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:26 */
+	};
+
+	/* node '/aliases' defined in zephyr/dts/common/skeleton.dtsi:13 */
+	aliases {
+		led-red = &led_2_red;     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:30 */
+		led-green = &led_1_green; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:31 */
+		led-blue = &led_0_blue;   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:32 */
+		plot = &usart6;           /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:33 */
+		watchdog0 = &iwdg;        /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:34 */
+	};
+
+	/* node '/soc' defined in zephyr/dts/arm/armv7-m.dtsi:6 */
+	soc {
+		#address-cells = < 0x1 >;     /* in zephyr/dts/arm/armv7-m.dtsi:7 */
+		#size-cells = < 0x1 >;        /* in zephyr/dts/arm/armv7-m.dtsi:8 */
+		compatible = "st,stm32f407",
+		             "st,stm32f4",
+		             "simple-bus";    /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:11 */
+		interrupt-parent = < &nvic >; /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		ranges;                       /* in zephyr/dts/arm/armv7-m.dtsi:11 */
+
+		/* node '/soc/interrupt-controller@e000e100' defined in zephyr/dts/arm/armv7-m.dtsi:13 */
+		nvic: interrupt-controller@e000e100 {
+			#address-cells = < 0x1 >;            /* in zephyr/dts/arm/armv7-m.dtsi:14 */
+			compatible = "arm,v7m-nvic";         /* in zephyr/dts/arm/armv7-m.dtsi:15 */
+			reg = < 0xe000e100 0xc00 >;          /* in zephyr/dts/arm/armv7-m.dtsi:16 */
+			interrupt-controller;                /* in zephyr/dts/arm/armv7-m.dtsi:17 */
+			#interrupt-cells = < 0x2 >;          /* in zephyr/dts/arm/armv7-m.dtsi:18 */
+			arm,num-irq-priority-bits = < 0x4 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:663 */
+			phandle = < 0x1 >;                   /* in zephyr/dts/arm/armv7-m.dtsi:10 */
+		};
+
+		/* node '/soc/timer@e000e010' defined in zephyr/dts/arm/armv7-m.dtsi:21 */
+		systick: timer@e000e010 {
+			compatible = "arm,armv7m-systick"; /* in zephyr/dts/arm/armv7-m.dtsi:22 */
+			reg = < 0xe000e010 0x10 >;         /* in zephyr/dts/arm/armv7-m.dtsi:23 */
+		};
+
+		/* node '/soc/flash-controller@40023c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:109 */
+		flash: flash-controller@40023c00 {
+			compatible = "st,stm32-flash-controller",
+			             "st,stm32f4-flash-controller"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:110 */
+			reg = < 0x40023c00 0x400 >;                 /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:111 */
+			interrupts = < 0x4 0x0 >;                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:112 */
+			#address-cells = < 0x1 >;                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:114 */
+			#size-cells = < 0x1 >;                      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:115 */
+
+			/* node '/soc/flash-controller@40023c00/flash@8000000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:117 */
+			flash0: flash@8000000 {
+				compatible = "st,stm32f4-nv-flash",
+				             "st,stm32-nv-flash",
+				             "soc-nv-flash";        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:118 */
+				write-block-size = < 0x1 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:121 */
+				max-erase-time = < 0xfa0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:123 */
+				reg = < 0x8000000 0x100000 >;       /* in zephyr/dts/arm/st/f4/stm32f407Xg.dtsi:24 */
+
+				/* node '/soc/flash-controller@40023c00/flash@8000000/partitions' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:257 */
+				partitions {
+					compatible = "fixed-partitions"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:258 */
+					#address-cells = < 0x1 >;        /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:259 */
+					#size-cells = < 0x1 >;           /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:260 */
+
+					/* node '/soc/flash-controller@40023c00/flash@8000000/partitions/partition@c0000' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:265 */
+					storage_partition: partition@c0000 {
+						label = "storage";         /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:266 */
+						reg = < 0xc0000 0x40000 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:268 */
+					};
+				};
+			};
+		};
+
+		/* node '/soc/rcc@40023800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:127 */
+		rcc: rcc@40023800 {
+			compatible = "st,stm32-rcc";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:128 */
+			#clock-cells = < 0x2 >;          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:129 */
+			reg = < 0x40023800 0x400 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:130 */
+			clocks = < &pll >;               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:92 */
+			clock-frequency = < 0xa037a00 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:93 */
+			ahb-prescaler = < 0x1 >;         /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:94 */
+			apb1-prescaler = < 0x4 >;        /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:95 */
+			apb2-prescaler = < 0x2 >;        /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:96 */
+			phandle = < 0x3 >;               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:164 */
+
+			/* node '/soc/rcc@40023800/reset-controller' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:132 */
+			rctl: reset-controller {
+				compatible = "st,stm32-rcc-rctl"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:133 */
+				#reset-cells = < 0x1 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:134 */
+				phandle = < 0x4 >;                /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:242 */
+			};
+		};
+
+		/* node '/soc/interrupt-controller@40013c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:138 */
+		exti: interrupt-controller@40013c00 {
+			compatible = "st,stm32-exti";  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:139 */
+			interrupt-controller;          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:140 */
+			#interrupt-cells = < 0x1 >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:141 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:142 */
+			reg = < 0x40013c00 0x400 >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:143 */
+			num-lines = < 0x10 >;          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:144 */
+			interrupts = < 0x6 0x0 >,
+			             < 0x7 0x0 >,
+			             < 0x8 0x0 >,
+			             < 0x9 0x0 >,
+			             < 0xa 0x0 >,
+			             < 0x17 0x0 >,
+			             < 0x28 0x0 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:145 */
+			interrupt-names = "line0",
+			                  "line1",
+			                  "line2",
+			                  "line3",
+			                  "line4",
+			                  "line5-9",
+			                  "line10-15"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:147 */
+			line-ranges = < 0x0 0x1 >,
+			              < 0x1 0x1 >,
+			              < 0x2 0x1 >,
+			              < 0x3 0x1 >,
+			              < 0x4 0x1 >,
+			              < 0x5 0x5 >,
+			              < 0xa 0x6 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:149 */
+		};
+
+		/* node '/soc/pin-controller@40020000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:153 */
+		pinctrl: pin-controller@40020000 {
+			compatible = "st,stm32-pinctrl"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:154 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:155 */
+			#size-cells = < 0x1 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:156 */
+			reg = < 0x40020000 0x2400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:19 */
+
+			/* node '/soc/pin-controller@40020000/gpio@40020000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:159 */
+			gpioa: gpio@40020000 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:160 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:161 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:162 */
+				reg = < 0x40020000 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:163 */
+				clocks = < &rcc 0x30 0x1 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:164 */
+				phandle = < 0xa >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:211 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40020400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:167 */
+			gpiob: gpio@40020400 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:168 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:169 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:170 */
+				reg = < 0x40020400 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:171 */
+				clocks = < &rcc 0x30 0x2 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:172 */
+				phandle = < 0xb >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:211 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40020800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:175 */
+			gpioc: gpio@40020800 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:176 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:177 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:178 */
+				reg = < 0x40020800 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:179 */
+				clocks = < &rcc 0x30 0x4 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:180 */
+				phandle = < 0xf >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:223 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40020c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:183 */
+			gpiod: gpio@40020c00 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:184 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:185 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:186 */
+				reg = < 0x40020c00 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:187 */
+				clocks = < &rcc 0x30 0x8 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:188 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40021000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:191 */
+			gpioe: gpio@40021000 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:192 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:193 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:194 */
+				reg = < 0x40021000 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:195 */
+				clocks = < &rcc 0x30 0x10 >;  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:196 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40021400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:199 */
+			gpiof: gpio@40021400 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:22 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:23 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:24 */
+				reg = < 0x40021400 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:25 */
+				clocks = < &rcc 0x30 0x20 >;  /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:26 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40021800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:207 */
+			gpiog: gpio@40021800 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:30 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:31 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:32 */
+				reg = < 0x40021800 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:33 */
+				clocks = < &rcc 0x30 0x40 >;  /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:34 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40021c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:215 */
+			gpioh: gpio@40021c00 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:216 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:217 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:218 */
+				reg = < 0x40021c00 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:219 */
+				clocks = < &rcc 0x30 0x80 >;  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:220 */
+			};
+
+			/* node '/soc/pin-controller@40020000/gpio@40022000' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:37 */
+			gpioi: gpio@40022000 {
+				compatible = "st,stm32-gpio"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:38 */
+				gpio-controller;              /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:39 */
+				#gpio-cells = < 0x2 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:40 */
+				reg = < 0x40022000 0x400 >;   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:41 */
+				clocks = < &rcc 0x30 0x100 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:42 */
+			};
+
+			/* node '/soc/pin-controller@40020000/can1_rx_pd0' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:781 */
+			can1_rx_pd0: can1_rx_pd0 {
+				pinmux = < 0x609 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:782 */
+				bias-pull-up;       /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:783 */
+				phandle = < 0x1e >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:169 */
+			};
+
+			/* node '/soc/pin-controller@40020000/can2_rx_pb5' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:791 */
+			can2_rx_pb5: can2_rx_pb5 {
+				pinmux = < 0x2a9 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:792 */
+				bias-pull-up;       /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:793 */
+				phandle = < 0x20 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:175 */
+			};
+
+			/* node '/soc/pin-controller@40020000/can1_tx_pd1' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:811 */
+			can1_tx_pd1: can1_tx_pd1 {
+				pinmux = < 0x629 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:812 */
+				phandle = < 0x1f >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:169 */
+			};
+
+			/* node '/soc/pin-controller@40020000/can2_tx_pb6' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:819 */
+			can2_tx_pb6: can2_tx_pb6 {
+				pinmux = < 0x2c9 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:820 */
+				phandle = < 0x21 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:175 */
+			};
+
+			/* node '/soc/pin-controller@40020000/spi1_miso_pb4' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1492 */
+			spi1_miso_pb4: spi1_miso_pb4 {
+				pinmux = < 0x285 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1493 */
+				bias-pull-down;     /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1494 */
+				phandle = < 0xd >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:213 */
+			};
+
+			/* node '/soc/pin-controller@40020000/spi2_miso_pb14' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1497 */
+			spi2_miso_pb14: spi2_miso_pb14 {
+				pinmux = < 0x3c5 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1498 */
+				bias-pull-down;     /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1499 */
+				phandle = < 0x18 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:246 */
+			};
+
+			/* node '/soc/pin-controller@40020000/spi1_mosi_pa7' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1524 */
+			spi1_mosi_pa7: spi1_mosi_pa7 {
+				pinmux = < 0xe5 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1525 */
+				bias-pull-down;    /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1526 */
+				phandle = < 0xc >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:213 */
+			};
+
+			/* node '/soc/pin-controller@40020000/spi2_mosi_pb15' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1534 */
+			spi2_mosi_pb15: spi2_mosi_pb15 {
+				pinmux = < 0x3e5 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1535 */
+				bias-pull-down;     /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1536 */
+				phandle = < 0x17 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:246 */
+			};
+
+			/* node '/soc/pin-controller@40020000/spi1_sck_pb3' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1604 */
+			spi1_sck_pb3: spi1_sck_pb3 {
+				pinmux = < 0x265 >;            /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1605 */
+				bias-pull-down;                /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1606 */
+				slew-rate = "very-high-speed"; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1607 */
+				phandle = < 0xe >;             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:213 */
+			};
+
+			/* node '/soc/pin-controller@40020000/spi2_sck_pb13' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1616 */
+			spi2_sck_pb13: spi2_sck_pb13 {
+				pinmux = < 0x3a5 >;            /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1617 */
+				bias-pull-down;                /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1618 */
+				slew-rate = "very-high-speed"; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1619 */
+				phandle = < 0x19 >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:246 */
+			};
+
+			/* node '/soc/pin-controller@40020000/tim10_ch1_pf6' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1668 */
+			tim10_ch1_pf6: tim10_ch1_pf6 {
+				pinmux = < 0xac3 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1669 */
+				phandle = < 0x16 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:196 */
+			};
+
+			/* node '/soc/pin-controller@40020000/tim5_ch1_ph10' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1904 */
+			tim5_ch1_ph10: tim5_ch1_ph10 {
+				pinmux = < 0xf42 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1905 */
+				phandle = < 0x13 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:186 */
+			};
+
+			/* node '/soc/pin-controller@40020000/tim5_ch2_ph11' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1908 */
+			tim5_ch2_ph11: tim5_ch2_ph11 {
+				pinmux = < 0xf62 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1909 */
+				phandle = < 0x14 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:186 */
+			};
+
+			/* node '/soc/pin-controller@40020000/tim5_ch3_ph12' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1912 */
+			tim5_ch3_ph12: tim5_ch3_ph12 {
+				pinmux = < 0xf82 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:1913 */
+				phandle = < 0x15 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:186 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usart1_rx_pb7' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2084 */
+			usart1_rx_pb7: usart1_rx_pb7 {
+				pinmux = < 0x2e7 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2085 */
+				phandle = < 0x6 >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:122 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usart3_rx_pc11' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2100 */
+			usart3_rx_pc11: usart3_rx_pc11 {
+				pinmux = < 0x567 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2101 */
+				phandle = < 0x1c >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:134 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usart6_rx_pg9' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2124 */
+			usart6_rx_pg9: usart6_rx_pg9 {
+				pinmux = < 0xd28 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2125 */
+				phandle = < 0x9 >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:147 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usart1_tx_pa9' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2130 */
+			usart1_tx_pa9: usart1_tx_pa9 {
+				pinmux = < 0x127 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2131 */
+				bias-pull-up;       /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2132 */
+				phandle = < 0x5 >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:122 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usart3_tx_pc10' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2155 */
+			usart3_tx_pc10: usart3_tx_pc10 {
+				pinmux = < 0x547 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2156 */
+				bias-pull-up;       /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2157 */
+				phandle = < 0x1b >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:134 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usart6_tx_pg14' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2185 */
+			usart6_tx_pg14: usart6_tx_pg14 {
+				pinmux = < 0xdc8 >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2186 */
+				bias-pull-up;       /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2187 */
+				phandle = < 0x8 >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:147 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usb_otg_fs_dm_pa11' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2204 */
+			usb_otg_fs_dm_pa11: usb_otg_fs_dm_pa11 {
+				pinmux = < 0x16a >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2205 */
+				phandle = < 0x11 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:159 */
+			};
+
+			/* node '/soc/pin-controller@40020000/usb_otg_fs_dp_pa12' defined in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2208 */
+			usb_otg_fs_dp_pa12: usb_otg_fs_dp_pa12 {
+				pinmux = < 0x18a >; /* in modules/hal/stm32/dts/st/f4/stm32f407i(e-g)tx-pinctrl.dtsi:2209 */
+				phandle = < 0x12 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:159 */
+			};
+		};
+
+		/* node '/soc/watchdog@40003000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:224 */
+		iwdg: watchdog@40003000 {
+			compatible = "st,stm32-watchdog"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:225 */
+			reg = < 0x40003000 0x400 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:226 */
+			status = "okay";                  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:110 */
+		};
+
+		/* node '/soc/watchdog@40002c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:230 */
+		wwdg: watchdog@40002c00 {
+			compatible = "st,stm32-window-watchdog"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:231 */
+			reg = < 0x40002c00 0x400 >;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:232 */
+			clocks = < &rcc 0x40 0x800 >;            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:233 */
+			interrupts = < 0x0 0x7 >;                /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:234 */
+			status = "disabled";                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:235 */
+		};
+
+		/* node '/soc/serial@40011000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:238 */
+		usart1: serial@40011000 {
+			compatible = "st,stm32-usart",
+			             "st,stm32-uart";                  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:239 */
+			reg = < 0x40011000 0x400 >;                    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:240 */
+			clocks = < &rcc 0x44 0x10 >;                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:241 */
+			resets = < &rctl 0x484 >;                      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:242 */
+			interrupts = < 0x25 0x0 >;                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:243 */
+			status = "okay";                               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:125 */
+			pinctrl-0 = < &usart1_tx_pa9 &usart1_rx_pb7 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:122 */
+			pinctrl-names = "default";                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:123 */
+			current-speed = < 0x1c200 >;                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:124 */
+			data-bits = < 0x8 >;                           /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:126 */
+			stop-bits = "1";                               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:127 */
+			dmas = < &dma2 0x7 0x4 0x440 0x3 >,
+			       < &dma2 0x5 0x4 0x480 0x3 >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:128 */
+			dma-names = "tx",
+			            "rx";                              /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:130 */
+		};
+
+		/* node '/soc/serial@40004400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:247 */
+		usart2: serial@40004400 {
+			compatible = "st,stm32-usart",
+			             "st,stm32-uart";   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:248 */
+			reg = < 0x40004400 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:249 */
+			clocks = < &rcc 0x40 0x20000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:250 */
+			resets = < &rctl 0x411 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:251 */
+			interrupts = < 0x26 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:252 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:253 */
+		};
+
+		/* node '/soc/serial@40011400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:256 */
+		usart6: serial@40011400 {
+			compatible = "st,stm32-usart",
+			             "st,stm32-uart";                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:257 */
+			reg = < 0x40011400 0x400 >;                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:258 */
+			clocks = < &rcc 0x44 0x20 >;                    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:259 */
+			resets = < &rctl 0x485 >;                       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:260 */
+			interrupts = < 0x47 0x0 >;                      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:261 */
+			status = "okay";                                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:150 */
+			pinctrl-0 = < &usart6_tx_pg14 &usart6_rx_pg9 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:147 */
+			pinctrl-names = "default";                      /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:148 */
+			current-speed = < 0xe1000 >;                    /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:149 */
+			data-bits = < 0x8 >;                            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:151 */
+			stop-bits = "1";                                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:152 */
+			dmas = < &dma2 0x6 0x5 0x440 0x3 >,
+			       < &dma2 0x1 0x5 0x480 0x3 >;             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:153 */
+			dma-names = "tx",
+			            "rx";                               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:155 */
+		};
+
+		/* node '/soc/i2c@40005400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:265 */
+		i2c1: i2c@40005400 {
+			compatible = "st,stm32-i2c-v1";  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:266 */
+			clock-frequency = < 0x186a0 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:267 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:268 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:269 */
+			reg = < 0x40005400 0x400 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:270 */
+			clocks = < &rcc 0x40 0x200000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:271 */
+			interrupts = < 0x1f 0x0 >,
+			             < 0x20 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:272 */
+			interrupt-names = "event",
+			                  "error";       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:273 */
+			status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:274 */
+			phandle = < 0x25 >;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:641 */
+		};
+
+		/* node '/soc/i2c@40005800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:277 */
+		i2c2: i2c@40005800 {
+			compatible = "st,stm32-i2c-v1";  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:278 */
+			clock-frequency = < 0x186a0 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:279 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:280 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:281 */
+			reg = < 0x40005800 0x400 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:282 */
+			clocks = < &rcc 0x40 0x400000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:283 */
+			interrupts = < 0x21 0x0 >,
+			             < 0x22 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:284 */
+			interrupt-names = "event",
+			                  "error";       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:285 */
+			status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:286 */
+			phandle = < 0x26 >;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:649 */
+		};
+
+		/* node '/soc/i2c@40005c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:289 */
+		i2c3: i2c@40005c00 {
+			compatible = "st,stm32-i2c-v1";  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:290 */
+			clock-frequency = < 0x186a0 >;   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:291 */
+			#address-cells = < 0x1 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:292 */
+			#size-cells = < 0x0 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:293 */
+			reg = < 0x40005c00 0x400 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:294 */
+			clocks = < &rcc 0x40 0x800000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:295 */
+			interrupts = < 0x48 0x0 >,
+			             < 0x49 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:296 */
+			interrupt-names = "event",
+			                  "error";       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:297 */
+			status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:298 */
+			phandle = < 0x27 >;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:657 */
+		};
+
+		/* node '/soc/spi@40013000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:301 */
+		spi1: spi@40013000 {
+			compatible = "st,stm32-spi";                                 /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:302 */
+			#address-cells = < 0x1 >;                                    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:303 */
+			#size-cells = < 0x0 >;                                       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:304 */
+			reg = < 0x40013000 0x400 >;                                  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:305 */
+			clocks = < &rcc 0x44 0x1000 >;                               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:306 */
+			interrupts = < 0x23 0x5 >;                                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:307 */
+			status = "okay";                                             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:210 */
+			cs-gpios = < &gpioa 0x4 0x1 >,
+			           < &gpiob 0x0 0x1 >;                               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:211 */
+			pinctrl-0 = < &spi1_mosi_pa7 &spi1_miso_pb4 &spi1_sck_pb3 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:213 */
+			pinctrl-names = "default";                                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:216 */
+
+			/* node '/soc/spi@40013000/bmi08x_accel@0' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:218 */
+			bmi08x_accel: bmi08x_accel@0 {
+				compatible = "bosch,bmi08x-accel"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:219 */
+				status = "okay";                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:220 */
+				reg = < 0x0 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:221 */
+				spi-max-frequency = < 0x7a1200 >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:222 */
+				int-gpios = < &gpioc 0x4 0x0 >;    /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:223 */
+				accel-hz = "100";                  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:224 */
+				accel-fs = < 0xc >;                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:225 */
+				int1-map-io = < 0x1 >;             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:226 */
+				int2-map-io = < 0x2 >;             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:227 */
+				int1-conf-io = < 0xa >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:228 */
+				int2-conf-io = < 0xa >;            /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:229 */
+			};
+
+			/* node '/soc/spi@40013000/bmi08x_gyro@1' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:232 */
+			bmi08x_gyro: bmi08x_gyro@1 {
+				compatible = "bosch,bmi08x-gyro"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:233 */
+				status = "okay";                  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:234 */
+				reg = < 0x1 >;                    /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:235 */
+				spi-max-frequency = < 0x7a1200 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:236 */
+				int-gpios = < &gpioc 0x5 0x0 >;   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:237 */
+				gyro-hz = "2000_230";             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:238 */
+				gyro-fs = < 0x3e8 >;              /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:239 */
+				int3-4-map-io = < 0x1 >;          /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:240 */
+				int3-4-conf-io = < 0x1 >;         /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:241 */
+			};
+		};
+
+		/* node '/soc/usb@50000000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:311 */
+		usbotg_fs: zephyr_udc0: usb@50000000 {
+			compatible = "st,stm32-otgfs";                           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:312 */
+			reg = < 0x50000000 0x40000 >;                            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:313 */
+			interrupts = < 0x43 0x0 >;                               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:314 */
+			interrupt-names = "otgfs";                               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:315 */
+			num-bidir-endpoints = < 0x4 >;                           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:316 */
+			ram-size = < 0x500 >;                                    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:317 */
+			maximum-speed = "full-speed";                            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:318 */
+			phys = < &otgfs_phy >;                                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:319 */
+			clocks = < &rcc 0x34 0x80 >,
+			         < &rcc 0x7 0xff >;                              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:320 */
+			status = "okay";                                         /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:161 */
+			pinctrl-0 = < &usb_otg_fs_dm_pa11 &usb_otg_fs_dp_pa12 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:159 */
+			pinctrl-names = "default";                               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:160 */
+
+			/* node '/soc/usb@50000000/cdc_acm_uart' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:162 */
+			cdc_acm_uart0: cdc_acm_uart {
+				compatible = "zephyr,cdc-acm-uart"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:163 */
+				status = "disabled";                /* in motor/app/jump/boards/robomaster_board_c.overlay:115 */
+			};
+		};
+
+		/* node '/soc/timers@40010000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:325 */
+		timers1: timers@40010000 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:326 */
+			reg = < 0x40010000 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:327 */
+			clocks = < &rcc 0x44 0x1 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:328 */
+			resets = < &rctl 0x480 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:329 */
+			interrupts = < 0x18 0x0 >,
+			             < 0x19 0x0 >,
+			             < 0x1a 0x0 >,
+			             < 0x1b 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:330 */
+			interrupt-names = "brk",
+			                  "up",
+			                  "trgcom",
+			                  "cc";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:331 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:332 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:333 */
+
+			/* node '/soc/timers@40010000/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:335 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:336 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:337 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:338 */
+			};
+
+			/* node '/soc/timers@40010000/qdec' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:341 */
+			qdec {
+				compatible = "st,stm32-qdec";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:342 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:343 */
+				st,input-filter-level = < 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:344 */
+			};
+		};
+
+		/* node '/soc/timers@40000000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:348 */
+		timers2: timers@40000000 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:349 */
+			reg = < 0x40000000 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:350 */
+			clocks = < &rcc 0x40 0x1 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:351 */
+			resets = < &rctl 0x400 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:352 */
+			interrupts = < 0x1c 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:353 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:354 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:355 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:356 */
+
+			/* node '/soc/timers@40000000/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:358 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:359 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:360 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:361 */
+			};
+
+			/* node '/soc/timers@40000000/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:364 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:365 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:366 */
+			};
+
+			/* node '/soc/timers@40000000/qdec' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:369 */
+			qdec {
+				compatible = "st,stm32-qdec";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:370 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:371 */
+				st,input-filter-level = < 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:372 */
+			};
+		};
+
+		/* node '/soc/timers@40000400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:376 */
+		timers3: timers@40000400 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:377 */
+			reg = < 0x40000400 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:378 */
+			clocks = < &rcc 0x40 0x2 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:379 */
+			resets = < &rctl 0x401 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:380 */
+			interrupts = < 0x1d 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:381 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:382 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:383 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:384 */
+
+			/* node '/soc/timers@40000400/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:386 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:387 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:388 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:389 */
+			};
+
+			/* node '/soc/timers@40000400/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:392 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:393 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:394 */
+			};
+
+			/* node '/soc/timers@40000400/qdec' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:397 */
+			qdec {
+				compatible = "st,stm32-qdec";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:398 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:399 */
+				st,input-filter-level = < 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:400 */
+			};
+		};
+
+		/* node '/soc/timers@40000800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:404 */
+		timers4: timers@40000800 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:405 */
+			reg = < 0x40000800 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:406 */
+			clocks = < &rcc 0x40 0x4 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:407 */
+			resets = < &rctl 0x402 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:408 */
+			interrupts = < 0x1e 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:409 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:410 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:411 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:412 */
+
+			/* node '/soc/timers@40000800/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:414 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:415 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:416 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:417 */
+			};
+
+			/* node '/soc/timers@40000800/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:420 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:421 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:422 */
+			};
+
+			/* node '/soc/timers@40000800/qdec' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:425 */
+			qdec {
+				compatible = "st,stm32-qdec";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:426 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:427 */
+				st,input-filter-level = < 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:428 */
+			};
+		};
+
+		/* node '/soc/timers@40000c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:432 */
+		timers5: timers@40000c00 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:433 */
+			reg = < 0x40000c00 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:434 */
+			clocks = < &rcc 0x40 0x8 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:435 */
+			resets = < &rctl 0x403 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:436 */
+			interrupts = < 0x32 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:437 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:438 */
+			st,prescaler = < 0x2710 >;      /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:183 */
+			status = "okay";                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:182 */
+
+			/* node '/soc/timers@40000c00/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:442 */
+			pwm5: pwm {
+				compatible = "st,stm32-pwm";                                  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:443 */
+				status = "okay";                                              /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:185 */
+				#pwm-cells = < 0x3 >;                                         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:445 */
+				pinctrl-0 = < &tim5_ch1_ph10 &tim5_ch2_ph11 &tim5_ch3_ph12 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:186 */
+				pinctrl-names = "default";                                    /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:187 */
+				phandle = < 0x29 >;                                           /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:44 */
+			};
+
+			/* node '/soc/timers@40000c00/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:448 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:449 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:450 */
+			};
+
+			/* node '/soc/timers@40000c00/qdec' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:453 */
+			qdec {
+				compatible = "st,stm32-qdec";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:454 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:455 */
+				st,input-filter-level = < 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:456 */
+			};
+		};
+
+		/* node '/soc/timers@40014000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:460 */
+		timers9: timers@40014000 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:461 */
+			reg = < 0x40014000 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:462 */
+			clocks = < &rcc 0x44 0x10000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:463 */
+			resets = < &rctl 0x490 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:464 */
+			interrupts = < 0x18 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:465 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:466 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:467 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:468 */
+
+			/* node '/soc/timers@40014000/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:470 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:471 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:472 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:473 */
+			};
+
+			/* node '/soc/timers@40014000/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:476 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:477 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:478 */
+			};
+		};
+
+		/* node '/soc/timers@40014400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:482 */
+		timers10: timers@40014400 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:483 */
+			reg = < 0x40014400 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:484 */
+			clocks = < &rcc 0x44 0x20000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:485 */
+			resets = < &rctl 0x491 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:486 */
+			interrupts = < 0x19 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:487 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:488 */
+			st,prescaler = < 0x2710 >;      /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:193 */
+			status = "okay";                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:192 */
+
+			/* node '/soc/timers@40014400/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:492 */
+			pwm10: pwm {
+				compatible = "st,stm32-pwm";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:493 */
+				status = "okay";                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:195 */
+				#pwm-cells = < 0x3 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:495 */
+				pinctrl-0 = < &tim10_ch1_pf6 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:196 */
+				pinctrl-names = "default";      /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:197 */
+				phandle = < 0x28 >;             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:41 */
+			};
+
+			/* node '/soc/timers@40014400/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:498 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:499 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:500 */
+			};
+		};
+
+		/* node '/soc/timers@40014800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:504 */
+		timers11: timers@40014800 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:505 */
+			reg = < 0x40014800 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:506 */
+			clocks = < &rcc 0x44 0x40000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:507 */
+			resets = < &rctl 0x492 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:508 */
+			interrupts = < 0x1a 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:509 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:510 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:511 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:512 */
+
+			/* node '/soc/timers@40014800/pwm' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:514 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:515 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:516 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:517 */
+			};
+
+			/* node '/soc/timers@40014800/counter' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:520 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:521 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:522 */
+			};
+		};
+
+		/* node '/soc/rtc@40002800' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:526 */
+		rtc: rtc@40002800 {
+			compatible = "st,stm32-rtc";       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:527 */
+			reg = < 0x40002800 0x400 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:528 */
+			interrupts = < 0x29 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:529 */
+			clocks = < &rcc 0x40 0x10000000 >,
+			         < &rcc 0x3 0x10c80070 >;  /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:100 */
+			prescaler = < 0x8000 >;            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:531 */
+			alarms-count = < 0x2 >;            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:532 */
+			alrm-exti-line = < 0x11 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:533 */
+			status = "okay";                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:102 */
+
+			/* node '/soc/rtc@40002800/backup_regs' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:536 */
+			bbram: backup_regs {
+				compatible = "st,stm32-bbram"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:537 */
+				st,backup-regs = < 0x14 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:538 */
+				status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:539 */
+			};
+		};
+
+		/* node '/soc/adc@40012000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:543 */
+		adc1: adc@40012000 {
+			compatible = "st,stm32f4-adc",
+			             "st,stm32-adc";                                 /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:544 */
+			reg = < 0x40012000 0x400 >;                                  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:545 */
+			clocks = < &rcc 0x44 0x100 >;                                /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:546 */
+			interrupts = < 0x12 0x0 >;                                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:547 */
+			status = "disabled";                                         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:548 */
+			#io-channel-cells = < 0x1 >;                                 /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:549 */
+			resolutions = < 0x607804 0x517804 0x427804 0x337804 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:550 */
+			sampling-times = < 0x3 0xf 0x1c 0x38 0x54 0x70 0x90 0x1e0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:554 */
+			st,adc-clock-source = "SYNC";                                /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:555 */
+			st,adc-sequencer = "FULLY_CONFIGURABLE";                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:556 */
+			st,adc-oversampler = "OVERSAMPLER_NONE";                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:557 */
+			phandle = < 0x24 >;                                          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:613 */
+		};
+
+		/* node '/soc/dma@40026000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:560 */
+		dma1: dma@40026000 {
+			compatible = "st,stm32-dma-v1";                                                      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:561 */
+			#dma-cells = < 0x4 >;                                                                /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:562 */
+			reg = < 0x40026000 0x400 >;                                                          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:563 */
+			interrupts = < 0xb 0x0 0xc 0x0 0xd 0x0 0xe 0x0 0xf 0x0 0x10 0x0 0x11 0x0 0x2f 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:564 */
+			clocks = < &rcc 0x30 0x200000 >;                                                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:565 */
+			status = "okay";                                                                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:114 */
+			phandle = < 0x1a >;                                                                  /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:58 */
+		};
+
+		/* node '/soc/dma@40026400' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:569 */
+		dma2: dma@40026400 {
+			compatible = "st,stm32-dma-v1";                                                           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:570 */
+			#dma-cells = < 0x4 >;                                                                     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:571 */
+			reg = < 0x40026400 0x400 >;                                                               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:572 */
+			interrupts = < 0x38 0x0 0x39 0x0 0x3a 0x0 0x3b 0x0 0x3c 0x0 0x44 0x0 0x45 0x0 0x46 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:573 */
+			clocks = < &rcc 0x30 0x400000 >;                                                          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:574 */
+			st,mem2mem;                                                                               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:575 */
+			status = "okay";                                                                          /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:118 */
+			phandle = < 0x7 >;                                                                        /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:128 */
+		};
+
+		/* node '/soc/sdmmc@40012c00' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:579 */
+		sdmmc1: sdmmc@40012c00 {
+			compatible = "st,stm32-sdmmc"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:580 */
+			reg = < 0x40012c00 0x400 >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:581 */
+			clocks = < &rcc 0x44 0x800 >,
+			         < &rcc 0x7 0xff >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:582 */
+			resets = < &rctl 0x48b >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:584 */
+			interrupts = < 0x31 0x0 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:585 */
+			status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:586 */
+		};
+
+		/* node '/soc/spi@40003800' defined in zephyr/dts/arm/st/f4/stm32f401.dtsi:21 */
+		spi2: spi@40003800 {
+			compatible = "st,stm32-spi";                                    /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:22 */
+			#address-cells = < 0x1 >;                                       /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:23 */
+			#size-cells = < 0x0 >;                                          /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:24 */
+			reg = < 0x40003800 0x400 >;                                     /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:25 */
+			clocks = < &rcc 0x40 0x4000 >;                                  /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:26 */
+			interrupts = < 0x24 0x5 >;                                      /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:27 */
+			status = "okay";                                                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:245 */
+			pinctrl-0 = < &spi2_mosi_pb15 &spi2_miso_pb14 &spi2_sck_pb13 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:246 */
+			pinctrl-names = "default";                                      /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:249 */
+		};
+
+		/* node '/soc/spi@40003c00' defined in zephyr/dts/arm/st/f4/stm32f401.dtsi:31 */
+		spi3: spi@40003c00 {
+			compatible = "st,stm32-spi";   /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:32 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:33 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:34 */
+			reg = < 0x40003c00 0x400 >;    /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:35 */
+			clocks = < &rcc 0x40 0x8000 >; /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:36 */
+			interrupts = < 0x33 0x5 >;     /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:37 */
+			status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:38 */
+		};
+
+		/* node '/soc/spi@40013400' defined in zephyr/dts/arm/st/f4/stm32f401.dtsi:41 */
+		spi4: spi@40013400 {
+			compatible = "st,stm32-spi";   /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:42 */
+			#address-cells = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:43 */
+			#size-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:44 */
+			reg = < 0x40013400 0x400 >;    /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:45 */
+			clocks = < &rcc 0x44 0x2000 >; /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:46 */
+			interrupts = < 0x54 0x5 >;     /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:47 */
+			status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:48 */
+		};
+
+		/* node '/soc/i2s@40003800' defined in zephyr/dts/arm/st/f4/stm32f401.dtsi:51 */
+		i2s2: i2s@40003800 {
+			compatible = "st,stm32-i2s";                                /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:52 */
+			#address-cells = < 0x1 >;                                   /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:53 */
+			#size-cells = < 0x0 >;                                      /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:54 */
+			reg = < 0x40003800 0x400 >;                                 /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:55 */
+			clocks = < &rcc 0x40 0x4000 >;                              /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:56 */
+			interrupts = < 0x24 0x5 >;                                  /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:57 */
+			dmas = < &dma1 0x4 0x0 0x400 0x3 &dma1 0x3 0x0 0x400 0x3 >; /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:58 */
+			dma-names = "tx",
+			            "rx";                                           /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:60 */
+			status = "disabled";                                        /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:61 */
+		};
+
+		/* node '/soc/i2s@40003c00' defined in zephyr/dts/arm/st/f4/stm32f401.dtsi:64 */
+		i2s3: i2s@40003c00 {
+			compatible = "st,stm32-i2s";                                /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:65 */
+			#address-cells = < 0x1 >;                                   /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:66 */
+			#size-cells = < 0x0 >;                                      /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:67 */
+			reg = < 0x40003c00 0x400 >;                                 /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:68 */
+			clocks = < &rcc 0x40 0x8000 >;                              /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:69 */
+			interrupts = < 0x33 0x5 >;                                  /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:70 */
+			dmas = < &dma1 0x5 0x0 0x400 0x3 &dma1 0x0 0x0 0x400 0x3 >; /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:71 */
+			dma-names = "tx",
+			            "rx";                                           /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:73 */
+			status = "disabled";                                        /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:74 */
+		};
+
+		/* node '/soc/serial@40004800' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:46 */
+		usart3: serial@40004800 {
+			compatible = "st,stm32-usart",
+			             "st,stm32-uart";                    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:47 */
+			reg = < 0x40004800 0x400 >;                      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:48 */
+			clocks = < &rcc 0x40 0x40000 >;                  /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:49 */
+			resets = < &rctl 0x412 >;                        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:50 */
+			interrupts = < 0x27 0x0 >;                       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:51 */
+			status = "okay";                                 /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:137 */
+			pinctrl-0 = < &usart3_tx_pc10 &usart3_rx_pc11 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:134 */
+			pinctrl-names = "default";                       /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:135 */
+			current-speed = < 0x186a0 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:136 */
+			data-bits = < 0x8 >;                             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:138 */
+			stop-bits = "2";                                 /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:139 */
+			parity = "even";                                 /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:140 */
+			dmas = < &dma1 0x1 0x4 0x480 0x3 >,
+			       < &dma1 0x3 0x4 0x440 0x3 >;              /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:141 */
+			dma-names = "rx",
+			            "tx";                                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:143 */
+		};
+
+		/* node '/soc/serial@40004c00' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:55 */
+		uart4: serial@40004c00 {
+			compatible = "st,stm32-uart";   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:56 */
+			reg = < 0x40004c00 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:57 */
+			clocks = < &rcc 0x40 0x80000 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:58 */
+			resets = < &rctl 0x413 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:59 */
+			interrupts = < 0x34 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:60 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:61 */
+		};
+
+		/* node '/soc/serial@40005000' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:64 */
+		uart5: serial@40005000 {
+			compatible = "st,stm32-uart";    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:65 */
+			reg = < 0x40005000 0x400 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:66 */
+			clocks = < &rcc 0x40 0x100000 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:67 */
+			resets = < &rctl 0x414 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:68 */
+			interrupts = < 0x35 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:69 */
+			status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:70 */
+		};
+
+		/* node '/soc/timers@40001000' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:73 */
+		timers6: timers@40001000 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:74 */
+			reg = < 0x40001000 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:75 */
+			clocks = < &rcc 0x40 0x10 >;    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:76 */
+			resets = < &rctl 0x404 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:77 */
+			interrupts = < 0x36 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:78 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:79 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:80 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:81 */
+
+			/* node '/soc/timers@40001000/counter' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:83 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:84 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:85 */
+			};
+		};
+
+		/* node '/soc/timers@40001400' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:89 */
+		timers7: timers@40001400 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:90 */
+			reg = < 0x40001400 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:91 */
+			clocks = < &rcc 0x40 0x20 >;    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:92 */
+			resets = < &rctl 0x405 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:93 */
+			interrupts = < 0x37 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:94 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:95 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:96 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:97 */
+
+			/* node '/soc/timers@40001400/counter' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:99 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:100 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:101 */
+			};
+		};
+
+		/* node '/soc/timers@40010400' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:105 */
+		timers8: timers@40010400 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:106 */
+			reg = < 0x40010400 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:107 */
+			clocks = < &rcc 0x44 0x2 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:108 */
+			resets = < &rctl 0x481 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:109 */
+			interrupts = < 0x2b 0x0 >,
+			             < 0x2c 0x0 >,
+			             < 0x2d 0x0 >,
+			             < 0x2e 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:110 */
+			interrupt-names = "brk",
+			                  "up",
+			                  "trgcom",
+			                  "cc";         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:111 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:112 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:113 */
+
+			/* node '/soc/timers@40010400/pwm' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:115 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:116 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:117 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:118 */
+			};
+
+			/* node '/soc/timers@40010400/qdec' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:121 */
+			qdec {
+				compatible = "st,stm32-qdec";    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:122 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:123 */
+				st,input-filter-level = < 0x0 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:124 */
+			};
+		};
+
+		/* node '/soc/timers@40001800' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:128 */
+		timers12: timers@40001800 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:129 */
+			reg = < 0x40001800 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:130 */
+			clocks = < &rcc 0x40 0x40 >;    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:131 */
+			resets = < &rctl 0x406 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:132 */
+			interrupts = < 0x2b 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:133 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:134 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:135 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:136 */
+
+			/* node '/soc/timers@40001800/pwm' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:138 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:139 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:140 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:141 */
+			};
+
+			/* node '/soc/timers@40001800/counter' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:144 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:145 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:146 */
+			};
+		};
+
+		/* node '/soc/timers@40001c00' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:150 */
+		timers13: timers@40001c00 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:151 */
+			reg = < 0x40001c00 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:152 */
+			clocks = < &rcc 0x40 0x80 >;    /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:153 */
+			resets = < &rctl 0x407 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:154 */
+			interrupts = < 0x2c 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:155 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:156 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:157 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:158 */
+
+			/* node '/soc/timers@40001c00/pwm' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:160 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:161 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:162 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:163 */
+			};
+
+			/* node '/soc/timers@40001c00/counter' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:166 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:167 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:168 */
+			};
+		};
+
+		/* node '/soc/timers@40002000' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:172 */
+		timers14: timers@40002000 {
+			compatible = "st,stm32-timers"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:173 */
+			reg = < 0x40002000 0x400 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:174 */
+			clocks = < &rcc 0x40 0x100 >;   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:175 */
+			resets = < &rctl 0x408 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:176 */
+			interrupts = < 0x2d 0x0 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:177 */
+			interrupt-names = "global";     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:178 */
+			st,prescaler = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:179 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:180 */
+
+			/* node '/soc/timers@40002000/pwm' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:182 */
+			pwm {
+				compatible = "st,stm32-pwm"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:183 */
+				status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:184 */
+				#pwm-cells = < 0x3 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:185 */
+			};
+
+			/* node '/soc/timers@40002000/counter' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:188 */
+			counter {
+				compatible = "st,stm32-counter"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:189 */
+				status = "disabled";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:190 */
+			};
+		};
+
+		/* node '/soc/usb@40040000' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:194 */
+		usbotg_hs: usb@40040000 {
+			compatible = "st,stm32-otghs";     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:195 */
+			reg = < 0x40040000 0x40000 >;      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:196 */
+			interrupts = < 0x4d 0x0 >,
+			             < 0x4a 0x0 >,
+			             < 0x4b 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:197 */
+			interrupt-names = "otghs",
+			                  "ep1_out",
+			                  "ep1_in";        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:198 */
+			num-bidir-endpoints = < 0x6 >;     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:199 */
+			ram-size = < 0x1000 >;             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:200 */
+			maximum-speed = "full-speed";      /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:201 */
+			phys = < &otghs_fs_phy >;          /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:202 */
+			clocks = < &rcc 0x30 0x20000000 >,
+			         < &rcc 0x7 0xff >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:203 */
+			status = "disabled";               /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:205 */
+		};
+
+		/* node '/soc/can@40006400' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:208 */
+		can1: can@40006400 {
+			compatible = "st,stm32-bxcan";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:209 */
+			reg = < 0x40006400 0x400 >;                /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:210 */
+			interrupts = < 0x13 0x0 >,
+			             < 0x14 0x0 >,
+			             < 0x15 0x0 >,
+			             < 0x16 0x0 >;                 /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:211 */
+			interrupt-names = "TX",
+			                  "RX0",
+			                  "RX1",
+			                  "SCE";                   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:212 */
+			clocks = < &rcc 0x40 0x2000000 >;          /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:213 */
+			status = "okay";                           /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:168 */
+			pinctrl-0 = < &can1_rx_pd0 &can1_tx_pd1 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:169 */
+			pinctrl-names = "default";                 /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:170 */
+			bitrate = < 0xf4240 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:171 */
+			phandle = < 0x2a >;                        /* in motor/app/jump/boards/robomaster_board_c.overlay:10 */
+		};
+
+		/* node '/soc/can@40006800' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:217 */
+		can2: can@40006800 {
+			compatible = "st,stm32-bxcan";             /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:218 */
+			reg = < 0x40006800 0x400 >;                /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:219 */
+			interrupts = < 0x3f 0x0 >,
+			             < 0x40 0x0 >,
+			             < 0x41 0x0 >,
+			             < 0x42 0x0 >;                 /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:220 */
+			interrupt-names = "TX",
+			                  "RX0",
+			                  "RX1",
+			                  "SCE";                   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:221 */
+			clocks = < &rcc 0x40 0x6000000 >;          /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:223 */
+			master-can-reg = < 0x40006400 >;           /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:224 */
+			status = "okay";                           /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:178 */
+			pinctrl-0 = < &can2_rx_pb5 &can2_tx_pb6 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:175 */
+			pinctrl-names = "default";                 /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:176 */
+			bitrate = < 0xf4240 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:177 */
+		};
+
+		/* node '/soc/rng@50060800' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:228 */
+		rng: rng@50060800 {
+			compatible = "st,stm32-rng"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:229 */
+			reg = < 0x50060800 0x400 >;  /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:230 */
+			interrupts = < 0x50 0x0 >;   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:231 */
+			clocks = < &rcc 0x34 0x40 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:232 */
+			status = "okay";             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:106 */
+		};
+
+		/* node '/soc/memory@40024000' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:236 */
+		backup_sram: memory@40024000 {
+			compatible = "zephyr,memory-region",
+			             "st,stm32-backup-sram";  /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:237 */
+			reg = < 0x40024000 0x1000 >;          /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:238 */
+			clocks = < &rcc 0x30 0x40000 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:239 */
+			zephyr,memory-region = "BACKUP_SRAM"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:240 */
+			status = "disabled";                  /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:241 */
+		};
+
+		/* node '/soc/adc@40012100' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:244 */
+		adc2: adc@40012100 {
+			compatible = "st,stm32-adc";                                 /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:245 */
+			reg = < 0x40012100 0x50 >;                                   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:246 */
+			clocks = < &rcc 0x44 0x200 >;                                /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:247 */
+			interrupts = < 0x12 0x0 >;                                   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:248 */
+			status = "disabled";                                         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:249 */
+			#io-channel-cells = < 0x1 >;                                 /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:250 */
+			resolutions = < 0x607804 0x517804 0x427804 0x337804 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:251 */
+			sampling-times = < 0x3 0xf 0x1c 0x38 0x54 0x70 0x90 0x1e0 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:255 */
+			st,adc-clock-source = "SYNC";                                /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:256 */
+			st,adc-sequencer = "FULLY_CONFIGURABLE";                     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:257 */
+			st,adc-oversampler = "OVERSAMPLER_NONE";                     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:258 */
+		};
+
+		/* node '/soc/adc@40012200' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:261 */
+		adc3: adc@40012200 {
+			compatible = "st,stm32-adc";                                 /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:262 */
+			reg = < 0x40012200 0x50 >;                                   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:263 */
+			clocks = < &rcc 0x44 0x400 >;                                /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:264 */
+			interrupts = < 0x12 0x0 >;                                   /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:265 */
+			status = "disabled";                                         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:266 */
+			#io-channel-cells = < 0x1 >;                                 /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:267 */
+			resolutions = < 0x607804 0x517804 0x427804 0x337804 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:268 */
+			sampling-times = < 0x3 0xf 0x1c 0x38 0x54 0x70 0x90 0x1e0 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:272 */
+			st,adc-clock-source = "SYNC";                                /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:273 */
+			st,adc-sequencer = "FULLY_CONFIGURABLE";                     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:274 */
+			st,adc-oversampler = "OVERSAMPLER_NONE";                     /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:275 */
+		};
+
+		/* node '/soc/dac@40007400' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:278 */
+		dac1: dac@40007400 {
+			compatible = "st,stm32-dac";       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:279 */
+			reg = < 0x40007400 0x400 >;        /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:280 */
+			clocks = < &rcc 0x40 0x20000000 >; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:281 */
+			status = "disabled";               /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:282 */
+			#io-channel-cells = < 0x1 >;       /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:283 */
+		};
+
+		/* node '/soc/ethernet@40028000' defined in zephyr/dts/arm/st/f4/stm32f407.dtsi:13 */
+		ethernet@40028000 {
+			reg = < 0x40028000 0x8000 >;                 /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:14 */
+			compatible = "st,stm32-ethernet-controller"; /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:15 */
+			clock-names = "stm-eth";                     /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:16 */
+			clocks = < &rcc 0x30 0x2000000 >;            /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:17 */
+
+			/* node '/soc/ethernet@40028000/ethernet' defined in zephyr/dts/arm/st/f4/stm32f407.dtsi:19 */
+			mac: ethernet {
+				compatible = "st,stm32-ethernet";  /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:20 */
+				interrupts = < 0x3d 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:21 */
+				clock-names = "mac-clk-tx",
+				              "mac-clk-rx",
+				              "mac-clk-ptp";       /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:22 */
+				clocks = < &rcc 0x30 0x4000000 >,
+				         < &rcc 0x30 0x8000000 >,
+				         < &rcc 0x30 0x10000000 >; /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:24 */
+				status = "disabled";               /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:27 */
+			};
+
+			/* node '/soc/ethernet@40028000/mdio' defined in zephyr/dts/arm/st/f4/stm32f407.dtsi:30 */
+			mdio: mdio {
+				compatible = "st,stm32-mdio"; /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:31 */
+				#address-cells = < 0x1 >;     /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:32 */
+				#size-cells = < 0x0 >;        /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:33 */
+				status = "disabled";          /* in zephyr/dts/arm/st/f4/stm32f407.dtsi:34 */
+			};
+		};
+	};
+
+	/* node '/cpus' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:30 */
+	cpus {
+		#address-cells = < 0x1 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:31 */
+		#size-cells = < 0x0 >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:32 */
+
+		/* node '/cpus/cpu@0' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:34 */
+		cpu0: cpu@0 {
+			device_type = "cpu";           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:35 */
+			compatible = "arm,cortex-m4f"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:36 */
+			reg = < 0x0 >;                 /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:37 */
+			cpu-power-states = < &stop >;  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:38 */
+		};
+
+		/* node '/cpus/power-states' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:41 */
+		power-states {
+
+			/* node '/cpus/power-states/stop' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:42 */
+			stop: stop {
+				compatible = "zephyr,power-state";    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:43 */
+				power-state-name = "suspend-to-idle"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:44 */
+				min-residency-us = < 0x190 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:51 */
+				exit-latency-us = < 0x12c >;          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:52 */
+				phandle = < 0x22 >;                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:38 */
+			};
+		};
+	};
+
+	/* node '/memory@20000000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:57 */
+	sram0: memory@20000000 {
+		compatible = "mmio-sram";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:58 */
+		reg = < 0x20000000 0x20000 >; /* in zephyr/dts/arm/st/f4/stm32f407Xg.dtsi:18 */
+	};
+
+	/* node '/clocks' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:61 */
+	clocks {
+
+		/* node '/clocks/clk-hse' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:62 */
+		clk_hse: clk-hse {
+			#clock-cells = < 0x0 >;            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:63 */
+			compatible = "st,stm32-hse-clock"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:64 */
+			status = "okay";                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:79 */
+			clock-frequency = < 0xb71b00 >;    /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:78 */
+			phandle = < 0x23 >;                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:87 */
+		};
+
+		/* node '/clocks/clk-hsi' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:68 */
+		clk_hsi: clk-hsi {
+			#clock-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:69 */
+			compatible = "fixed-clock";     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:70 */
+			clock-frequency = < 0xf42400 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:71 */
+			status = "disabled";            /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:72 */
+		};
+
+		/* node '/clocks/clk-lse' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:75 */
+		clk_lse: clk-lse {
+			#clock-cells = < 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:76 */
+			compatible = "fixed-clock";   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:77 */
+			clock-frequency = < 0x8000 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:78 */
+			status = "disabled";          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:79 */
+		};
+
+		/* node '/clocks/clk-lsi' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:82 */
+		clk_lsi: clk-lsi {
+			#clock-cells = < 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:83 */
+			compatible = "fixed-clock";   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:84 */
+			clock-frequency = < 0x7d00 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:85 */
+			status = "okay";              /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:74 */
+		};
+
+		/* node '/clocks/pll' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:89 */
+		pll: pll {
+			#clock-cells = < 0x0 >;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:90 */
+			compatible = "st,stm32f4-pll-clock"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:91 */
+			status = "okay";                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:88 */
+			div-m = < 0xc >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:83 */
+			mul-n = < 0x150 >;                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:84 */
+			div-p = < 0x2 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:85 */
+			div-q = < 0x7 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:86 */
+			clocks = < &clk_hse >;               /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:87 */
+			phandle = < 0x2 >;                   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:92 */
+		};
+
+		/* node '/clocks/plli2s' defined in zephyr/dts/arm/st/f4/stm32f401.dtsi:11 */
+		plli2s: plli2s {
+			#clock-cells = < 0x0 >;                 /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:12 */
+			compatible = "st,stm32f4-plli2s-clock"; /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:13 */
+			status = "disabled";                    /* in zephyr/dts/arm/st/f4/stm32f401.dtsi:14 */
+		};
+	};
+
+	/* node '/mcos' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:96 */
+	mcos {
+
+		/* node '/mcos/mco1' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:97 */
+		mco1: mco1 {
+			compatible = "st,stm32-clock-mco"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:98 */
+			status = "disabled";               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:99 */
+		};
+
+		/* node '/mcos/mco2' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:102 */
+		mco2: mco2 {
+			compatible = "st,stm32-clock-mco"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:103 */
+			status = "disabled";               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:104 */
+		};
+	};
+
+	/* node '/power@40007000' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:590 */
+	pwr: power@40007000 {
+		compatible = "st,stm32-pwr"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:591 */
+		reg = < 0x40007000 0x400 >;  /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:592 */
+		status = "disabled";         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:593 */
+		wkup-pins-nb = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:595 */
+		#address-cells = < 0x1 >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:597 */
+		#size-cells = < 0x0 >;       /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:598 */
+
+		/* node '/power@40007000/wkup-pin@1' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:600 */
+		wkup-pin@1 {
+			reg = < 0x1 >;                   /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:601 */
+			wkup-gpios = < &gpioa 0x0 0x1 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:602 */
+		};
+	};
+
+	/* node '/dietemp' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:606 */
+	die_temp: dietemp {
+		compatible = "st,stm32-temp-cal"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:607 */
+		ts-cal1-addr = < 0x1fff7a2c >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:608 */
+		ts-cal2-addr = < 0x1fff7a2e >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:609 */
+		ts-cal1-temp = < 0x1e >;          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:610 */
+		ts-cal2-temp = < 0x6e >;          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:611 */
+		ts-cal-vrefanalog = < 0xce4 >;    /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:612 */
+		io-channels = < &adc1 0x10 >;     /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:613 */
+		status = "disabled";              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:614 */
+	};
+
+	/* node '/vref' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:617 */
+	vref: vref {
+		compatible = "st,stm32-vref";      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:618 */
+		vrefint-cal-addr = < 0x1fff7a2a >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:619 */
+		vrefint-cal-mv = < 0xce4 >;        /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:620 */
+		io-channels = < &adc1 0x11 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:621 */
+		status = "disabled";               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:622 */
+	};
+
+	/* node '/vbat' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:625 */
+	vbat: vbat {
+		compatible = "st,stm32-vbat"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:626 */
+		ratio = < 0x4 >;              /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:627 */
+		io-channels = < &adc1 0x12 >; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:628 */
+		status = "disabled";          /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:629 */
+	};
+
+	/* node '/otgfs_phy' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:632 */
+	otgfs_phy: otgfs_phy {
+		compatible = "usb-nop-xceiv"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:633 */
+		#phy-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:634 */
+		phandle = < 0x10 >;           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:319 */
+	};
+
+	/* node '/smbus1' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:637 */
+	smbus1: smbus1 {
+		compatible = "st,stm32-smbus"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:638 */
+		#address-cells = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:639 */
+		#size-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:640 */
+		i2c = < &i2c1 >;               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:641 */
+		status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:642 */
+	};
+
+	/* node '/smbus2' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:645 */
+	smbus2: smbus2 {
+		compatible = "st,stm32-smbus"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:646 */
+		#address-cells = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:647 */
+		#size-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:648 */
+		i2c = < &i2c2 >;               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:649 */
+		status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:650 */
+	};
+
+	/* node '/smbus3' defined in zephyr/dts/arm/st/f4/stm32f4.dtsi:653 */
+	smbus3: smbus3 {
+		compatible = "st,stm32-smbus"; /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:654 */
+		#address-cells = < 0x1 >;      /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:655 */
+		#size-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:656 */
+		i2c = < &i2c3 >;               /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:657 */
+		status = "disabled";           /* in zephyr/dts/arm/st/f4/stm32f4.dtsi:658 */
+	};
+
+	/* node '/otghs_fs_phy' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:287 */
+	otghs_fs_phy: otghs_fs_phy {
+		compatible = "usb-nop-xceiv"; /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:288 */
+		#phy-cells = < 0x0 >;         /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:289 */
+		phandle = < 0x1d >;           /* in zephyr/dts/arm/st/f4/stm32f405.dtsi:202 */
+	};
+
+	/* node '/memory@10000000' defined in zephyr/dts/arm/st/f4/stm32f407Xg.dtsi:11 */
+	ccm0: memory@10000000 {
+		compatible = "zephyr,memory-region",
+		             "st,stm32-ccm";         /* in zephyr/dts/arm/st/f4/stm32f407Xg.dtsi:12 */
+		reg = < 0x10000000 0x10000 >;        /* in zephyr/dts/arm/st/f4/stm32f407Xg.dtsi:13 */
+		zephyr,memory-region = "CCM";        /* in zephyr/dts/arm/st/f4/stm32f407Xg.dtsi:14 */
+	};
+
+	/* node '/pwmleds' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:37 */
+	pwmleds: pwmleds {
+		compatible = "pwm-leds"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:38 */
+		status = "okay";         /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:39 */
+
+		/* node '/pwmleds/heater' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:40 */
+		heater: heater {
+			pwms = < &pwm10 0x1 0x1312d00 0x0 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:41 */
+		};
+
+		/* node '/pwmleds/led_0_blue' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:43 */
+		led_0_blue: led_0_blue {
+			pwms = < &pwm5 0x1 0x1312d00 0x0 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:44 */
+		};
+
+		/* node '/pwmleds/led_1_green' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:46 */
+		led_1_green: led_1_green {
+			pwms = < &pwm5 0x2 0x1312d00 0x0 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:47 */
+		};
+
+		/* node '/pwmleds/led_2_red' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:49 */
+		led_2_red: led_2_red {
+			pwms = < &pwm5 0x3 0x1312d00 0x0 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:50 */
+		};
+	};
+
+	/* node '/imu_temp_pid' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:54 */
+	imu_temp_pid: imu_temp_pid {
+		#controller-cells = < 0x0 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:55 */
+		compatible = "pid,single";   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:56 */
+		k_p = "6000000";             /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:57 */
+		k_d = "0.02";                /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:58 */
+		out_max = "20000000.000000"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:59 */
+		offset = "6750000.000000";   /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:60 */
+	};
+
+	/* node '/buttons' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:63 */
+	buttons {
+		compatible = "gpio-keys"; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:64 */
+
+		/* node '/buttons/button_0' defined in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:65 */
+		user_button: button_0 {
+			gpios = < &gpioa 0x0 0x11 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:66 */
+			label = "User Button";       /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:67 */
+			zephyr,code = < 0xb >;       /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:68 */
+		};
+	};
+
+	/* node '/dm_motor' defined in motor/app/jump/boards/robomaster_board_c.overlay:2 */
+	dm_motor {
+
+		/* node '/dm_motor/motor1' defined in motor/app/jump/boards/robomaster_board_c.overlay:3 */
+		motor1: motor1 {
+			compatible = "dji,motor";          /* in motor/app/jump/boards/robomaster_board_c.overlay:4 */
+			id = < 0x1 >;                      /* in motor/app/jump/boards/robomaster_board_c.overlay:5 */
+			rx_id = < 0x301 >;                 /* in motor/app/jump/boards/robomaster_board_c.overlay:6 */
+			tx_id = < 0x3fe >;                 /* in motor/app/jump/boards/robomaster_board_c.overlay:7 */
+			gear_ratio = "1.0";                /* in motor/app/jump/boards/robomaster_board_c.overlay:8 */
+			status = "okay";                   /* in motor/app/jump/boards/robomaster_board_c.overlay:9 */
+			can_channel = < &can1 >;           /* in motor/app/jump/boards/robomaster_board_c.overlay:10 */
+			controllers = < &jump_speed_pid >; /* in motor/app/jump/boards/robomaster_board_c.overlay:11 */
+			capabilities = "speed";            /* in motor/app/jump/boards/robomaster_board_c.overlay:12 */
+			is_dm_motor;                       /* in motor/app/jump/boards/robomaster_board_c.overlay:13 */
+			dm_i_max = "100";                  /* in motor/app/jump/boards/robomaster_board_c.overlay:14 */
+			dm_torque_ratio = "0.061538";      /* in motor/app/jump/boards/robomaster_board_c.overlay:15 */
+			phandle = < 0x2c >;                /* in motor/app/jump/boards/robomaster_board_c.overlay:30 */
+		};
+
+		/* node '/dm_motor/motor2' defined in motor/app/jump/boards/robomaster_board_c.overlay:17 */
+		motor2: motor2 {
+			compatible = "dji,motor";     /* in motor/app/jump/boards/robomaster_board_c.overlay:18 */
+			id = < 0x2 >;                 /* in motor/app/jump/boards/robomaster_board_c.overlay:19 */
+			rx_id = < 0x302 >;            /* in motor/app/jump/boards/robomaster_board_c.overlay:20 */
+			tx_id = < 0x3fe >;            /* in motor/app/jump/boards/robomaster_board_c.overlay:21 */
+			gear_ratio = "1.0";           /* in motor/app/jump/boards/robomaster_board_c.overlay:22 */
+			status = "okay";              /* in motor/app/jump/boards/robomaster_board_c.overlay:23 */
+			can_channel = < &can1 >;      /* in motor/app/jump/boards/robomaster_board_c.overlay:24 */
+			controllers;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:25 */
+			capabilities = "";            /* in motor/app/jump/boards/robomaster_board_c.overlay:26 */
+			is_dm_motor;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:27 */
+			dm_i_max = "100";             /* in motor/app/jump/boards/robomaster_board_c.overlay:28 */
+			dm_torque_ratio = "0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:29 */
+			follow = < &motor1 >;         /* in motor/app/jump/boards/robomaster_board_c.overlay:30 */
+		};
+
+		/* node '/dm_motor/motor3' defined in motor/app/jump/boards/robomaster_board_c.overlay:32 */
+		motor3: motor3 {
+			compatible = "dji,motor";     /* in motor/app/jump/boards/robomaster_board_c.overlay:33 */
+			id = < 0x3 >;                 /* in motor/app/jump/boards/robomaster_board_c.overlay:34 */
+			rx_id = < 0x303 >;            /* in motor/app/jump/boards/robomaster_board_c.overlay:35 */
+			tx_id = < 0x3fe >;            /* in motor/app/jump/boards/robomaster_board_c.overlay:36 */
+			gear_ratio = "1.0";           /* in motor/app/jump/boards/robomaster_board_c.overlay:37 */
+			status = "okay";              /* in motor/app/jump/boards/robomaster_board_c.overlay:38 */
+			can_channel = < &can1 >;      /* in motor/app/jump/boards/robomaster_board_c.overlay:39 */
+			is_dm_motor;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:40 */
+			dm_i_max = "100";             /* in motor/app/jump/boards/robomaster_board_c.overlay:41 */
+			dm_torque_ratio = "0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:42 */
+			controllers;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:43 */
+			capabilities = "";            /* in motor/app/jump/boards/robomaster_board_c.overlay:44 */
+			follow = < &motor1 >;         /* in motor/app/jump/boards/robomaster_board_c.overlay:45 */
+		};
+
+		/* node '/dm_motor/motor4' defined in motor/app/jump/boards/robomaster_board_c.overlay:49 */
+		motor4: motor4 {
+			compatible = "dji,motor";      /* in motor/app/jump/boards/robomaster_board_c.overlay:50 */
+			id = < 0x4 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:51 */
+			rx_id = < 0x304 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:52 */
+			tx_id = < 0x3fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:53 */
+			gear_ratio = "1.0";            /* in motor/app/jump/boards/robomaster_board_c.overlay:54 */
+			status = "okay";               /* in motor/app/jump/boards/robomaster_board_c.overlay:55 */
+			can_channel = < &can1 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:56 */
+			is_dm_motor;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:57 */
+			dm_i_max = "100";              /* in motor/app/jump/boards/robomaster_board_c.overlay:58 */
+			dm_torque_ratio = "-0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:59 */
+			controllers;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:60 */
+			capabilities = "";             /* in motor/app/jump/boards/robomaster_board_c.overlay:61 */
+			follow = < &motor1 >;          /* in motor/app/jump/boards/robomaster_board_c.overlay:62 */
+		};
+
+		/* node '/dm_motor/motor5' defined in motor/app/jump/boards/robomaster_board_c.overlay:64 */
+		motor5: motor5 {
+			compatible = "dji,motor";      /* in motor/app/jump/boards/robomaster_board_c.overlay:65 */
+			id = < 0x5 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:66 */
+			rx_id = < 0x305 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:67 */
+			tx_id = < 0x4fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:68 */
+			gear_ratio = "1.0";            /* in motor/app/jump/boards/robomaster_board_c.overlay:69 */
+			status = "okay";               /* in motor/app/jump/boards/robomaster_board_c.overlay:70 */
+			can_channel = < &can1 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:71 */
+			is_dm_motor;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:72 */
+			dm_i_max = "100";              /* in motor/app/jump/boards/robomaster_board_c.overlay:73 */
+			dm_torque_ratio = "-0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:74 */
+			controllers;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:75 */
+			capabilities = "";             /* in motor/app/jump/boards/robomaster_board_c.overlay:76 */
+			follow = < &motor1 >;          /* in motor/app/jump/boards/robomaster_board_c.overlay:77 */
+		};
+
+		/* node '/dm_motor/motor6' defined in motor/app/jump/boards/robomaster_board_c.overlay:79 */
+		motor6: motor6 {
+			compatible = "dji,motor";      /* in motor/app/jump/boards/robomaster_board_c.overlay:80 */
+			id = < 0x6 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:81 */
+			rx_id = < 0x306 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:82 */
+			tx_id = < 0x4fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:83 */
+			gear_ratio = "1.0";            /* in motor/app/jump/boards/robomaster_board_c.overlay:84 */
+			status = "okay";               /* in motor/app/jump/boards/robomaster_board_c.overlay:85 */
+			can_channel = < &can1 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:86 */
+			is_dm_motor;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:87 */
+			dm_i_max = "100";              /* in motor/app/jump/boards/robomaster_board_c.overlay:88 */
+			dm_torque_ratio = "-0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:89 */
+			controllers;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:90 */
+			capabilities = "";             /* in motor/app/jump/boards/robomaster_board_c.overlay:91 */
+			follow = < &motor1 >;          /* in motor/app/jump/boards/robomaster_board_c.overlay:92 */
+		};
+	};
+
+	/* node '/sbus0' defined in motor/app/jump/boards/robomaster_board_c.overlay:96 */
+	sbus0: sbus0 {
+		compatible = "ares,sbus"; /* in motor/app/jump/boards/robomaster_board_c.overlay:97 */
+		status = "okay";          /* in motor/app/jump/boards/robomaster_board_c.overlay:98 */
+	};
+
+	/* node '/pid' defined in motor/app/jump/boards/robomaster_board_c.overlay:101 */
+	pid {
+
+		/* node '/pid/jump_speed_pid' defined in motor/app/jump/boards/robomaster_board_c.overlay:102 */
+		jump_speed_pid: jump_speed_pid {
+			#controller-cells = < 0x0 >; /* in motor/app/jump/boards/robomaster_board_c.overlay:103 */
+			compatible = "pid,single";   /* in motor/app/jump/boards/robomaster_board_c.overlay:104 */
+			k_p = "1.0";                 /* in motor/app/jump/boards/robomaster_board_c.overlay:105 */
+			k_d = "0.0";                 /* in motor/app/jump/boards/robomaster_board_c.overlay:106 */
+			phandle = < 0x2b >;          /* in motor/app/jump/boards/robomaster_board_c.overlay:11 */
+		};
+	};
+};

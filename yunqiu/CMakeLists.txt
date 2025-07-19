@@ -5,6 +5,13 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(motor)
 
+# 添加源文件
+target_sources(app PRIVATE 
+    src/main.c
+    src/device.c        # 设备管理
+    src/five_linkage.c  # 五连杆控制
+)
+
 FILE(GLOB app_sources src/*.c)
 
 include_directories(${ZEPHYR_BASE}/include)

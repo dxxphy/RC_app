@@ -25,9 +25,9 @@ const struct device *motor2 = DEVICE_DT_GET(MOTOR2_NODE);//M2006
 int main()
 {
     motor_control(motor1, SET_ZERO);
+    k_msleep(1);
     motor_control(motor2, SET_ZERO);
-    // motor_set_angle(motor1, 810.0f);
-    // motor_set_angle(motor2, -810.0f);
+    k_msleep(1);
 
     float current_angle1 = 0.0f; // 当前电机3角度
     float current_angle2 = 0.0f; // 当前电机4角度
@@ -35,8 +35,8 @@ int main()
     current_angle2 = motor_get_angle(motor2);
 
     for (int i = 1; i < 19; i++) {
-        float target_angle1 = ((1350.0f - current_angle1) * (float)i / 18.0f) + current_angle1;
-        float target_angle2 = ((-1350.0f - current_angle2) * (float)i / 18.0f) + current_angle2;
+        float target_angle1 = ((50.0f - current_angle1) * (float)i / 18.0f) + current_angle1;
+        float target_angle2 = ((-50.0f - current_angle2) * (float)i / 18.0f) + current_angle2;
         
         motor_set_angle(motor1, target_angle1);
         motor_set_angle(motor2, target_angle2);
@@ -44,7 +44,5 @@ int main()
         k_msleep(40);
     }
 
-    while(1){
-        k_msleep(3000);
-    }
+    
 }

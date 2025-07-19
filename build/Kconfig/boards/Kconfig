@@ -1,0 +1,2 @@
+# Load Zephyr board Kconfig descriptions.
+osource "/home/librgod/zephyr_workspace/motor/boards/dji/robomaster_board_c/Kconfig"

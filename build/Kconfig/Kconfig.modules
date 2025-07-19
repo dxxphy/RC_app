@@ -1,0 +1,45 @@
+menu "motor demo (/home/librgod/zephyr_workspace/motor)"
+osource "/home/librgod/zephyr_workspace/motor/Kconfig"
+config ZEPHYR_MOTOR_DEMO_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis (/home/librgod/zephyr_workspace/modules/hal/cmsis)"
+osource "$(ZEPHYR_CMSIS_KCONFIG)"
+config ZEPHYR_CMSIS_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis-dsp (/home/librgod/zephyr_workspace/modules/lib/cmsis-dsp)"
+osource "$(ZEPHYR_CMSIS_DSP_KCONFIG)"
+config ZEPHYR_CMSIS_DSP_MODULE
+	bool
+	default y
+endmenu
+menu "cmsis_6 (/home/librgod/zephyr_workspace/modules/hal/cmsis_6)"
+osource "$(ZEPHYR_CMSIS_6_KCONFIG)"
+config ZEPHYR_CMSIS_6_MODULE
+	bool
+	default y
+endmenu
+menu "hal_st (/home/librgod/zephyr_workspace/modules/hal/st)"
+osource "$(ZEPHYR_HAL_ST_KCONFIG)"
+config ZEPHYR_HAL_ST_MODULE
+	bool
+	default y
+endmenu
+config ZEPHYR_HAL_STM32_MODULE
+	bool
+	default y
+
+config ZEPHYR_HAL_STM32_MODULE_BLOBS
+	bool
+config ZEPHYR_MCUBOOT_MODULE
+	bool
+	default y
+menu "segger (/home/librgod/zephyr_workspace/modules/debug/segger)"
+osource "$(ZEPHYR_SEGGER_KCONFIG)"
+config ZEPHYR_SEGGER_MODULE
+	bool
+	default y
+endmenu

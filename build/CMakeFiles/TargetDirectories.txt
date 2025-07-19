@@ -1,0 +1,388 @@
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/boards.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/shields.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/snippets.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/devicetree_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/menuconfig.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/guiconfig.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/hardenconfig.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/config-twister.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/asm.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/compiler.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/compiler-cpp.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/linker.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/bintools.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/code_data_relocation_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/runners_yaml_props_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/pristine.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/zephyr_property_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/app.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/zephyr.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/version_h.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/syscall_list_h_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/driver_validation_h_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/kobj_types_h_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/device_api_ld_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/zephyr_generated_headers.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/offsets.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/offsets_h.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/linker_zephyr_prebuilt_script_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/zephyr_pre0.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/linker_zephyr_final_script_target.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/zephyr_final.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/initlevels.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/run.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/build_info_yaml_saved.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/common/CMakeFiles/arch__common.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/common/CMakeFiles/isr_tables.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/core/CMakeFiles/arch__arm__core.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/core/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/core/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/arch__arm__core__cortex_m.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/arch/arch/arm/core/cortex_m/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/crc/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/crc/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/picolibc/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/picolibc/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/libc/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/posix/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/posix/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/posix/options/CMakeFiles/lib__posix__options.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/posix/options/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/posix/options/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/hash/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/hash/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/heap/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/heap/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/mem_blocks/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/mem_blocks/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/os/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/os/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/utils/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/utils/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/uuid/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/lib/uuid/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/soc/stm32f407xx/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/soc/stm32f407xx/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/soc/stm32f407xx/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/soc/stm32f407xx/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/soc/stm32f407xx/stm32f4x/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/soc/soc/stm32f407xx/stm32f4x/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/boards/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/boards/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/boards/shields/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/boards/shields/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/canbus/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/canbus/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/debug/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/debug/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/debug/thread_analyzer/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/debug/thread_analyzer/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/fb/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/fb/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/fs/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/fs/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/fs/zms/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/fs/zms/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/ipc/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/ipc/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/logging/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/logging/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/logging/backends/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/logging/backends/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/logging/frontends/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/logging/frontends/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/mem_mgmt/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/mem_mgmt/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/mgmt/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/mgmt/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/modbus/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/modbus/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/pm/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/pm/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/pm/policy/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/pm/policy/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/pmci/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/pmci/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/portability/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/portability/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/random/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/random/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/rtio/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/rtio/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/sd/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/sd/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/stats/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/stats/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/storage/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/storage/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/storage/flash_map/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/storage/flash_map/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/task_wdt/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/task_wdt/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/testsuite/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/testsuite/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/tracing/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/tracing/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/class/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/class/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/disk/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/disk/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/firmware/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/firmware/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/interrupt_controller/CMakeFiles/drivers__interrupt_controller.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/interrupt_controller/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/interrupt_controller/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/misc/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/misc/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/misc/coresight/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/misc/coresight/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pcie/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pcie/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/device/CMakeFiles/drivers__usb__device.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/device/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/device/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb_c/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb_c/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/can/CMakeFiles/drivers__can.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/can/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/can/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/can/transceiver/CMakeFiles/drivers__can__transceiver.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/can/transceiver/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/can/transceiver/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/clock_control/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/clock_control/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/console/CMakeFiles/drivers__console.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/console/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/console/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/dma/CMakeFiles/drivers__dma.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/dma/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/dma/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/flash/CMakeFiles/drivers__flash.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/flash/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/flash/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/gpio/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/gpio/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/CMakeFiles/drivers__hwinfo.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/renesas/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/renesas/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pwm/CMakeFiles/drivers__pwm.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pwm/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pwm/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/reset/CMakeFiles/drivers__reset.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/reset/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/reset/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/CMakeFiles/drivers__sensor.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/adi/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/adi/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/ams/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/ams/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/aosong/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/aosong/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/asahi_kasei/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/asahi_kasei/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/bosch/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/bosch/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/bosch/bmi08x/CMakeFiles/drivers__sensor__bosch__bmi08x.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/bosch/bmi08x/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/bosch/bmi08x/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/espressif/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/espressif/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/everlight/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/everlight/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/honeywell/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/honeywell/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/infineon/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/infineon/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/ite/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/ite/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/jedec/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/jedec/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/liteon/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/liteon/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/maxim/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/maxim/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/meas/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/meas/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/melexis/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/melexis/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/memsic/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/memsic/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/microchip/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/microchip/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nordic/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nordic/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nordic/temp/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nordic/temp/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nuvoton/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nuvoton/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nxp/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/nxp/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/pixart/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/pixart/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/pni/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/pni/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/realtek/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/realtek/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/renesas/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/renesas/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/rohm/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/rohm/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/seeed/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/seeed/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/sensirion/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/sensirion/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/silabs/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/silabs/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/st/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/st/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/tdk/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/tdk/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/ti/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/ti/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/vishay/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/vishay/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/wsen/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/sensor/wsen/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/serial/CMakeFiles/drivers__serial.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/serial/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/serial/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/spi/CMakeFiles/drivers__spi.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/spi/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/spi/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/spi/spi_nxp_lpspi/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/spi/spi_nxp_lpspi/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/timer/CMakeFiles/drivers__timer.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/timer/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/timer/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dji/CMakeFiles/..__motor__drivers__motor__dji.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dji/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dji/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dm/CMakeFiles/..__motor__drivers__motor__dm.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dm/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dm/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/common/CMakeFiles/..__motor__drivers__motor__common.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/pid/CMakeFiles/..__motor__drivers__pid.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/pid/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/pid/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/transfer/CMakeFiles/..__motor__drivers__transfer.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/transfer/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/transfer/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/sensor/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/sensor/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/ekf/CMakeFiles/..__motor__include__ares__ekf.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/ekf/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/ekf/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/usb_bulk_trans/CMakeFiles/..__motor__include__ares__usb_bulk_trans.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/usb_bulk_trans/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/usb_bulk_trans/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/board/CMakeFiles/..__motor__include__ares__board.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/board/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/board/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/plotter/CMakeFiles/..__motor__include__ares__plotter.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/plotter/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/plotter/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMSIS/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMSIS/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMSIS/Core/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMSIS/Core/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis-dsp/CMakeFiles/modules__cmsis-dsp.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis-dsp/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis-dsp/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/cmsis_6/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/cmsis_6/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/cmsis_6/CMSIS/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/cmsis_6/CMSIS/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/cmsis_6/CMSIS/Core/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/cmsis_6/cmsis_6/CMSIS/Core/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_st/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_st/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/stm32cube/CMakeFiles/..__modules__hal__stm32__stm32cube.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/stm32cube/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/stm32cube/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/stm32cube/stm32f4xx/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/hal_stm32/stm32cube/stm32f4xx/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/mcuboot/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/mcuboot/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/segger/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/segger/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/kernel/CMakeFiles/kernel.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/kernel/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/kernel/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/flash.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/debug.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/debugserver.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/attach.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/rtt.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/flash/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/usage/CMakeFiles/usage.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/usage/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/usage/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/reports/CMakeFiles/ram_report.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/reports/CMakeFiles/rom_report.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/reports/CMakeFiles/footprint.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/reports/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/zephyr/cmake/reports/CMakeFiles/rebuild_cache.dir

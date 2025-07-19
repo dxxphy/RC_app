@@ -65,17 +65,17 @@
             capabilities = "mit", "pv", "vo";
         };
         
-        motor3: motor3{
-            compatible = "mi,motor";
-            id = <2>;
-            rx_id = <0x02>;
-            tx_id = <0x02>;
-            gear_ratio = "7.75";
-            status = "okay";
-            can_channel = <&can1>;
-            controllers = <&mit_pid_1 &angle_pid_2 &speed_pid_2>;
-            capabilities = "mit", "pv", "vo";
-        };
+        // motor3: motor3{
+        //     compatible = "mi,motor";
+        //     id = <2>;
+        //     rx_id = <0x02>;
+        //     tx_id = <0x02>;
+        //     gear_ratio = "7.75";
+        //     status = "okay";
+        //     can_channel = <&can1>;
+        //     controllers = <&mit_pid_1 &angle_pid_2 &speed_pid_2>;
+        //     capabilities = "mit", "pv", "vo";
+        // };
 
         motor4: motor4{
             compatible = "mi,motor";
@@ -114,9 +114,9 @@
         mit_pid_2: mit_pid_2 {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "17.0";
+			k_p = "25.0";
 			k_i = "0.0";
-			k_d = "3.5";
+			k_d = "3.0";
 		};
 
 		angle_pid_1: angle_pid_1 {

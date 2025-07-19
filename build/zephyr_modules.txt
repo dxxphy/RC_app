@@ -1,0 +1,8 @@
+"motor demo":"/home/librgod/zephyr_workspace/motor":"/home/librgod/zephyr_workspace/motor"
+"cmsis":"/home/librgod/zephyr_workspace/modules/hal/cmsis":"${ZEPHYR_CMSIS_CMAKE_DIR}"
+"cmsis-dsp":"/home/librgod/zephyr_workspace/modules/lib/cmsis-dsp":"${ZEPHYR_CMSIS_DSP_CMAKE_DIR}"
+"cmsis_6":"/home/librgod/zephyr_workspace/modules/hal/cmsis_6":"${ZEPHYR_CMSIS_6_CMAKE_DIR}"
+"hal_st":"/home/librgod/zephyr_workspace/modules/hal/st":"/home/librgod/zephyr_workspace/modules/hal/st"
+"hal_stm32":"/home/librgod/zephyr_workspace/modules/hal/stm32":"/home/librgod/zephyr_workspace/modules/hal/stm32"
+"mcuboot":"/home/librgod/zephyr_workspace/bootloader/mcuboot":"/home/librgod/zephyr_workspace/bootloader/mcuboot/boot/bootutil/zephyr"
+"segger":"/home/librgod/zephyr_workspace/modules/debug/segger":"${ZEPHYR_SEGGER_CMAKE_DIR}"

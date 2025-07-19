@@ -1,0 +1,55 @@
+cmake:
+  application:
+    configuration-dir: '/home/librgod/zephyr_workspace/motor/app/jump'
+    source-dir: '/home/librgod/zephyr_workspace/motor/app/jump'
+  board:
+    name: 'robomaster_board_c'
+    path:
+     - '/home/librgod/zephyr_workspace/motor/boards/dji/robomaster_board_c'
+    qualifiers: 'stm32f407xx'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/home/librgod/zephyr_workspace/motor/dts/bindings'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/bindings'
+    files:
+     - '/home/librgod/zephyr_workspace/motor/boards/dji/robomaster_board_c/robomaster_board_c.dts'
+     - '/home/librgod/zephyr_workspace/motor/app/jump/boards/robomaster_board_c.overlay'
+    include-dirs:
+     - '/home/librgod/zephyr_workspace/motor/include'
+     - '/home/librgod/zephyr_workspace/motor/include/zephyr'
+     - '/home/librgod/zephyr_workspace/motor/dts'
+     - '/home/librgod/zephyr_workspace/modules/hal/stm32/dts'
+     - '/home/librgod/zephyr_workspace/zephyr/include'
+     - '/home/librgod/zephyr_workspace/zephyr/include/zephyr'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/common'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/vendor'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/rx'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/x86'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/xtensa'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/sparc'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/riscv'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/posix'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/arm64'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/arm'
+     - '/home/librgod/zephyr_workspace/zephyr/dts/arc'
+     - '/home/librgod/zephyr_workspace/zephyr/dts'
+    user-files:
+     - '/home/librgod/zephyr_workspace/motor/app/jump/boards/robomaster_board_c.overlay'
+  kconfig:
+    files:
+     - '/home/librgod/zephyr_workspace/motor/boards/dji/robomaster_board_c/robomaster_board_c_defconfig'
+     - '/home/librgod/zephyr_workspace/motor/app/jump/prj.conf'
+    user-files:
+     - '/home/librgod/zephyr_workspace/motor/app/jump/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: '/home/librgod/zephyr-sdk-0.17.0'
+  zephyr:
+    version: '4.1.99'
+    zephyr-base: '/home/librgod/zephyr_workspace/zephyr'
+version: '0.1.0'
+west:
+  command: '/home/librgod/.local/bin/west build -p always -b robomaster_board_c jump'
+  topdir: '/home/librgod/zephyr_workspace'
+  version: '1.3.0'

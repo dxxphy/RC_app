@@ -1,0 +1,4 @@
+west:
+  command: /home/librgod/.local/bin/west build -p always -b robomaster_board_c jump
+  topdir: /home/librgod/zephyr_workspace
+  version: 1.3.0
