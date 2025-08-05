@@ -1,43 +1,25 @@
-/*
- * Copyright (c) 2024 ttwards <12411711@mail.sustech.edu.cn>
- *
- * SPDX-License-Identifier: Apache-2.0
- */
- #include <math.h>
- #include <stdbool.h>
- #include <stddef.h>
- #include <stdint.h>
- #include <zephyr/device.h>
- #include <zephyr/logging/log.h>
- #include <zephyr/kernel.h>
- #include <zephyr/drivers/motor.h>
- #include <zephyr/drivers/sbus.h>
- #include <ares/board/init.h>
- #include <ares/ekf/imu_task.h>
- #include <ares/ares_comm.h>
- #include <ares/protocol/dual/dual_protocol.h>
- #include "ares/ekf/QuaternionEKF.h"
- #include <zephyr/debug/thread_analyzer.h>
- #include <ares/interface/usb/usb_bulk.h>
- #include <zephyr/drivers/gpio.h>
- #include "ares/protocol/dual/dual_protocol.h"
- #include <math.h>
- #include <stdbool.h>
- #include <stddef.h>
- #include <stdint.h>
- #include <zephyr/device.h>
- #include <zephyr/logging/log.h>
- #include <zephyr/kernel.h>
- #include <zephyr/drivers/motor.h>
- #include <zephyr/drivers/sbus.h>
- #include <zephyr/drivers/chassis.h>
- #include <ares/board/init.h>
- #include <ares/ekf/imu_task.h>
- #include <ares/interface/usb/usb_bulk.h>
- #include <ares/protocol/dual/dual_protocol.h>
- #include <ares/ares_comm.h>
- #include "ares/ekf/QuaternionEKF.h"
- #include "devices.h"
+#include <ares/interface/uart/uart.h>
+#include <zephyr/debug/thread_analyzer.h>
+#include <arm_math.h>
+#include <zephyr/debug/thread_analyzer.h>
+#include <ares/interface/usb/usb_bulk.h>
+#include <zephyr/drivers/gpio.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <zephyr/device.h>
+#include <zephyr/logging/log.h>
+#include <zephyr/kernel.h>
+#include <zephyr/drivers/motor.h>
+#include <zephyr/drivers/sbus.h>
+#include <zephyr/drivers/chassis.h>
+#include <ares/board/init.h>
+#include <ares/ekf/imu_task.h>
+#include <ares/protocol/dual/dual_protocol.h>
+#include <ares/ares_comm.h>
+#include "ares/ekf/QuaternionEKF.h"
+#include "devices.h"
 LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 #define CHASSIS_SRC_SBUS
 
@@ -147,67 +129,81 @@ int calibrate_motor_start(const struct device *motor_dev, const struct gpio_dt_s
 	calib_instance_count++;
 	LOG_INF("Started calibration for motor %s", motor_dev->name);
 	return 0;
-}
-int cnt = 0;
-int func_cb(uint32_t arg1, uint32_t arg2, uint32_t arg3)
+}uint32_t prev_vel_upd_time = 0;
+int usb_cnt = 0;
+int vel_func_cb(uint32_t arg1, uint32_t arg2, uint32_t arg3)
 {
-	cnt++;
-	chassis_set_speed(chassis, TO_FLOAT(arg1) * 6, -TO_FLOAT(arg2) * 6);
-	chassis_set_gyro(chassis, -TO_FLOAT(arg3) * 5.0f);
-	LOG_INF("X: %f Y: %f Gyro: %f", TO_FLOAT(arg1), TO_FLOAT(arg2), TO_FLOAT(arg3));
-	if (cnt % 200 == 0) {
-		LOG_INF("Arg1: 0x%08x Arg2: 0x%08x Arg3: 0x%08x", arg1, arg2, arg3);
+#ifdef CHASSIS_SRC_USB
+	chassis_ctrl[0] = TO_FLOAT(arg1);
+	chassis_ctrl[1] = TO_FLOAT(arg2);
+	chassis_ctrl[2] = TO_FLOAT(arg3);
+	if (usb_cnt++ % 100 == 0) {
+		// LOG_INF("Arg1: 0x%08x Arg2: 0x%08x Arg3: 0x%08x", arg1, arg2, arg3);
 		LOG_INF("X: %f Y: %f Gyro: %f", (double)TO_FLOAT(arg1), (double)TO_FLOAT(arg2),
 			(double)TO_FLOAT(arg3));
 	}
+	prev_vel_upd_time = k_uptime_get_32();
+#endif
 	return 0;
 }
-uint8_t begin=0;
-void console_feedback(void *arg1, void *arg2, void *arg3)
+static float chassis_ctrl[3] = {0.0f};
+/* CAN Feedback to console*/
+void chassis_thread_(void *arg1, void *arg2, void *arg3)
 {
-    float angvel = 0;
-	float angle = 0;
-    int cnt = 0;
-    bool zeroed = false;
-    
-    while (1) {
-        k_msleep(1);
+	// float angle = 0;
+	int cnt = 0;
+	uint32_t stop_time = 0;
+	while (1) {
+		k_msleep(2);
 
-#ifdef CHASSIS_SRC_SBUS
-        angvel = sbus_get_percent(sbus, 0);
-        angle += sbus_get_percent(sbus, 0) * 0.8f;
-        angle = fmodf(angle, 360);		
-        float X = sbus_get_percent(sbus, 3);
-        float Y = sbus_get_percent(sbus, 1);
-    
-        // 死区处理
-        float linear_magnitude = sqrtf(X * X + Y * Y);
-        bool in_deadzone = (linear_magnitude < 0.08f) && (fabsf(angvel) < 0.08f);
+		// angle += sbus_get_percent(sbus, 0) * 0.8f;
+		// angle = fmodf(angle, 360);
+		float X = sbus_get_percent(sbus, 3);
+		float Y = sbus_get_percent(sbus, 1);
+		float gyro = sbus_get_percent(sbus, 0);
 
-        if (in_deadzone) {
-            if (!zeroed) {
-                chassis_set_speed(chassis, 0, 0);
-                chassis_set_gyro(chassis, 0);
-                chassis_set_static(chassis, true);
-                zeroed = true;
-            }
-        } else {
-            if (zeroed) {
-                chassis_set_static(chassis, false);
-                zeroed = false;
-            }
-            
-            chassis_set_speed(chassis, -X * 2.0f, -Y * 2.0f);
-            chassis_set_gyro(chassis, angvel * 3.5f);
-        }
-        
-        if (cnt++ % 1000 == 0) {
-            LOG_INF("Manual: X=%.1f Y=%.1f Gyro=%.1f", 
-                   (double)X, (double)Y, (double)angvel);
-        }
-#endif
-    }
+		if (sqrtf(X * X + Y * Y) > 0.06f || fabsf(gyro) > 0.06f) {
+			chassis_set_static(chassis, false);
+			chassis_set_speed(chassis, -X * 2.2f, Y * 2.2f);
+			// chassis_set_angle(chassis, 0);
+			chassis_set_gyro(chassis, -gyro * 1.0f);
+			stop_time = 0;
+		} else if ((chassis_ctrl[0] * chassis_ctrl[0] + chassis_ctrl[1] * chassis_ctrl[1]) >
+				   0.06f ||
+			   fabsf(chassis_ctrl[2]) > 0.06f) {
+			if (k_uptime_get_32() - prev_vel_upd_time > 300) {
+				chassis_ctrl[0] = 0.0f;
+				chassis_ctrl[1] = 0.0f;
+				chassis_ctrl[2] = 0.0f;
+			}
+			chassis_set_static(chassis, false);
+			chassis_set_speed(chassis, chassis_ctrl[0], chassis_ctrl[1]);
+			chassis_set_gyro(chassis, chassis_ctrl[2]);
+			stop_time = 0;
+		} else {
+			if (stop_time == 0) {
+				stop_time = k_uptime_get_32();
+			}
+			if (k_uptime_get_32() - stop_time > 200) {
+				chassis_set_static(chassis, true);
+				// chassis_set_speed(chassis, 0, 0.1);
+			}
+		}
+
+		if (cnt++ % 50 == 0) {
+			// LOG_INF("speed yq1: %f speed yq2: %f speed yq3: %f",
+			// motor_get_speed(yq1), 	motor_get_speed(yq2), motor_get_speed(yq3));
+			// LOG_INF("torque yq1: %f torque yq2: %f torque yq3: %f",
+			// 	motor_get_torque(yq1), motor_get_torque(yq2),
+			// 	motor_get_torque(yq3));
+			// LOG_INF("gyro: %f", chassis_get_status(chassis)->gyro);
+			// LOG_INF("X: %f Y: %f", X, Y);
+		}
+	}
 }
+K_THREAD_DEFINE(chassis_, 3072, chassis_thread_, NULL, NULL, NULL, 0, 0, 100);
+uint8_t begin=0;
+
 
 void Sensor_update_cb(QEKF_INS_t *QEKF)
 {
@@ -229,10 +225,15 @@ void trans_cb(int arg)
 	return;
 }
 
-K_THREAD_DEFINE(feedback_thread, 4096, console_feedback, NULL, NULL, NULL, -1, 0, 100);
+DUAL_PROPOSE_PROTOCOL_DEFINE(dual_protocol);
+ARES_BULK_INTERFACE_DEFINE(usb_bulk_interface);
+
 int main(void)
-{
+{	
 	k_msleep(3000);
+	ares_bind_interface(&usb_bulk_interface, &dual_protocol);
+	
+	
 	chassis_set_enabled(chassis, false);
 
 	LOG_INF("Starting motor calibrations...");
@@ -255,19 +256,20 @@ int main(void)
 	chassis_set_enabled(chassis, true);
 	chassis_set_gyro(chassis, 0);
 	chassis_set_speed(chassis, 0, 0);
+	dual_func_add(&dual_protocol, 0x1, (dual_trans_func_t)vel_func_cb);
 	// Example of using motors after calibration
 	while (1) {
 		
-		k_msleep(200);
+		k_msleep(100);
 		if((sbus_get_percent(sbus, 1) > -0.01f && 
 		   sbus_get_percent(sbus, 1) < 0.01f)  ||
 		   (sbus_get_percent(sbus, 3) > -0.01f && 
 		   sbus_get_percent(sbus, 3) < 0.01f)) 
 		{
-			chassis_set_static(chassis, 1);
+			chassis_set_static(chassis, true);
 		}
-		LOG_INF("Sbus1 : %f, Sbus3: %f", 
-			(double)sbus_get_percent(sbus, 1), (double)sbus_get_percent(sbus, 3));
+		// LOG_INF("Sbus1 : %f, Sbus3: %f", 
+		// 	(double)sbus_get_percent(sbus, 1), (double)sbus_get_percent(sbus, 3));
 		
 	}
 }

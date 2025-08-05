@@ -1,14 +1,12 @@
 / {
-	chassis: chassis {
+    chassis: chassis {
 		compatible = "ares,chassis";
 		status = "okay";
-		wheels = 
-				
-				<&steerwheel1  2550  1781>,
-				<&steerwheel2  0 (-3110)>,
-				<&steerwheel3 (-2550) 1781>;
+		wheels = <&steerwheel1 (-2500) 1750>,
+				<&steerwheel2  2500  1750>,
+				<&steerwheel3 0 (-3501)>;
 		angle-pid = <&chassis_roll_angle_pid>;
-		max_linear_accel = "4.8";
+		max_linear_accel = "40";
 		max_gyro = "20";
 	};
 	steerwheel {
@@ -18,9 +16,8 @@
 			status = "okay";
 			steer-motor = <&motor_steer0>;
 			wheel-motor = <&motor_wheel0>;
-			wheel-radius = "0.555";
-			angle-offset = "302";
-	
+			wheel-radius = "5.55";
+			angle-offset = "120";
 		};
 
 		steerwheel2: steerwheel2 {
@@ -29,9 +26,8 @@
 			status = "okay";
 			steer-motor = <&motor_steer1>;
 			wheel-motor = <&motor_wheel1>;
-			wheel-radius = "0.555";
-			angle-offset = "125";
-			
+			wheel-radius = "5.55";
+			angle-offset = "180";
 		};
 
 		steerwheel3: steerwheel3 {
@@ -40,9 +36,8 @@
 			status = "okay";
 			steer-motor = <&motor_steer2>;
 			wheel-motor = <&motor_wheel2>;
-			wheel-radius = "0.555";
-			angle-offset = "252";
-			
+			wheel-radius = "5.55";
+			angle-offset = "0";
 		};
 	};
 
@@ -97,7 +92,6 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
-			minor_arc;
 		};
 
 		motor_steer1: motor_steer1{
@@ -111,7 +105,6 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
-			minor_arc;
 		};
 
 		motor_steer2: motor_steer2{
@@ -125,16 +118,94 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
-			minor_arc;
 		};
-	};
 
-	sbus0: sbus0 {
-		compatible = "ares,sbus";
-		status = "okay";
-	};
-	pid {
-		chassis_roll_angle_pid: chassis_roll_angle_pid {
+        motor7: motor7{
+            compatible = "dji,motor";
+            is_m3508;
+            id = <7>;
+            rx_id = <0x207>;
+            tx_id = <0x1FF>;
+            gear_ratio = "12.94";
+            status = "okay";
+            can_channel = <&can1>;
+            controllers = <&angle_pid_1 &speed_pid_1>;
+            capabilities = "angle", "speed";
+        };
+
+        motor8: motor8{
+            compatible = "dji,motor";
+            is_m3508;
+            id = <8>;
+            rx_id = <0x208>;
+            tx_id = <0x1FF>;
+            gear_ratio = "12.94";
+            status = "okay";
+            can_channel = <&can1>;
+            controllers = <&angle_pid_1 &speed_pid_1>;
+            capabilities = "angle", "speed";
+        };
+};
+    mi_motor{
+        motor1: motor1{
+            compatible = "mi,motor";
+            id = <1>;
+            rx_id = <0x01>;
+            tx_id = <0x01>;
+            gear_ratio = "7.75";
+            status = "okay";
+            can_channel = <&can2>;
+            controllers = <&mit_pid_1 &angle_pid_2 &speed_pid_2>;
+            capabilities = "mit", "pv", "vo";
+        };
+        
+        motor2: motor2{
+            compatible = "mi,motor";
+            id = <2>;
+            rx_id = <0x02>;
+            tx_id = <0x02>;
+            gear_ratio = "7.75";
+            status = "okay";
+            can_channel = <&can2>;
+            controllers = <&mit_pid_1 &angle_pid_2 &speed_pid_2>;
+            capabilities = "mit", "pv", "vo";
+        };
+
+    };
+
+   	pid {
+		mit_pid_1: mit_pid_1 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "95";
+			k_i = "0.0";
+			k_d = "47.0";
+		};
+		angle_pid_1: angle_pid_1 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "5";
+			k_d = "0.1";
+		};
+		speed_pid_1: speed_pid_1 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.1";
+			k_d = "0.001";
+		};
+		angle_pid_2: angle_pid_2 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.7";
+			k_d = "8";
+		};
+		speed_pid_2: speed_pid_2 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.88";
+			k_d = "0.2";
+		};
+        chassis_roll_angle_pid: chassis_roll_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
 			k_p = "0.09";
@@ -143,16 +214,16 @@
 		steer_speed_pid: steer_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "10.0";
-			k_d = "0.8";
+			k_p = "1.25";
+			k_d = "28.5";
 			detri_lpf = "0.95";
 		};
 
 		steer_angle_pid: steer_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "10.0";
-			k_d = "0.8";
+			k_p = "0.85";
+			k_d = "20";
 			detri_lpf = "0.9985";
 		};
 		wheel_speed_pid: wheel_speed_pid {
@@ -171,8 +242,25 @@
 			detri_lpf = "0.85";
 		};
 	};
-	
-	pwm_button {
+
+    emvalve {
+        compatible = "gpio-keys";
+        emvalve1: emvalve1 {
+            gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+            label = "emvalve1";
+        };
+        emvalve2: emvalve2 {
+            gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
+            label = "emvalve2";
+        };
+    };
+
+    sbus0: sbus0 {
+        compatible = "ares,sbus";
+        status = "okay";
+    };
+
+    pwm_button {
 		compatible = "gpio-keys";
 		pwm_button1: button_1 {
 			gpios = <&gpioe 9 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;

@@ -12,11 +12,6 @@
 	steerwheel {
 		steerwheel1: steerwheel1 {
 			#wheel-cells = <2>;
-			out_max = "4";
-		};
-
-		wheel_angle_pid: wheel_angle_pid {
-			#controller-cells = <
 			compatible = "ares,steerwheel";
 			status = "okay";
 			steer-motor = <&motor_steer0>;
@@ -287,9 +282,3 @@
 &cdc_acm_uart0 {
 	status = "disabled";
 };
-// &usart3 {
-//     status = "okay";
-//     pinctrl-0 = <&usart3_tx_pb10 &usart3_rx_pb11>;
-//     pinctrl-names = "default";
-//     current-speed = <115200>;
-// };

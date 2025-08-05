@@ -34,11 +34,11 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
 #define RPM_TO_DEG_PER_SEC (6.0f) // 1 RPM = 6 degrees/second
 #define SPRING_KP (2.5f)          // 比例增益 (弹簧刚度)
-#define SPRING_KD (0.8f)          // 微分增益 (阻尼系数)
+#define SPRING_KD (0.9f)          // 微分增益 (阻尼系数)
 #define SPRING_REST_ANGLE (3.0f) // 弹簧静止位置
 #define SPRING_MAX_TORQUE (3.0f)  // 最大输出力矩
 #define SPRING_MIN_TORQUE (-1.0f) // 最小输出力矩
-#define TOP_ANGLE (72.0f) // 着陆检测阈值
+#define TOP_ANGLE (73.0f) // 着陆检测阈值
 #define DAMPING_DURATION_MS (500) // 缓冲持续时间 (毫秒)
 #define JUMP_TORQUE (1.75f) // 起跳力矩
 #define LIFT_TORQUE (-0.8f) // 抬升力矩
@@ -48,6 +48,11 @@ float speed1, speed2, speed3, speed4, speed5, speed6;
 float torque1, torque2, torque3, torque4, torque5, torque6;
 
 bool damper_finished = false;
+
+K_MUTEX_DEFINE(valve_mutex);
+
+// 添加跳跃优先标志
+static bool jump_priority_request = false;
 
 // 全局状态变量
 typedef struct {
@@ -169,30 +174,41 @@ bool sbus_get_bool(const struct device *sbus, int channel)
 // 电磁阀控制线程
 void valve_control_thread(void)
 {
-	gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
+    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
     gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
-	while(1) 
-	{
-		float valve_percent = sbus_get_percent(sbus, 6);
-		if (valve_percent > 0.5f) {
-		gpio_pin_set_dt(&emvalve1, true); // 推球
-		gpio_pin_set_dt(&emvalve2, false); // 不吸球
-		}
-		else if (valve_percent > -0.1f && valve_percent<0.1f )  {
-		gpio_pin_set_dt(&emvalve1, false); // 不推球
-		gpio_pin_set_dt(&emvalve2, true); // 吸球
-		}
-		else {
-		gpio_pin_set_dt(&emvalve1, false); // 不推球
-		gpio_pin_set_dt(&emvalve2, false); // 不吸球
-		}	
-
-	k_msleep(20); // 高频响应
-	}
+    
+    while(1) 
+    {
+        //检查是否有跳跃优先请求
+        if (!jump_priority_request && k_mutex_lock(&valve_mutex, K_NO_WAIT) == 0) {
+            float valve_percent = sbus_get_percent(sbus, 9);
+            
+            if (valve_percent > 0.5f) {
+                gpio_pin_set_dt(&emvalve1, true);
+                gpio_pin_set_dt(&emvalve2, false);
+            }
+            else if (valve_percent > -0.1f && valve_percent < 0.1f) {
+                gpio_pin_set_dt(&emvalve1, false);
+                gpio_pin_set_dt(&emvalve2, true);
+            }
+            else {
+                gpio_pin_set_dt(&emvalve1, false);
+                gpio_pin_set_dt(&emvalve2, false);
+            }
+            
+            k_mutex_unlock(&valve_mutex);
+        }
+        //如果有跳跃请求，主动避让
+        else if (jump_priority_request) {
+            k_msleep(2000);  // 让出更多时间给jump()
+        }
+        
+        k_msleep(2);
+    }
 }
 
 // 创建电磁阀线程
-K_THREAD_DEFINE(valve_thread, 1024, valve_control_thread, NULL, NULL, NULL, 6, 0, 100);
+K_THREAD_DEFINE(valve_thread, 1024, valve_control_thread, NULL, NULL, NULL, 10, 0, 100);
 
 void lift(void)
 {
@@ -202,6 +218,10 @@ void lift(void)
 void jump(void)
 {
 	reset_jump_state(); // 重置跳跃状态
+
+	jump_priority_request = true;
+    k_msleep(10);  // 短暂等待valve线程释放
+    k_mutex_lock(&valve_mutex, K_FOREVER);  // 强制获取互斥锁
 
 	while(1)
 	{
@@ -216,6 +236,27 @@ void jump(void)
 		k_msleep(200);
 	}
 	motor_set_torque(motor4, JUMP_TORQUE); // 起跳力矩	
+	// motor_set_torque(motor4, 0); // 测试力矩
+
+    while(1)
+    {
+        if(fabsf((motor_get_sum_angle(motor4))) > (TOP_ANGLE-40.0f))
+        {
+            
+                // LOG_INF("Jump acquired valve control");
+                
+                gpio_pin_set_dt(&emvalve1, true);  // 推球
+                k_msleep(150);
+                gpio_pin_set_dt(&emvalve2, false); // 不吸球
+                
+                // LOG_INF("Jump valve control completed");
+                
+                k_mutex_unlock(&valve_mutex);
+          
+            break;
+        }
+        k_msleep(1);
+    }
 	
 	while(1)
 	{
@@ -227,10 +268,10 @@ void jump(void)
 		}
 		k_msleep(1);
 	}
-	k_msleep(350);
-	gpio_pin_set_dt(&emvalve1, true); // 推球
-	k_msleep(150);
-	gpio_pin_set_dt(&emvalve2, false); // 不吸球
+
+
+    //清除优先标志
+    jump_priority_request = false;
 
 
 	
@@ -259,6 +300,8 @@ void jump(void)
 int main(void)
 {
 	k_msleep(1000);
+
+    k_thread_priority_set(k_current_get(), -1);
 
 	motor_set_mode(motor1, MIT);
     k_sleep(K_MSEC(1));
@@ -292,10 +335,10 @@ int main(void)
 while (1) {
 
 
-		if (sbus_get_percent(sbus, 7) > 0.5f) {
+		if (sbus_get_percent(sbus, 6) > 0.5f) {
 			jump();
 		}
-		else if (sbus_get_percent(sbus, 7) > -0.1f && sbus_get_percent(sbus, 7)< 0.1f ) {
+		else if (sbus_get_percent(sbus, 6) > -0.1f && sbus_get_percent(sbus, 6)< 0.1f ) {
 			motor_set_torque(motor4, 0.0f);
 		}
 		else {

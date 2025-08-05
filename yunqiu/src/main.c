@@ -34,10 +34,8 @@
 #define COMBINE_HL8(HIGH, LOW) ((HIGH << 8) + LOW)
  
 
- float current_angle3 = 0.0f; // 当前电机3角度（运球抬升mi）
- float current_angle4 = 0.0f; // 当前电机4角度（推射抬升mi）
- //float current_angle7 = 0.0f; // 当前电机7角度
- //float current_angle8 = 0.0f; // 当前电机8角度
+ float current_angle1 = 0.0f; // 当前电机1角度（运球抬升mi）
+ float current_angle2 = 0.0f; // 当前电机2角度（推射抬升mi）
  
 //  --- 将 feedback_thread_data 的声明移到全局范围 ---
  struct k_thread feedback_thread_data; // <--- 这里是关键改动
@@ -47,18 +45,6 @@
 // 全局变量
 static bool arm_position_reached_90 = false;
 static bool arm_position_reached_60 = false;
-//  K_THREAD_STACK_DEFINE(feedback_stack_area, 4096);
-
-//  void console_feedback(void *arg1, void *arg2, void *arg3)
-//  {
-//    while (1) {
-//      k_msleep(20);
-//      LOG_INF("motor1: %.2f", motor_get_angle(motor5));
-//      LOG_INF("motor2: %.2f", motor_get_angle(motor6));
-//    }
-//  }
-//  K_THREAD_DEFINE(feedback_thread, 4096, console_feedback, NULL, NULL, NULL, 1, 0,
-//     100);
 
 
  bool sbus_get_bool(const struct device *sbus, int channel)
@@ -176,50 +162,12 @@ void ball_movement_thread(void *arg1, void *arg2, void *arg3)
     }
 }
 
-
-
-// 修改线程优先级
 K_THREAD_DEFINE(ball_thread, 4096, ball_movement_thread, NULL, NULL, NULL, 7, 0, 0);
-//                                                                           ^
-//
-// 降低优先级到7
 
-
-// 电磁阀控制线程
-void valve_control_thread(void *arg1, void *arg2, void *arg3)
-{
-    while(1) {
-        if (k_mutex_lock(&sbus_mutex, K_MSEC(10)) == 0) {
-            float valve_percent = sbus_get_percent(sbus, 6);
-            k_mutex_unlock(&sbus_mutex);
-            
-            if (valve_percent > 0.5f) {
-                gpio_pin_set_dt(&emvalve1, true);   // 推球
-                gpio_pin_set_dt(&emvalve2, false);  // 不吸球
-            }
-            else if (valve_percent == 0.0f) {
-                gpio_pin_set_dt(&emvalve1, false);  // 不推球
-                gpio_pin_set_dt(&emvalve2, true);   // 吸球
-            }
-            else {
-                gpio_pin_set_dt(&emvalve1, false);  // 不推球
-                gpio_pin_set_dt(&emvalve2, false);  // 不吸球
-            }
-        }
-        
-        k_msleep(20);  // 高频响应
-    }
-}
-
-// 创建电磁阀线程
-K_THREAD_DEFINE(valve_thread, 1024, valve_control_thread, NULL, NULL, NULL, 6, 0, 0);
-
-
-void execute_lifting_control(void)
+void execute_lifting_control(void)//运球抬升
 {
     // 原有的抬升控制逻辑
-    current_angle3 = motor_get_angle(motor1);
-    current_angle4 = motor_get_angle(motor2);
+    current_angle1 = motor_get_angle(motor1);
     
     static bool prev_lifting_state = false;
     static bool lifting_sequence_running = false;
@@ -236,11 +184,11 @@ void execute_lifting_control(void)
             
             // 执行抬升的渐进序列
             for (int i = 1; i < 10; i++) {
-                float target_angle3 = ((-105.0f - current_angle3) * (float)i / 9.0f) + current_angle3;
-                // float target_angle4 = ((-94.0f - current_angle4) * (float)i / 9.0f) + current_angle4;
+                float target_angle1 = ((-105.0f - current_angle1) * (float)i / 9.0f) + current_angle1;
+
                 
-                motor_set_mit(motor1, 0.0f, target_angle3, 5.0f);
-                // motor_set_mit(motor4, 0.0f, target_angle4, 0.2f);
+                motor_set_mit(motor1, 0.0f, target_angle1, 5.0f);
+
                 
                 k_msleep(80);
                 
@@ -253,9 +201,7 @@ void execute_lifting_control(void)
             
             if (lifting_sequence_running) {
                 motor_set_mit(motor1, 0.0f, -105.0f, 5.0f);
-                // motor_set_mit(motor4, 0.0f, -94.0f, 4.0f);
                 target_position_reached = true;
-                // LOG_INF("Lifting sequence complete");
             }
             lifting_sequence_running = false;
             
@@ -266,11 +212,11 @@ void execute_lifting_control(void)
             target_position_reached = false;
             
             for (int i = 1; i < 10; i++) {
-                float target_angle3 = ((0.0f - current_angle3) * (float)i / 9.0f) + current_angle3;
-                // float target_angle4 = ((0.0f - current_angle4) * (float)i / 9.0f) + current_angle4;
+                float target_angle1 = ((0.0f - current_angle1) * (float)i / 9.0f) + current_angle1;
+
                 
-                motor_set_mit(motor1, 0.0f, target_angle3, 0.0f);
-                // motor_set_mit(motor4, 0.0f, target_angle4, 0.0f);
+                motor_set_mit(motor1, 0.0f, target_angle1, 0.0f);
+
                 
                 k_msleep(80);
                 
@@ -290,23 +236,22 @@ void execute_lifting_control(void)
     if (!lifting_sequence_running) {
         if (current_lifting_state && target_position_reached) {
             motor_set_mit(motor1, 0.0f, -105.0f, 5.0f);
-            // motor_set_mit(motor4, 0.0f, -94.0f, 4.0f);
         } else if (!current_lifting_state && !target_position_reached) {
             motor_set_mit(motor1, 0.0f, 0.0f, 2.0f);
-            // motor_set_mit(motor4, 0.0f, 0.0f, 4.0f);
         }
     }
 
 }
 
-void execute_arm_control(void)
+void execute_arm_control(void)//大臂
 {
-    if (sbus_get_percent(sbus, 7) > 0.5f) {
+    current_angle2 = motor_get_angle(motor2);
+    if (sbus_get_percent(sbus, 8) > 0.5f) {
         if (!arm_position_reached_90) { // 只有未完成抬升时才执行
             // 逐渐抬升到 -80.0f
             for (int i = 1; i <= 10; i++) {
-                float target_angle = ((-80.0f - current_angle4) * (float)i / 10.0f) + current_angle4;
-                motor_set_mit(motor2, 0.0f, target_angle, 0.1f);
+                float target_angle = ((-86.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
+                motor_set_mit(motor2, 0.0f, target_angle, -0.6f);
                 k_msleep(60);
             }
             arm_position_reached_90 = true; // 标记为已完成抬升
@@ -314,11 +259,11 @@ void execute_arm_control(void)
         }
     } 
     
-    else if(sbus_get_percent(sbus, 7) == 0.0f) {
+    else if(sbus_get_percent(sbus, 8) == 0.0f) {
         if (!arm_position_reached_60) { // 只有未完成抬升时才执行
             // 逐渐抬升到 -60.0f
             for (int i = 1; i <= 10; i++) {
-                float target_angle = ((-60.0f - current_angle4) * (float)i / 10.0f) + current_angle4;
+                float target_angle = ((-60.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
                 motor_set_mit(motor2, 0.0f, target_angle, 0.1f);
                 k_msleep(30);
             }
@@ -331,7 +276,7 @@ void execute_arm_control(void)
         if (arm_position_reached_60 || arm_position_reached_90) { // 只有未完成下降时才执行
             // 逐渐下降到 0.0f
             for (int i = 1; i <= 10; i++) {
-                float target_angle = ((0.0f - current_angle4) * (float)i / 10.0f) + current_angle4;
+                float target_angle = ((0.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
                 motor_set_mit(motor2, 0.0f, target_angle, 0.5f);
                 k_msleep(60);
             }
@@ -344,24 +289,29 @@ void execute_arm_control(void)
 
 int main(void)
 {
+
     k_msleep(1000);
     
-    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
-    gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
+    // gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
+    // gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
 
     // 设备就绪检查
-    if (!device_is_ready(motor1) || !device_is_ready(motor2) ||
-        !device_is_ready(motor7) || !device_is_ready(motor8)) {
-        LOG_ERR("One or more motor devices are not ready!");
-        return 0;
+    while(1)
+    {
+        if (!device_is_ready(motor1) || !device_is_ready(motor2) ||
+            !device_is_ready(motor7) || !device_is_ready(motor8)) {
+            LOG_ERR("One or more motor devices are not ready!");
+        }
+        else {
+            break;
+        }
+        k_msleep(500);
     }
 
-    motor_control(motor1, SET_ZERO);
-    motor_control(motor2, SET_ZERO);
-    motor_set_angle(motor1, 0);
-    motor_set_angle(motor2, 0);
-
-    // 初始化抬升电机 - 直接在主函数中
+    motor_control(motor1, ENABLE_MOTOR);
+    k_sleep(K_MSEC(1));
+    motor_control(motor2, ENABLE_MOTOR);
+    k_sleep(K_MSEC(1));
     motor_set_mode(motor1, MIT);
     k_sleep(K_MSEC(1));
     motor_set_mode(motor2, MIT);
@@ -371,8 +321,9 @@ int main(void)
     motor_control(motor2, SET_ZERO);
     k_sleep(K_MSEC(1));
 
-    // motor_set_angle(motor3, 0);
-    // motor_set_angle(motor4, 0);
+    motor_set_angle(motor1, 0);
+    motor_set_angle(motor2, 0);
+
 
     // Five link;
     // five_init(&link, 230.0, 270.0, 270.0, 230.0, 200.0);
@@ -385,11 +336,7 @@ int main(void)
     // k_msleep(1000);
 
 
-
-    
     while (1) {
-
-        
         // 检查运球线程状态
         if (k_mutex_lock(&sbus_mutex, K_MSEC(10)) == 0) {
             bool current_ball_state = sbus_get_bool(sbus, 5);
@@ -425,7 +372,7 @@ int main(void)
 // if (sbus_get_bool(sbus, 7) > 0 && arm_position_reached) {
 //     // 逐渐抬升到 -90.0f
 //     for (int i = 1; i <= 10; i++) {
-//         float target_angle = ((-90.0f - current_angle4) * (float)i / 10.0f) + current_angle4;
+//         float target_angle = ((-90.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
 //         motor_set_mit(motor4, 0.0f, target_angle, 0.1f);
 //         k_msleep(300); // 每次调整后等待 50ms
 //     }
@@ -433,7 +380,7 @@ int main(void)
 // } else {
 //     // 逐渐回到 0.0f
 //     for (int i = 1; i <= 10; i++) {
-//         float target_angle = ((0.0f - current_angle4) * (float)i / 10.0f) + current_angle4;
+//         float target_angle = ((0.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
 //         motor_set_mit(motor4, 0.0f, target_angle, -0.1f);
 //         k_msleep(300); // 每次调整后等待 50ms
 //     }

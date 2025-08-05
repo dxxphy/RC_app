@@ -93,11 +93,6 @@
 		};
 	};
 
-	// sbus0: sbus0 {
-	// 	compatible = "ares,sbus";
-	// 	status = "okay";
-	// };
-
 	pid {
 		jump_speed_pid: jump_speed_pid {
 			#controller-cells = <0>;
