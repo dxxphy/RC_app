@@ -44,8 +44,8 @@
 		steer_speed_pid: steer_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.0195";
-			k_d = "4.85";
+			k_p = "10.0";
+			k_d = "2.0";
 			detri_lpf = "0.95";
 		};
 

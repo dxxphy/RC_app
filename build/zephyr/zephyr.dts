@@ -1177,6 +1177,7 @@
 			pinctrl-0 = < &can2_rx_pb5 &can2_tx_pb6 >; /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:175 */
 			pinctrl-names = "default";                 /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:176 */
 			bitrate = < 0xf4240 >;                     /* in motor/boards/dji/robomaster_board_c/robomaster_board_c.dts:177 */
+			phandle = < 0x2d >;                        /* in motor/app/jump/boards/robomaster_board_c.overlay:56 */
 		};
 
 		/* node '/soc/rng@50060800' defined in zephyr/dts/arm/st/f4/stm32f405.dtsi:228 */
@@ -1572,12 +1573,12 @@
 		/* node '/dm_motor/motor4' defined in motor/app/jump/boards/robomaster_board_c.overlay:49 */
 		motor4: motor4 {
 			compatible = "dji,motor";      /* in motor/app/jump/boards/robomaster_board_c.overlay:50 */
-			id = < 0x4 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:51 */
-			rx_id = < 0x304 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:52 */
-			tx_id = < 0x3fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:53 */
+			id = < 0x5 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:51 */
+			rx_id = < 0x305 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:52 */
+			tx_id = < 0x4fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:53 */
 			gear_ratio = "1.0";            /* in motor/app/jump/boards/robomaster_board_c.overlay:54 */
 			status = "okay";               /* in motor/app/jump/boards/robomaster_board_c.overlay:55 */
-			can_channel = < &can1 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:56 */
+			can_channel = < &can2 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:56 */
 			is_dm_motor;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:57 */
 			dm_i_max = "100";              /* in motor/app/jump/boards/robomaster_board_c.overlay:58 */
 			dm_torque_ratio = "-0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:59 */
@@ -1589,12 +1590,12 @@
 		/* node '/dm_motor/motor5' defined in motor/app/jump/boards/robomaster_board_c.overlay:64 */
 		motor5: motor5 {
 			compatible = "dji,motor";      /* in motor/app/jump/boards/robomaster_board_c.overlay:65 */
-			id = < 0x5 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:66 */
-			rx_id = < 0x305 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:67 */
+			id = < 0x6 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:66 */
+			rx_id = < 0x306 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:67 */
 			tx_id = < 0x4fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:68 */
 			gear_ratio = "1.0";            /* in motor/app/jump/boards/robomaster_board_c.overlay:69 */
 			status = "okay";               /* in motor/app/jump/boards/robomaster_board_c.overlay:70 */
-			can_channel = < &can1 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:71 */
+			can_channel = < &can2 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:71 */
 			is_dm_motor;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:72 */
 			dm_i_max = "100";              /* in motor/app/jump/boards/robomaster_board_c.overlay:73 */
 			dm_torque_ratio = "-0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:74 */
@@ -1606,12 +1607,12 @@
 		/* node '/dm_motor/motor6' defined in motor/app/jump/boards/robomaster_board_c.overlay:79 */
 		motor6: motor6 {
 			compatible = "dji,motor";      /* in motor/app/jump/boards/robomaster_board_c.overlay:80 */
-			id = < 0x6 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:81 */
-			rx_id = < 0x306 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:82 */
+			id = < 0x7 >;                  /* in motor/app/jump/boards/robomaster_board_c.overlay:81 */
+			rx_id = < 0x307 >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:82 */
 			tx_id = < 0x4fe >;             /* in motor/app/jump/boards/robomaster_board_c.overlay:83 */
 			gear_ratio = "1.0";            /* in motor/app/jump/boards/robomaster_board_c.overlay:84 */
 			status = "okay";               /* in motor/app/jump/boards/robomaster_board_c.overlay:85 */
-			can_channel = < &can1 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:86 */
+			can_channel = < &can2 >;       /* in motor/app/jump/boards/robomaster_board_c.overlay:86 */
 			is_dm_motor;                   /* in motor/app/jump/boards/robomaster_board_c.overlay:87 */
 			dm_i_max = "100";              /* in motor/app/jump/boards/robomaster_board_c.overlay:88 */
 			dm_torque_ratio = "-0.061538"; /* in motor/app/jump/boards/robomaster_board_c.overlay:89 */

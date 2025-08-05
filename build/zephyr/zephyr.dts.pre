@@ -3813,12 +3813,12 @@ zephyr_udc0: &usbotg_fs {
 
   motor4: motor4 {
    compatible = "dji,motor";
-   id = <4>;
-   rx_id = <0x304>;
-   tx_id = <0x3FE>;
+   id = <5>;
+   rx_id = <0x305>;
+   tx_id = <0x4FE>;
    gear_ratio = "1.0";
    status = "okay";
-   can_channel = <&can1>;
+   can_channel = <&can2>;
    is_dm_motor;
    dm_i_max = "100";
    dm_torque_ratio = "-0.061538";
@@ -3828,12 +3828,12 @@ zephyr_udc0: &usbotg_fs {
   };
   motor5: motor5 {
    compatible = "dji,motor";
-   id = <5>;
-   rx_id = <0x305>;
+   id = <6>;
+   rx_id = <0x306>;
    tx_id = <0x4FE>;
    gear_ratio = "1.0";
    status = "okay";
-   can_channel = <&can1>;
+   can_channel = <&can2>;
    is_dm_motor;
    dm_i_max = "100";
    dm_torque_ratio = "-0.061538";
@@ -3843,12 +3843,12 @@ zephyr_udc0: &usbotg_fs {
   };
   motor6: motor6 {
    compatible = "dji,motor";
-   id = <6>;
-   rx_id = <0x306>;
+   id = <7>;
+   rx_id = <0x307>;
    tx_id = <0x4FE>;
    gear_ratio = "1.0";
    status = "okay";
-   can_channel = <&can1>;
+   can_channel = <&can2>;
    is_dm_motor;
    dm_i_max = "100";
    dm_torque_ratio = "-0.061538";

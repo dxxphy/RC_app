@@ -1,0 +1,93 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           ARM
+  Version:                           0x1
+  Entry point address:               0x800425d
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          1320680 (bytes into file)
+  Flags:                             0x5000400, Version5 EABI, hard-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         47
+  Section header string table index: 46
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] rom_start         PROGBITS        08000000 0000f8 000188 00 WAX  0   0  4
+  [ 2] text              PROGBITS        08000188 000280 025d54 00  AX  0   0  8
+  [ 3] .ARM.exidx        ARM_EXIDX       08025edc 025fd4 000008 00  AL  2   0  4
+  [ 4] initlevel         PROGBITS        08025ee4 025fdc 000170 00   A  0   0  4
+  [ 5] device_area       PROGBITS        08026054 02614c 000460 00   A  0   0  4
+  [ 6] sw_isr_table      PROGBITS        080264b4 0265ac 000290 00  WA  0   0  4
+  [ 7] _static_thre[...] PROGBITS        08026748 026840 000060 00  WA  0   0  8
+  [ 8] can_driver_a[...] PROGBITS        080267a8 0268a0 000044 00   A  0   0  4
+  [ 9] dma_driver_a[...] PROGBITS        080267ec 0268e4 000028 00   A  0   0  4
+  [10] flash_driver[...] PROGBITS        08026814 02690c 000018 00   A  0   0  4
+  [11] gpio_driver_[...] PROGBITS        0802682c 026924 000024 00   A  0   0  4
+  [12] pwm_driver_a[...] PROGBITS        08026850 026948 000008 00   A  0   0  4
+  [13] reset_driver[...] PROGBITS        08026858 026950 000010 00   A  0   0  4
+  [14] sensor_drive[...] PROGBITS        08026868 026960 000038 00   A  0   0  4
+  [15] spi_driver_a[...] PROGBITS        080268a0 026998 000008 00   A  0   0  4
+  [16] clock_contro[...] PROGBITS        080268a8 0269a0 00001c 00   A  0   0  4
+  [17] uart_driver_[...] PROGBITS        080268c4 0269bc 000064 00   A  0   0  4
+  [18] log_const_area    PROGBITS        08026928 026a20 0000e8 00   A  0   0  4
+  [19] log_backend_area  PROGBITS        08026a10 026b08 000010 00   A  0   0  4
+  [20] tbss              NOBITS          08026a20 026b18 000004 00 WAT  0   0  4
+  [21] rodata            PROGBITS        08026a20 026b18 004528 00   A  0   0  8
+  [22] .ramfunc          PROGBITS        20000000 02bcbc 000000 00   W  0   0  1
+  [23] datas             PROGBITS        20000000 02b040 000b4c 00  WA  0   0  8
+  [24] device_states     PROGBITS        20000b4c 02bb8c 000046 00  WA  0   0  1
+  [25] log_mpsc_pbu[...] PROGBITS        20000b94 02bbd4 000038 00  WA  0   0  4
+  [26] log_msg_ptr_area  PROGBITS        20000bcc 02bc0c 000004 00  WA  0   0  4
+  [27] k_timer_area      PROGBITS        20000bd0 02bc10 000038 00  WA  0   0  8
+  [28] k_mem_slab_area   PROGBITS        20000c08 02bc48 000038 00  WA  0   0  4
+  [29] k_msgq_area       PROGBITS        20000c40 02bc80 000028 00  WA  0   0  4
+  [30] k_sem_area        PROGBITS        20000c68 02bca8 000010 00  WA  0   0  4
+  [31] .comment          PROGBITS        00000000 02bcbc 000020 01  MS  0   0  1
+  [32] .debug_aranges    PROGBITS        00000000 02bce0 004988 00      0   0  8
+  [33] .debug_info       PROGBITS        00000000 030668 074763 00      0   0  1
+  [34] .debug_abbrev     PROGBITS        00000000 0a4dcb 01332b 00      0   0  1
+  [35] .debug_line       PROGBITS        00000000 0b80f6 0383ae 00      0   0  1
+  [36] .debug_frame      PROGBITS        00000000 0f04a4 013b24 00      0   0  4
+  [37] .debug_str        PROGBITS        00000000 103fc8 013c76 01  MS  0   0  1
+  [38] .debug_loc        PROGBITS        00000000 117c3e 002053 00      0   0  1
+  [39] .debug_ranges     PROGBITS        00000000 119c98 004d58 00      0   0  8
+  [40] .ARM.attributes   ARM_ATTRIBUTES  00000000 11e9f0 000038 00      0   0  1
+  [41] .last_section     PROGBITS        0802bbc0 02bcb8 000004 00  WA  0   0  4
+  [42] bss               NOBITS          20000c80 02bcc0 00255e 00  WA  0   0 32
+  [43] noinit            NOBITS          200031e0 02bcc0 004700 00  WA  0   0  8
+  [44] .symtab           SYMTAB          00000000 11ea28 0162e0 10     45 4394  4
+  [45] .strtab           STRTAB          00000000 134d08 00d75d 00      0   0  1
+  [46] .shstrtab         STRTAB          00000000 142465 000281 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), y (purecode), p (processor specific)
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  EXIDX          0x025fd4 0x08025edc 0x08025edc 0x00008 0x00008 R   0x4
+  LOAD           0x0000f8 0x08000000 0x08000000 0x2af48 0x2af48 RWE 0x8
+  LOAD           0x02b040 0x20000000 0x0802af48 0x00c78 0x00c78 RW  0x8
+  LOAD           0x02bcb8 0x0802bbc0 0x0802bbc0 0x00004 0x00004 RW  0x4
+  LOAD           0x000000 0x20000c80 0x20000c80 0x00000 0x06c60 RW  0x20
+  TLS            0x026b18 0x08026a20 0x08026a20 0x00000 0x00004 R   0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .ARM.exidx 
+   01     rom_start text .ARM.exidx initlevel device_area sw_isr_table _static_thread_data_area can_driver_api_area dma_driver_api_area flash_driver_api_area gpio_driver_api_area pwm_driver_api_area reset_driver_api_area sensor_driver_api_area spi_driver_api_area clock_control_driver_api_area uart_driver_api_area log_const_area log_backend_area rodata 
+   02     datas device_states log_mpsc_pbuf_area log_msg_ptr_area k_timer_area k_mem_slab_area k_msgq_area k_sem_area 
+   03     .last_section 
+   04     bss noinit 
+   05     tbss 

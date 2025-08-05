@@ -15,7 +15,9 @@
 #include <zephyr/drivers/sbus.h>
 #include <ares/board/init.h>
 #include <ares/ekf/imu_task.h>
-#include <ares/vofa/justfloat.h>
+#include <ares/interface/usb/usb_bulk.h>
+#include <ares/protocol/dual/dual_protocol.h>
+#include <ares/ares_comm.h>
 #include "ares/ekf/QuaternionEKF.h"
 #include "devices.h"
 #include <zephyr/zbus/zbus.h>

@@ -104,11 +104,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/cmake_install.cmake")
 endif()
 

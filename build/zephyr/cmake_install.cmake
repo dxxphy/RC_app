@@ -69,7 +69,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/cmake_install.cmake")
+  include("/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

@@ -327,26 +327,6 @@ uintptr_t z_mrsh_gpio_get_pending_int(uintptr_t arg1, uintptr_t arg2, uintptr_t 
          uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
 
 __weak ALIAS_OF(handler_no_syscall)
-uintptr_t z_mrsh_hwinfo_get_device_id(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
-         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
-
-__weak ALIAS_OF(handler_no_syscall)
-uintptr_t z_mrsh_hwinfo_get_device_eui64(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
-         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
-
-__weak ALIAS_OF(handler_no_syscall)
-uintptr_t z_mrsh_hwinfo_get_reset_cause(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
-         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
-
-__weak ALIAS_OF(handler_no_syscall)
-uintptr_t z_mrsh_hwinfo_clear_reset_cause(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
-         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
-
-__weak ALIAS_OF(handler_no_syscall)
-uintptr_t z_mrsh_hwinfo_get_supported_reset_cause(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
-         uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
-
-__weak ALIAS_OF(handler_no_syscall)
 uintptr_t z_mrsh_pwm_set_cycles(uintptr_t arg1, uintptr_t arg2, uintptr_t arg3,
          uintptr_t arg4, uintptr_t arg5, uintptr_t arg6, void *ssf);
 
@@ -1066,11 +1046,6 @@ const _k_syscall_handler_t _k_syscall_table[K_SYSCALL_LIMIT] = {
 	[K_SYSCALL_GPIO_PORT_CLEAR_BITS_RAW] = z_mrsh_gpio_port_clear_bits_raw,
 	[K_SYSCALL_GPIO_PORT_TOGGLE_BITS] = z_mrsh_gpio_port_toggle_bits,
 	[K_SYSCALL_GPIO_GET_PENDING_INT] = z_mrsh_gpio_get_pending_int,
-	[K_SYSCALL_HWINFO_GET_DEVICE_ID] = z_mrsh_hwinfo_get_device_id,
-	[K_SYSCALL_HWINFO_GET_DEVICE_EUI64] = z_mrsh_hwinfo_get_device_eui64,
-	[K_SYSCALL_HWINFO_GET_RESET_CAUSE] = z_mrsh_hwinfo_get_reset_cause,
-	[K_SYSCALL_HWINFO_CLEAR_RESET_CAUSE] = z_mrsh_hwinfo_clear_reset_cause,
-	[K_SYSCALL_HWINFO_GET_SUPPORTED_RESET_CAUSE] = z_mrsh_hwinfo_get_supported_reset_cause,
 	[K_SYSCALL_PWM_SET_CYCLES] = z_mrsh_pwm_set_cycles,
 	[K_SYSCALL_PWM_GET_CYCLES_PER_SEC] = z_mrsh_pwm_get_cycles_per_sec,
 	[K_SYSCALL_PWM_ENABLE_CAPTURE] = z_mrsh_pwm_enable_capture,

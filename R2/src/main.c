@@ -47,8 +47,12 @@ void rx_cb(void) {
     go_to_position(&link, Coordinates[0], Coordinates[1]);
     
     // 日志输出（可选择降低频率）
-    LOG_DBG("Coordinates: x=%.1f, y=%.1f", Coordinates[0], Coordinates[1]);
-}
+    for(int i = 0; i < 10; i++) {
+       
+          LOG_DBG("Coordinates: x=%.1f, y=%.1f", Coordinates[0], Coordinates[1]);
+          k_msleep(200);
+        }
+    }
 
 ARES_BULK_INTERFACE_DEFINE(usb_bulk_interface);
 DUAL_PROPOSE_PROTOCOL_DEFINE(dual_protocol);

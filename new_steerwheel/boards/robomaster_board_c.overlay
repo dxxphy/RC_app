@@ -2,11 +2,13 @@
 	chassis: chassis {
 		compatible = "ares,chassis";
 		status = "okay";
-		wheels = <&steerwheel1 (-2500) 1750>,
-				<&steerwheel2  2500  1750>,
-				<&steerwheel3 0 (-3501)>;
+		wheels = 
+				
+				<&steerwheel1  2550  1781>,
+				<&steerwheel2  0 (-3110)>,
+				<&steerwheel3 (-2550) 1781>;
 		angle-pid = <&chassis_roll_angle_pid>;
-		max_linear_accel = "40";
+		max_linear_accel = "10";
 		max_gyro = "20";
 	};
 	steerwheel {
@@ -16,8 +18,9 @@
 			status = "okay";
 			steer-motor = <&motor_steer0>;
 			wheel-motor = <&motor_wheel0>;
-			wheel-radius = "5.55";
-			angle-offset = "120";
+			wheel-radius = "0.555";
+			angle-offset = "302";
+	
 		};
 
 		steerwheel2: steerwheel2 {
@@ -26,8 +29,9 @@
 			status = "okay";
 			steer-motor = <&motor_steer1>;
 			wheel-motor = <&motor_wheel1>;
-			wheel-radius = "5.55";
-			angle-offset = "180";
+			wheel-radius = "0.555";
+			angle-offset = "125";
+			
 		};
 
 		steerwheel3: steerwheel3 {
@@ -36,8 +40,9 @@
 			status = "okay";
 			steer-motor = <&motor_steer2>;
 			wheel-motor = <&motor_wheel2>;
-			wheel-radius = "5.55";
-			angle-offset = "0";
+			wheel-radius = "0.555";
+			angle-offset = "252";
+			
 		};
 	};
 
@@ -86,12 +91,13 @@
 			is_m2006;
 			id = <4>;
 			rx_id = <0x204>;
-			tx_id = <0x1FF>;
+			tx_id = <0x200>;
 			gear_ratio = "36.0";
 			status = "okay";
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
+			minor_arc;
 		};
 
 		motor_steer1: motor_steer1{
@@ -105,6 +111,7 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
+			minor_arc;
 		};
 
 		motor_steer2: motor_steer2{
@@ -118,6 +125,7 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
+			minor_arc;
 		};
 	};
 
@@ -135,16 +143,16 @@
 		steer_speed_pid: steer_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "1.25";
-			k_d = "28.5";
+			k_p = "10.0";
+			k_d = "0.8";
 			detri_lpf = "0.95";
 		};
 
 		steer_angle_pid: steer_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.85";
-			k_d = "20";
+			k_p = "10.0";
+			k_d = "0.8";
 			detri_lpf = "0.9985";
 		};
 		wheel_speed_pid: wheel_speed_pid {

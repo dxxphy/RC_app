@@ -4,7 +4,7 @@
             compatible = "dji,motor";
             is_m2006;
             id = <3>;
-            rx_id = <0x201>;
+            rx_id = <0x203>;
             tx_id = <0x200>;
             gear_ratio = "36";
             status = "okay";
@@ -17,7 +17,7 @@
             compatible = "dji,motor";
             is_m2006;
             id = <4>;
-            rx_id = <0x202>;
+            rx_id = <0x204>;
             tx_id = <0x200>;
             gear_ratio = "36";
             status = "okay";
@@ -47,4 +47,23 @@
 			k_d = "0.001";
 		};
 	};
+    
+    gpio_devices {
+        compatible = "gpio-keys"; // 或者使用其他合适的compatible
+        
+        emvalve1: emvalve1 {
+            gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+            label = "emvalve1";
+        };
+        
+        emvalve2: emvalve2 {
+            gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
+            label = "emvalve2";
+        };
+    };
+
+    sbus0: sbus0 {
+        compatible = "ares,sbus";
+        status = "okay";
+    };
 };

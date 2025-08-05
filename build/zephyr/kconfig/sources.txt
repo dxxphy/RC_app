@@ -24,6 +24,7 @@
 /home/librgod/zephyr_workspace/motor/include/ares/Kconfig
 /home/librgod/zephyr_workspace/motor/include/ares/connectivity/Kconfig
 /home/librgod/zephyr_workspace/motor/include/ares/interface/Kconfig
+/home/librgod/zephyr_workspace/motor/include/ares/interface/uart/Kconfig
 /home/librgod/zephyr_workspace/motor/include/ares/interface/usb/Kconfig
 /home/librgod/zephyr_workspace/motor/include/ares/protocol/Kconfig
 /home/librgod/zephyr_workspace/zephyr/Kconfig

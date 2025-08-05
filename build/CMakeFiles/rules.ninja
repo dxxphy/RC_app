@@ -280,25 +280,6 @@ rule C_STATIC_LIBRARY_LINKER__drivers__interrupt_controller_
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__drivers__usb__device_
-  depfile = $DEP_FILE
-  deps = gcc
-  command = ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER__drivers__usb__device_
-  command = $PRE_LINK && ccache /usr/bin/cmake -E rm -f $TARGET_FILE && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ar qc $TARGET_FILE $LINK_FLAGS $in && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
 rule C_COMPILER__drivers__can_
   depfile = $DEP_FILE
   deps = gcc
@@ -424,25 +405,6 @@ rule C_COMPILER__drivers__gpio_
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER__drivers__gpio_
-  command = $PRE_LINK && ccache /usr/bin/cmake -E rm -f $TARGET_FILE && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ar qc $TARGET_FILE $LINK_FLAGS $in && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER__drivers__hwinfo_
-  depfile = $DEP_FILE
-  deps = gcc
-  command = ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER__drivers__hwinfo_
   command = $PRE_LINK && ccache /usr/bin/cmake -E rm -f $TARGET_FILE && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ar qc $TARGET_FILE $LINK_FLAGS $in && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -709,25 +671,6 @@ rule C_COMPILER__.2e.2e__motor__include__ares__ekf_
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER__.2e.2e__motor__include__ares__ekf_
-  command = $PRE_LINK && ccache /usr/bin/cmake -E rm -f $TARGET_FILE && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ar qc $TARGET_FILE $LINK_FLAGS $in && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER__.2e.2e__motor__include__ares__usb_bulk_trans_
-  depfile = $DEP_FILE
-  deps = gcc
-  command = ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER__.2e.2e__motor__include__ares__usb_bulk_trans_
   command = $PRE_LINK && ccache /usr/bin/cmake -E rm -f $TARGET_FILE && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ar qc $TARGET_FILE $LINK_FLAGS $in && ccache /home/librgod/zephyr-sdk-0.17.0/arm-zephyr-eabi/bin/arm-zephyr-eabi-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT

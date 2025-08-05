@@ -12,7 +12,8 @@
 			capabilities = "speed";
 			is_dm_motor;
 			dm_i_max = "100";
-			dm_torque_ratio = "0.061538";
+			dm_torque_ratio = "-0.061538";
+			follow = <&motor4>;
 		};
 		motor2: motor2 {
 			compatible = "dji,motor";
@@ -26,8 +27,8 @@
 			capabilities = "";
 			is_dm_motor;
 			dm_i_max = "100";
-			dm_torque_ratio = "0.061538";
-			follow = <&motor1>;
+			dm_torque_ratio = "-0.061538";
+			follow = <&motor4>;
 		};
 		motor3: motor3 {
 			compatible = "dji,motor";
@@ -39,10 +40,10 @@
 			can_channel = <&can1>;
 			is_dm_motor;
 			dm_i_max = "100";
-			dm_torque_ratio = "0.061538";
+			dm_torque_ratio = "-0.061538";
 			controllers = <>;
 			capabilities = "";
-			follow = <&motor1>;
+			follow = <&motor4>;
 		};
 
 
@@ -56,10 +57,9 @@
 			can_channel = <&can2>;
 			is_dm_motor;
 			dm_i_max = "100";
-			dm_torque_ratio = "-0.061538";
+			dm_torque_ratio = "0.061538";
 			controllers = <>;
 			capabilities = "";
-			follow = <&motor1>;
 		};
 		motor5: motor5 {
 			compatible = "dji,motor";
@@ -71,10 +71,10 @@
 			can_channel = <&can2>;
 			is_dm_motor;
 			dm_i_max = "100";
-			dm_torque_ratio = "-0.061538";
+			dm_torque_ratio = "0.061538";
 			controllers = <>;
 			capabilities = "";
-			follow = <&motor1>;
+			follow = <&motor4>;
 		};
 		motor6: motor6 {
 			compatible = "dji,motor";
@@ -86,17 +86,17 @@
 			can_channel = <&can2>;
 			is_dm_motor;
 			dm_i_max = "100";
-			dm_torque_ratio = "-0.061538";
+			dm_torque_ratio = "0.061538";
 			controllers = <>;
 			capabilities = "";
-			follow = <&motor1>;
+			follow = <&motor4>;
 		};
 	};
 
-	sbus0: sbus0 {
-		compatible = "ares,sbus";
-		status = "okay";
-	};
+	// sbus0: sbus0 {
+	// 	compatible = "ares,sbus";
+	// 	status = "okay";
+	// };
 
 	pid {
 		jump_speed_pid: jump_speed_pid {
@@ -106,11 +106,46 @@
 			k_d = "0.0";
 		};
 	};
+	emvalve {
+		compatible = "gpio-keys";
+		emvalve1: emvalve1 {
+			gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+			label = "emvalve1";
+		};
+		emvalve2: emvalve2 {
+			gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
+			label = "emvalve2";
+		};
+	};
+	
+	sbus0: sbus0 {
+		compatible = "ares,sbus";
+		status = "okay";
+	};
 };
-
 
 
 
 &cdc_acm_uart0 {
 	status = "disabled";
 };
+
+&spi1 {
+    status = "okay";
+
+    bmi08x_accel: bmi08x_accel@0 {
+        compatible = "bosch,bmi08x-accel";
+		status = "okay";
+        reg = <0>;
+        spi-max-frequency = <8000000>;
+        int-gpios = <&gpioc 4 GPIO_ACTIVE_HIGH>;
+        accel-hz = "1600";
+        accel-fs = <12>;
+		int1-map-io = <0>;
+		int2-map-io = <0>;
+        int1-conf-io = <0>;
+		int2-conf-io = <0>;
+		
+    };
+};
+

@@ -1,6 +1,6 @@
-menu "motor demo (/home/librgod/zephyr_workspace/motor)"
+menu "ARES framework (/home/librgod/zephyr_workspace/motor)"
 osource "/home/librgod/zephyr_workspace/motor/Kconfig"
-config ZEPHYR_MOTOR_DEMO_MODULE
+config ZEPHYR_ARES_FRAMEWORK_MODULE
 	bool
 	default y
 endmenu

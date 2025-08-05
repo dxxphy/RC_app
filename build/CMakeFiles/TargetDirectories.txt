@@ -149,10 +149,6 @@
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/tracing/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/class/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/subsys/usb/device/class/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/disk/CMakeFiles/edit_cache.dir
@@ -170,9 +166,6 @@
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pcie/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/device/CMakeFiles/drivers__usb__device.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/device/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/device/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/common/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb/common/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/usb_c/CMakeFiles/edit_cache.dir
@@ -198,9 +191,6 @@
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/gpio/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/gpio/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/CMakeFiles/drivers__hwinfo.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/hwinfo/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/pinctrl/CMakeFiles/rebuild_cache.dir
@@ -297,45 +287,42 @@
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/timer/CMakeFiles/drivers__timer.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/timer/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/zephyr/drivers/timer/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dji/CMakeFiles/..__motor__drivers__motor__dji.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dji/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dji/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dm/CMakeFiles/..__motor__drivers__motor__dm.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dm/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/dm/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/common/CMakeFiles/..__motor__drivers__motor__common.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/common/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/motor/common/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/pid/CMakeFiles/..__motor__drivers__pid.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/pid/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/pid/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/transfer/CMakeFiles/..__motor__drivers__transfer.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/transfer/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/transfer/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/sensor/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/drivers/sensor/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/ekf/CMakeFiles/..__motor__include__ares__ekf.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/ekf/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/ekf/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/usb_bulk_trans/CMakeFiles/..__motor__include__ares__usb_bulk_trans.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/usb_bulk_trans/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/usb_bulk_trans/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/board/CMakeFiles/..__motor__include__ares__board.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/board/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/board/CMakeFiles/rebuild_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/plotter/CMakeFiles/..__motor__include__ares__plotter.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/plotter/CMakeFiles/edit_cache.dir
-/home/librgod/zephyr_workspace/motor/app/build/modules/motor demo/include/ares/plotter/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/dji/CMakeFiles/..__motor__drivers__motor__dji.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/dji/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/dji/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/dm/CMakeFiles/..__motor__drivers__motor__dm.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/dm/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/dm/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/common/CMakeFiles/..__motor__drivers__motor__common.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/common/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/motor/common/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/pid/CMakeFiles/..__motor__drivers__pid.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/pid/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/pid/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/transfer/CMakeFiles/..__motor__drivers__transfer.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/transfer/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/transfer/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/sensor/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/drivers/sensor/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/ekf/CMakeFiles/..__motor__include__ares__ekf.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/ekf/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/ekf/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/board/CMakeFiles/..__motor__include__ares__board.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/board/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/board/CMakeFiles/rebuild_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/plotter/CMakeFiles/..__motor__include__ares__plotter.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/plotter/CMakeFiles/edit_cache.dir
+/home/librgod/zephyr_workspace/motor/app/build/modules/ARES framework/include/ares/plotter/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/CMakeFiles/edit_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/CMakeFiles/rebuild_cache.dir
 /home/librgod/zephyr_workspace/motor/app/build/modules/cmsis/cmsis/CMakeFiles/edit_cache.dir

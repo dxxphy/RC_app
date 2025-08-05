@@ -641,46 +641,6 @@
     ],
     [
         [
-            "ssize_t hwinfo_get_device_id",
-            "uint8_t *buffer, size_t length"
-        ],
-        "hwinfo.h",
-        true
-    ],
-    [
-        [
-            "int hwinfo_get_device_eui64",
-            "uint8_t *buffer"
-        ],
-        "hwinfo.h",
-        true
-    ],
-    [
-        [
-            "int hwinfo_get_reset_cause",
-            "uint32_t *cause"
-        ],
-        "hwinfo.h",
-        true
-    ],
-    [
-        [
-            "int hwinfo_clear_reset_cause",
-            "void"
-        ],
-        "hwinfo.h",
-        true
-    ],
-    [
-        [
-            "int hwinfo_get_supported_reset_cause",
-            "uint32_t *supported"
-        ],
-        "hwinfo.h",
-        true
-    ],
-    [
-        [
             "int pwm_set_cycles",
             "const struct device *dev, uint32_t channel,\n\t\t\t     uint32_t period, uint32_t pulse,\n\t\t\t     pwm_flags_t flags"
         ],
@@ -2789,6 +2749,46 @@
             "const struct device *dev"
         ],
         "haptics.h",
+        false
+    ],
+    [
+        [
+            "ssize_t hwinfo_get_device_id",
+            "uint8_t *buffer, size_t length"
+        ],
+        "hwinfo.h",
+        false
+    ],
+    [
+        [
+            "int hwinfo_get_device_eui64",
+            "uint8_t *buffer"
+        ],
+        "hwinfo.h",
+        false
+    ],
+    [
+        [
+            "int hwinfo_get_reset_cause",
+            "uint32_t *cause"
+        ],
+        "hwinfo.h",
+        false
+    ],
+    [
+        [
+            "int hwinfo_clear_reset_cause",
+            "void"
+        ],
+        "hwinfo.h",
+        false
+    ],
+    [
+        [
+            "int hwinfo_get_supported_reset_cause",
+            "uint32_t *supported"
+        ],
+        "hwinfo.h",
         false
     ],
     [
