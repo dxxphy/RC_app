@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <zephyr/device.h>
@@ -20,6 +21,9 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
 #define G 9.75965f
 
+#define xipan_sbus 8
+#define jump_sbus 11
+#define lift_sbus 10
 
 /* CAN Feedback to console*/
 // void console_feedback(void *arg1, void *arg2, void *arg3)
@@ -33,19 +37,19 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
 
 #define RPM_TO_DEG_PER_SEC (6.0f) // 1 RPM = 6 degrees/second
-#define SPRING_KP (2.5f)          // 比例增益 (弹簧刚度)
-#define SPRING_KD (0.9f)          // 微分增益 (阻尼系数)
+#define SPRING_KP (0.8f)          // 比例增益 (弹簧刚度)
+#define SPRING_KD (5.0f)          // 微分增益 (阻尼系数)
 #define SPRING_REST_ANGLE (3.0f) // 弹簧静止位置
-#define SPRING_MAX_TORQUE (3.0f)  // 最大输出力矩
+#define SPRING_MAX_TORQUE (5.0f)  // 最大输出力矩
 #define SPRING_MIN_TORQUE (-1.0f) // 最小输出力矩
 #define TOP_ANGLE (73.0f) // 着陆检测阈值
-#define DAMPING_DURATION_MS (500) // 缓冲持续时间 (毫秒)
-#define JUMP_TORQUE (1.75f) // 起跳力矩
-#define LIFT_TORQUE (-0.8f) // 抬升力矩
+#define DAMPING_DURATION_MS (800) // 缓冲持续时间 (毫秒)
+#define JUMP_TORQUE (2.9f) // 起跳力矩
+#define LIFT_TORQUE (-1.0f) // 抬升力矩
 
-float angle1, angle2, angle3, angle4, angle5, angle6;
-float speed1, speed2, speed3, speed4, speed5, speed6;
-float torque1, torque2, torque3, torque4, torque5, torque6;
+float angle1, angle3, angle4, angle6;
+float speed1, speed3, speed4, speed6;
+float torque1, torque3, torque4, torque6;
 
 bool damper_finished = false;
 
@@ -107,6 +111,8 @@ float calculate_spring_torque(float current_angle, float current_velocity)
     float damping_force = SPRING_KD * velocity_error; // 微分项 (阻尼力)
     
     float total_torque = spring_force + damping_force;
+
+    LOG_ERR("total_torque: %f", (double)total_torque);
     
     // 限制输出力矩范围
     if (total_torque > SPRING_MAX_TORQUE) {
@@ -174,24 +180,22 @@ bool sbus_get_bool(const struct device *sbus, int channel)
 // 电磁阀控制线程
 void valve_control_thread(void)
 {
-    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
+    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_INACTIVE);
     gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
     
     while(1) 
     {
         //检查是否有跳跃优先请求
         if (!jump_priority_request && k_mutex_lock(&valve_mutex, K_NO_WAIT) == 0) {
-            float valve_percent = sbus_get_percent(sbus, 9);
+            float valve_percent = sbus_get_percent(sbus, xipan_sbus);
             
-            if (valve_percent > 0.5f) {
-                gpio_pin_set_dt(&emvalve1, true);
-                gpio_pin_set_dt(&emvalve2, false);
-            }
-            else if (valve_percent > -0.1f && valve_percent < 0.1f) {
+            if (valve_percent < -0.1f) {
+                //吸球
                 gpio_pin_set_dt(&emvalve1, false);
                 gpio_pin_set_dt(&emvalve2, true);
             }
             else {
+                //放球
                 gpio_pin_set_dt(&emvalve1, false);
                 gpio_pin_set_dt(&emvalve2, false);
             }
@@ -208,7 +212,7 @@ void valve_control_thread(void)
 }
 
 // 创建电磁阀线程
-K_THREAD_DEFINE(valve_thread, 1024, valve_control_thread, NULL, NULL, NULL, 10, 0, 100);
+K_THREAD_DEFINE(valve_thread, 1024, valve_control_thread, NULL, NULL, NULL, 7, 0, 100);
 
 void lift(void)
 {
@@ -225,8 +229,8 @@ void jump(void)
 
 	while(1)
 	{
-		if(device_is_ready(motor1) && device_is_ready(motor2) && device_is_ready(motor3) && 
-		   device_is_ready(motor4) && device_is_ready(motor5) && device_is_ready(motor6))
+		if(device_is_ready(motor1) && device_is_ready(motor3) && 
+		   device_is_ready(motor4) && device_is_ready(motor6))
 		{
 			break;
 		}
@@ -235,28 +239,28 @@ void jump(void)
 		}
 		k_msleep(200);
 	}
-	motor_set_torque(motor4, JUMP_TORQUE); // 起跳力矩	
-	// motor_set_torque(motor4, 0); // 测试力矩
+	// motor_set_torque(motor4, JUMP_TORQUE); // 起跳力矩	
+	motor_set_torque(motor4, 0); // 测试力矩
 
-    while(1)
-    {
-        if(fabsf((motor_get_sum_angle(motor4))) > (TOP_ANGLE-40.0f))
-        {
+    // while(1)
+    // {
+    //     if(fabsf((motor_get_sum_angle(motor4))) > (TOP_ANGLE-30.0f))
+    //     {
             
-                // LOG_INF("Jump acquired valve control");
+    //             // LOG_INF("Jump acquired valve control");
                 
-                gpio_pin_set_dt(&emvalve1, true);  // 推球
-                k_msleep(150);
-                gpio_pin_set_dt(&emvalve2, false); // 不吸球
+    //             gpio_pin_set_dt(&emvalve1, true);  // 推球
+    //             k_msleep(150);
+    //             gpio_pin_set_dt(&emvalve2, false); // 不吸球
                 
-                // LOG_INF("Jump valve control completed");
+    //             // LOG_INF("Jump valve control completed");
                 
-                k_mutex_unlock(&valve_mutex);
+    //             k_mutex_unlock(&valve_mutex);
           
-            break;
-        }
-        k_msleep(1);
-    }
+    //         break;
+    //     }
+    //     k_msleep(1);
+    // }
 	
 	while(1)
 	{
@@ -301,31 +305,31 @@ int main(void)
 {
 	k_msleep(1000);
 
-    k_thread_priority_set(k_current_get(), -1);
+    k_thread_priority_set(k_current_get(), 1);
 
 	motor_set_mode(motor1, MIT);
     k_sleep(K_MSEC(1));
-    motor_set_mode(motor2, MIT);
-    k_sleep(K_MSEC(1));
+    // motor_set_mode(motor2, MIT);
+    // k_sleep(K_MSEC(1));
 	motor_set_mode(motor3, MIT);
     k_sleep(K_MSEC(1));
     motor_set_mode(motor4, MIT);
     k_sleep(K_MSEC(1));
-	motor_set_mode(motor5, MIT);
-    k_sleep(K_MSEC(1));
+	// motor_set_mode(motor5, MIT);
+    // k_sleep(K_MSEC(1));
     motor_set_mode(motor6, MIT);
     k_sleep(K_MSEC(1));
 
 	motor_control(motor1, SET_ZERO);
 	k_sleep(K_MSEC(1));
-	motor_control(motor2, SET_ZERO);
-	k_sleep(K_MSEC(1));
+	// motor_control(motor2, SET_ZERO);
+	// k_sleep(K_MSEC(1));
 	motor_control(motor3, SET_ZERO);
 	k_sleep(K_MSEC(1));
 	motor_control(motor4, SET_ZERO);
 	k_sleep(K_MSEC(1));
-	motor_control(motor5, SET_ZERO);
-	k_sleep(K_MSEC(1));
+	// motor_control(motor5, SET_ZERO);
+	// k_sleep(K_MSEC(1));
 	motor_control(motor6, SET_ZERO);
 
 	k_msleep(200);
@@ -334,28 +338,31 @@ int main(void)
 
 while (1) {
 
+        if(sbus_get_percent(sbus, jump_sbus) > 0.0f && 
+           sbus_get_percent(sbus, lift_sbus) < 0.1f)
+        {
+            jump();
+        }
 
-		if (sbus_get_percent(sbus, 6) > 0.5f) {
-			jump();
-		}
-		else if (sbus_get_percent(sbus, 6) > -0.1f && sbus_get_percent(sbus, 6)< 0.1f ) {
-			motor_set_torque(motor4, 0.0f);
-		}
-		else {
-			lift();
-		}
+        if(sbus_get_percent(sbus, lift_sbus) > 0.1f)
+        {
+            lift();
+        }
+        else{
+            motor_set_torque(motor4, 0.0f);
+        }
 
 
-		angle1 = motor_get_sum_angle(motor1);angle2 = motor_get_sum_angle(motor2);angle3 = motor_get_sum_angle(motor3);angle4 = motor_get_sum_angle(motor4);angle5 = motor_get_sum_angle(motor5);angle6 = motor_get_sum_angle(motor6);
-		speed1 = motor_get_speed(motor1);speed2 = motor_get_speed(motor2);speed3 = motor_get_speed(motor3);speed4 = motor_get_speed(motor4);speed5 = motor_get_speed(motor5);speed6 = motor_get_speed(motor6);
-		torque1 = motor_get_torque(motor1);torque2 = motor_get_torque(motor2);torque3 = motor_get_torque(motor3);torque4 = motor_get_torque(motor4);torque5 = motor_get_torque(motor5);torque6 = motor_get_torque(motor6);
+		angle1 = motor_get_sum_angle(motor1);angle3 = motor_get_sum_angle(motor3);angle4 = motor_get_sum_angle(motor4);angle6 = motor_get_sum_angle(motor6);
+		speed1 = motor_get_speed(motor1);speed3 = motor_get_speed(motor3);speed4 = motor_get_speed(motor4);speed6 = motor_get_speed(motor6);
+		torque1 = motor_get_torque(motor1);torque3 = motor_get_torque(motor3);torque4 = motor_get_torque(motor4);torque6 = motor_get_torque(motor6);
 		
-		LOG_INF("angle1: %.2f, angle2: %.2f, angle3: %.2f, angle4: %.2f, angle5: %.2f, angle6: %.2f",
-			(double)angle1, (double)angle2, (double)angle3, (double)angle4, (double)angle5, (double)angle6);
-		LOG_INF("speed1: %.2f, speed2: %.2f, speed3: %.2f, speed4: %.2f, speed5: %.2f, speed6: %.2f",
-			(double)speed1, (double)speed2, (double)speed3, (double)speed4, (double)speed5, (double)speed6);
-		LOG_INF("torque1: %.2f, torque2: %.2f, torque3: %.2f, torque4: %.2f, torque5: %.2f, torque6: %.2f",
-			(double)torque1, (double)torque2, (double)torque3, (double)torque4,(double)torque5, (double)torque6);
+		LOG_INF("angle1: %.2f, angle3: %.2f, angle4: %.2f, angle6: %.2f",
+			(double)angle1, (double)angle3, (double)angle4, (double)angle6);
+		LOG_INF("speed1: %.2f, speed3: %.2f, speed4: %.2f, speed6: %.2f",
+			(double)speed1, (double)speed3, (double)speed4, (double)speed6);
+		LOG_INF("torque1: %.2f, torque3: %.2f, torque4: %.2f, torque6: %.2f",
+			(double)torque1, (double)torque3, (double)torque4, (double)torque6);
 
 		k_msleep(50);
 		

@@ -15,21 +15,21 @@
 			dm_torque_ratio = "-0.061538";
 			follow = <&motor4>;
 		};
-		motor2: motor2 {
-			compatible = "dji,motor";
-			id = <2>;
-			rx_id = <0x302>;
-			tx_id = <0x3FE>;
-			gear_ratio = "1.0";
-			status = "okay";
-			can_channel = <&can1>;
-			controllers = <>;
-			capabilities = "";
-			is_dm_motor;
-			dm_i_max = "100";
-			dm_torque_ratio = "-0.061538";
-			follow = <&motor4>;
-		};
+		// motor2: motor2 {
+		// 	compatible = "dji,motor";
+		// 	id = <2>;
+		// 	rx_id = <0x302>;
+		// 	tx_id = <0x3FE>;
+		// 	gear_ratio = "1.0";
+		// 	status = "okay";
+		// 	can_channel = <&can1>;
+		// 	controllers = <>;
+		// 	capabilities = "";
+		// 	is_dm_motor;
+		// 	dm_i_max = "100";
+		// 	dm_torque_ratio = "-0.061538";
+		// 	follow = <&motor4>;
+		// };
 		motor3: motor3 {
 			compatible = "dji,motor";
 			id = <3>;
@@ -61,21 +61,21 @@
 			controllers = <>;
 			capabilities = "";
 		};
-		motor5: motor5 {
-			compatible = "dji,motor";
-			id = <6>;
-			rx_id = <0x306>;
-			tx_id = <0x4FE>;
-			gear_ratio = "1.0";
-			status = "okay";
-			can_channel = <&can2>;
-			is_dm_motor;
-			dm_i_max = "100";
-			dm_torque_ratio = "0.061538";
-			controllers = <>;
-			capabilities = "";
-			follow = <&motor4>;
-		};
+		// motor5: motor5 {
+		// 	compatible = "dji,motor";
+		// 	id = <6>;
+		// 	rx_id = <0x306>;
+		// 	tx_id = <0x4FE>;
+		// 	gear_ratio = "1.0";
+		// 	status = "okay";
+		// 	can_channel = <&can2>;
+		// 	is_dm_motor;
+		// 	dm_i_max = "100";
+		// 	dm_torque_ratio = "0.061538";
+		// 	controllers = <>;
+		// 	capabilities = "";
+		// 	follow = <&motor4>;
+		// };
 		motor6: motor6 {
 			compatible = "dji,motor";
 			id = <7>;
@@ -104,11 +104,11 @@
 	emvalve {
 		compatible = "gpio-keys";
 		emvalve1: emvalve1 {
-			gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+			gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;//c板1口，推射
 			label = "emvalve1";
 		};
 		emvalve2: emvalve2 {
-			gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
+			gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;//c板3口，吸球
 			label = "emvalve2";
 		};
 	};

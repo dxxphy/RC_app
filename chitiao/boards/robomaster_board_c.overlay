@@ -1,30 +1,56 @@
 / {
-    rm_motor {
-        motor0: motor0{
-            compatible = "dji,motor";
-            is_m2006;
-            id = <3>;
-            rx_id = <0x203>;
-            tx_id = <0x200>;
-            gear_ratio = "36";
+    // rm_motor {
+    //     motor0: motor0{
+    //         compatible = "dji,motor";
+    //         is_m2006;
+    //         id = <3>;
+    //         rx_id = <0x203>;
+    //         tx_id = <0x200>;
+    //         gear_ratio = "36";
+    //         status = "okay";
+    //         can_channel = <&can1>;
+    //         controllers = <&angle_pid_1 &speed_pid_1>;
+    //         capabilities = "angle", "speed";
+    //     };
+
+    //     motor1: motor1{
+    //         compatible = "dji,motor";
+    //         is_m2006;
+    //         id = <4>;
+    //         rx_id = <0x204>;
+    //         tx_id = <0x200>;
+    //         gear_ratio = "36";
+    //         status = "okay";
+    //         can_channel = <&can1>;
+    //         controllers = <&angle_pid_1 &speed_pid_1>;
+    //         capabilities = "angle", "speed";
+    //     };
+    // };
+    mi_motor{
+        motor1: motor1{
+            compatible = "mi,motor";
+            id = <1>;
+            rx_id = <0x01>;
+            tx_id = <0x01>;
+            gear_ratio = "7.75";
             status = "okay";
-            can_channel = <&can1>;
-            controllers = <&angle_pid_1 &speed_pid_1>;
-            capabilities = "angle", "speed";
+            can_channel = <&can2>;
+            controllers = <&mit_pid_1 &angle_pid_2 &speed_pid_2>;
+            capabilities = "mit", "pv", "vo";
+        };
+        
+        motor2: motor2{
+            compatible = "mi,motor";
+            id = <2>;
+            rx_id = <0x02>;
+            tx_id = <0x02>;
+            gear_ratio = "7.75";
+            status = "okay";
+            can_channel = <&can2>;
+            controllers = <&mit_pid_1 &angle_pid_2 &speed_pid_2>;
+            capabilities = "mit", "pv", "vo";
         };
 
-        motor1: motor1{
-            compatible = "dji,motor";
-            is_m2006;
-            id = <4>;
-            rx_id = <0x204>;
-            tx_id = <0x200>;
-            gear_ratio = "36";
-            status = "okay";
-            can_channel = <&can1>;
-            controllers = <&angle_pid_1 &speed_pid_1>;
-            capabilities = "angle", "speed";
-        };
     };
     pid {
 		mit_pid_1: mit_pid_1 {
@@ -46,6 +72,18 @@
 			k_p = "0.1";
 			k_d = "0.001";
 		};
+        angle_pid_2: angle_pid_2 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.7";
+			k_d = "8";
+		};
+		speed_pid_2: speed_pid_2 {
+			#controller-cells = <0>;
+			compatible = "pid,single";
+			k_p = "0.88";
+			k_d = "0.2";
+		};
 	};
     
     gpio_devices {
@@ -55,7 +93,7 @@
             gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
             label = "emvalve1";
         };
-        
+        ;
         emvalve2: emvalve2 {
             gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
             label = "emvalve2";

@@ -2,11 +2,11 @@
     chassis: chassis {
 		compatible = "ares,chassis";
 		status = "okay";
-		wheels = <&steerwheel1 (-2500) 1750>,
-				<&steerwheel2  2500  1750>,
-				<&steerwheel3 0 (-3501)>;
+		wheels = <&steerwheel1 2550  1781>,
+				<&steerwheel2  0 (-3110)>,
+				<&steerwheel3 (-2550) 1781>;
 		angle-pid = <&chassis_roll_angle_pid>;
-		max_linear_accel = "40";
+		max_linear_accel = "7.8";
 		max_gyro = "20";
 	};
 	steerwheel {
@@ -16,8 +16,8 @@
 			status = "okay";
 			steer-motor = <&motor_steer0>;
 			wheel-motor = <&motor_wheel0>;
-			wheel-radius = "5.55";
-			angle-offset = "120";
+			wheel-radius = "0.555";
+			angle-offset = "124";
 		};
 
 		steerwheel2: steerwheel2 {
@@ -26,8 +26,8 @@
 			status = "okay";
 			steer-motor = <&motor_steer1>;
 			wheel-motor = <&motor_wheel1>;
-			wheel-radius = "5.55";
-			angle-offset = "180";
+			wheel-radius = "0.555";
+			angle-offset = "215";
 		};
 
 		steerwheel3: steerwheel3 {
@@ -36,8 +36,8 @@
 			status = "okay";
 			steer-motor = <&motor_steer2>;
 			wheel-motor = <&motor_wheel2>;
-			wheel-radius = "5.55";
-			angle-offset = "0";
+			wheel-radius = "0.555";
+			angle-offset = "78";
 		};
 	};
 
@@ -92,6 +92,7 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
+			minor_arc;
 		};
 
 		motor_steer1: motor_steer1{
@@ -105,6 +106,7 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
+			minor_arc;
 		};
 
 		motor_steer2: motor_steer2{
@@ -118,6 +120,7 @@
 			can_channel = <&can1>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
+			minor_arc;
 		};
 
         motor7: motor7{
@@ -128,7 +131,7 @@
             tx_id = <0x1FF>;
             gear_ratio = "12.94";
             status = "okay";
-            can_channel = <&can1>;
+            can_channel = <&can2>;
             controllers = <&angle_pid_1 &speed_pid_1>;
             capabilities = "angle", "speed";
         };
@@ -141,7 +144,7 @@
             tx_id = <0x1FF>;
             gear_ratio = "12.94";
             status = "okay";
-            can_channel = <&can1>;
+            can_channel = <&can2>;
             controllers = <&angle_pid_1 &speed_pid_1>;
             capabilities = "angle", "speed";
         };
@@ -208,31 +211,32 @@
         chassis_roll_angle_pid: chassis_roll_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.09";
+			k_p = "0.2";
 			k_d = "0.27";
 		};
 		steer_speed_pid: steer_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "1.25";
-			k_d = "28.5";
+			k_p = "2.0";
+			k_d = "10.5";
 			detri_lpf = "0.95";
+			out_max = "1.2";
 		};
 
 		steer_angle_pid: steer_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.85";
-			k_d = "20";
+			k_p = "10.0";
+			k_d = "12.0";
 			detri_lpf = "0.9985";
 		};
 		wheel_speed_pid: wheel_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "0.12";
+			k_p = "0.2";
 			k_d = "0.2";
 			detri_lpf = "0.85";
-			out_max = "4";
+			out_max = "5.0";
 		};
 
 		wheel_angle_pid: wheel_angle_pid {
@@ -243,17 +247,17 @@
 		};
 	};
 
-    emvalve {
-        compatible = "gpio-keys";
-        emvalve1: emvalve1 {
-            gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
-            label = "emvalve1";
-        };
-        emvalve2: emvalve2 {
-            gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
-            label = "emvalve2";
-        };
-    };
+    // emvalve {
+    //     compatible = "gpio-keys";
+    //     emvalve1: emvalve1 {
+    //         gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;
+    //         label = "emvalve1";
+    //     };
+    //     emvalve2: emvalve2 {
+    //         gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;
+    //         label = "emvalve2";
+    //     };
+    // };
 
     sbus0: sbus0 {
         compatible = "ares,sbus";

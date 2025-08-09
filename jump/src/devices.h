@@ -3,10 +3,10 @@
 #include <zephyr/drivers/gpio.h>
 
 #define MOTOR1_NODE DT_NODELABEL(motor1)
-#define MOTOR2_NODE DT_NODELABEL(motor2)
+// #define MOTOR2_NODE DT_NODELABEL(motor2)
 #define MOTOR3_NODE DT_NODELABEL(motor3)
 #define MOTOR4_NODE DT_NODELABEL(motor4)
-#define MOTOR5_NODE DT_NODELABEL(motor5)
+// #define MOTOR5_NODE DT_NODELABEL(motor5)
 #define MOTOR6_NODE DT_NODELABEL(motor6)
 #define IMU_ACCEL_NODE DT_NODELABEL(bmi08x_accel)
 #define SBUS_NODE DT_NODELABEL(sbus0)
@@ -14,10 +14,10 @@
 #define EMValve2 DT_NODELABEL(emvalve2)
 
 const struct device *motor1 = DEVICE_DT_GET(MOTOR1_NODE);
-const struct device *motor2 = DEVICE_DT_GET(MOTOR2_NODE);
+// const struct device *motor2 = DEVICE_DT_GET(MOTOR2_NODE);
 const struct device *motor3 = DEVICE_DT_GET(MOTOR3_NODE);
 const struct device *motor4 = DEVICE_DT_GET(MOTOR4_NODE);
-const struct device *motor5 = DEVICE_DT_GET(MOTOR5_NODE);
+// const struct device *motor5 = DEVICE_DT_GET(MOTOR5_NODE);
 const struct device *motor6 = DEVICE_DT_GET(MOTOR6_NODE);
 const struct device *accel = DEVICE_DT_GET(IMU_ACCEL_NODE);
 

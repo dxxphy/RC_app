@@ -17,8 +17,9 @@
 #include <zephyr/drivers/sbus.h>
 #include <zephyr/drivers/sensor.h>
 
-#define MOTOR1_NODE DT_NODELABEL(motor0)
+#define MOTOR1_NODE DT_NODELABEL(motor2)
 #define MOTOR2_NODE DT_NODELABEL(motor1)
+
 #define SBUS_NODE DT_NODELABEL(sbus0)
 #define EMValve1 DT_NODELABEL(emvalve1)
 #define EMValve2 DT_NODELABEL(emvalve2)
@@ -27,7 +28,8 @@
 const struct device *sbus = DEVICE_DT_GET(SBUS_NODE);
 const struct gpio_dt_spec emvalve1 = GPIO_DT_SPEC_GET_BY_IDX(EMValve1, gpios, 0);
 const struct gpio_dt_spec emvalve2 = GPIO_DT_SPEC_GET_BY_IDX(EMValve2, gpios, 0);
-
+const struct device *motor1 = DEVICE_DT_GET(MOTOR1_NODE);
+const struct device *motor2 = DEVICE_DT_GET(MOTOR2_NODE);
 
 int sbus_get_bool(const struct device *sbus, int channel)
 {
@@ -35,10 +37,56 @@ int sbus_get_bool(const struct device *sbus, int channel)
 	return (int)sbus_get_percent(sbus, channel) > 0.5;
 }
 
+static bool arm_position_reached_90 = false;
+static bool arm_position_reached_60 = false;
+float current_angle2 = 0.0f; // 当前电机2角度（推射抬升mi）
+
+void execute_arm_control(void)//大臂
+{
+    current_angle2 = motor_get_angle(motor2);
+    if (sbus_get_percent(sbus, 7) > 0.5f) {
+        if (!arm_position_reached_90) { // 只有未完成抬升时才执行
+            // 逐渐抬升到 -80.0f
+            for (int i = 1; i <= 10; i++) {
+                float target_angle = ((-86.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
+                motor_set_mit(motor2, 0.0f, target_angle, -0.6f);
+                k_msleep(60);
+            }
+            arm_position_reached_90 = true; // 标记为已完成抬升
+            arm_position_reached_60 = false; // 重置状态
+        }
+    } 
+    
+    else if(sbus_get_percent(sbus, 7) == 0.0f) {
+        if (!arm_position_reached_60) { // 只有未完成抬升时才执行
+            // 逐渐抬升到 -60.0f
+            for (int i = 1; i <= 10; i++) {
+                float target_angle = ((-60.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
+                motor_set_mit(motor2, 0.0f, target_angle, 0.1f);
+                k_msleep(30);
+            }
+            arm_position_reached_60 = true; // 标记为已完成抬升
+            arm_position_reached_90 = false; // 重置状态
+        }
+    }
+    
+    else {
+        if (arm_position_reached_60 || arm_position_reached_90) { // 只有未完成下降时才执行
+            // 逐渐下降到 0.0f
+            for (int i = 1; i <= 10; i++) {
+                float target_angle = ((0.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
+                motor_set_mit(motor2, 0.0f, target_angle, 1.5f);
+                k_msleep(60);
+            }
+            arm_position_reached_60 = false;
+            arm_position_reached_90 = false; // 标记为已完成下降
+        }
+    }
+}
 int main(void)
 {
-    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_INACTIVE);
-    gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_INACTIVE);
+    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
+    gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
     
     // 明确设置初始状态
     gpio_pin_set_dt(&emvalve1, false);  // 不推球
@@ -50,7 +98,7 @@ int main(void)
     if(sbus_get_bool(sbus, 6)){
     //k_msleep(100);
         gpio_pin_set_dt(&emvalve1, true);//推球
-        k_msleep(200);
+        // k_msleep(100);
         gpio_pin_set_dt(&emvalve2, false);//不吸球
     }
     else {
