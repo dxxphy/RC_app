@@ -68,7 +68,7 @@ void execute_arm_control(void)//大臂
             // 逐渐下降到 0.0f
             for (int i = 1; i <= 10; i++) {
                 float target_angle = ((0.0f - current_angle2) * (float)i / 10.0f) + current_angle2;
-                motor_set_mit(motor2, 0.0f, target_angle, 0.5f);
+                motor_set_mit(motor2, 0.0f, target_angle, 1.5f);
                 k_msleep(60);
             }
             arm_position_reached_60 = false;

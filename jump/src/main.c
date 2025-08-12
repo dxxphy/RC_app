@@ -37,14 +37,14 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
 
 
 #define RPM_TO_DEG_PER_SEC (6.0f) // 1 RPM = 6 degrees/second
-#define SPRING_KP (0.8f)          // 比例增益 (弹簧刚度)
-#define SPRING_KD (5.0f)          // 微分增益 (阻尼系数)
+#define SPRING_KP (0.1f)          // 比例增益 (弹簧刚度)
+#define SPRING_KD (0.01f)          // 微分增益 (阻尼系数)
 #define SPRING_REST_ANGLE (3.0f) // 弹簧静止位置
 #define SPRING_MAX_TORQUE (5.0f)  // 最大输出力矩
 #define SPRING_MIN_TORQUE (-1.0f) // 最小输出力矩
-#define TOP_ANGLE (73.0f) // 着陆检测阈值
-#define DAMPING_DURATION_MS (800) // 缓冲持续时间 (毫秒)
-#define JUMP_TORQUE (2.9f) // 起跳力矩
+#define TOP_ANGLE (66.0f) // 着陆检测阈值
+#define DAMPING_DURATION_MS (1500) // 缓冲持续时间 (毫秒)
+#define JUMP_TORQUE (3.5f) // 起跳力矩
 #define LIFT_TORQUE (-1.0f) // 抬升力矩
 
 float angle1, angle3, angle4, angle6;
@@ -101,16 +101,17 @@ void reset_jump_state(void)
 float calculate_spring_torque(float current_angle, float current_velocity)
 {
     // 计算位置误差 (相对于静止位置)
-    float position_error = SPRING_REST_ANGLE - current_angle;
+    // float position_error = SPRING_REST_ANGLE - current_angle;
     
     // 计算速度误差 (期望速度为0，实现阻尼)
     float velocity_error = 0.0f - current_velocity;
     
+    
     // PD控制器输出
-    float spring_force = SPRING_KP * position_error;  // 比例项 (弹簧恢复力)
+    // float spring_force = SPRING_KP * position_error;  // 比例项 (弹簧恢复力)
     float damping_force = SPRING_KD * velocity_error; // 微分项 (阻尼力)
     
-    float total_torque = spring_force + damping_force;
+    float total_torque = damping_force;
 
     LOG_ERR("total_torque: %f", (double)total_torque);
     
@@ -150,18 +151,19 @@ void spring_damper_landing(float current_angle, float current_velocity)
         if (elapsed_time < DAMPING_DURATION_MS) {
             // 计算PD控制输出
             float control_torque = calculate_spring_torque(current_angle, current_velocity);
-            
+            LOG_INF("1");
             // 应用渐变衰减 (模拟能量耗散)
             float decay_factor = 1.0f - ((float)elapsed_time / DAMPING_DURATION_MS);
+            if(decay_factor < 0.3f) decay_factor = 0.3f;
             control_torque *= decay_factor;
             
             // 设置电机力矩
-            motor_set_torque(motor4, control_torque);
+            motor_set_torque(motor6, control_torque);
             
          
         } else {
             // 缓冲完成，停止控制
-            motor_set_torque(motor4, 0.0f);
+            motor_set_torque(motor6, 0.0f);
             spring_controller.is_active = false;
             jump_state.landing_detected = false;
             damper_finished = true;
@@ -179,16 +181,13 @@ bool sbus_get_bool(const struct device *sbus, int channel)
 
 // 电磁阀控制线程
 void valve_control_thread(void)
-{
-    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_INACTIVE);
-    gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
-    
+{    
     while(1) 
     {
         //检查是否有跳跃优先请求
         if (!jump_priority_request && k_mutex_lock(&valve_mutex, K_NO_WAIT) == 0) {
             float valve_percent = sbus_get_percent(sbus, xipan_sbus);
-            
+            // LOG_INF("sccessfully get valve mutex");
             if (valve_percent < -0.1f) {
                 //吸球
                 gpio_pin_set_dt(&emvalve1, false);
@@ -216,7 +215,7 @@ K_THREAD_DEFINE(valve_thread, 1024, valve_control_thread, NULL, NULL, NULL, 7, 0
 
 void lift(void)
 {
-	motor_set_torque(motor4, LIFT_TORQUE);
+	motor_set_torque(motor6, LIFT_TORQUE);
 }
 
 void jump(void)
@@ -226,6 +225,7 @@ void jump(void)
 	jump_priority_request = true;
     k_msleep(10);  // 短暂等待valve线程释放
     k_mutex_lock(&valve_mutex, K_FOREVER);  // 强制获取互斥锁
+    LOG_INF("successfully get valve mutex for jump");
 
 	while(1)
 	{
@@ -239,35 +239,36 @@ void jump(void)
 		}
 		k_msleep(200);
 	}
-	// motor_set_torque(motor4, JUMP_TORQUE); // 起跳力矩	
-	motor_set_torque(motor4, 0); // 测试力矩
+	motor_set_torque(motor6, JUMP_TORQUE); // 起跳力矩
+	// motor_set_torque(motor6, 0); // 测试力矩
+    
 
-    // while(1)
-    // {
-    //     if(fabsf((motor_get_sum_angle(motor4))) > (TOP_ANGLE-30.0f))
-    //     {
+    while(1)
+    {
+        if(fabsf((motor_get_sum_angle(motor6))) > (TOP_ANGLE-30.0f))
+        {
             
-    //             // LOG_INF("Jump acquired valve control");
+                LOG_INF("Jump acquired valve control");
                 
-    //             gpio_pin_set_dt(&emvalve1, true);  // 推球
-    //             k_msleep(150);
-    //             gpio_pin_set_dt(&emvalve2, false); // 不吸球
+                gpio_pin_set_dt(&emvalve1, true);  // 推球
+                k_msleep(150);
+                gpio_pin_set_dt(&emvalve2, false); // 不吸球
                 
-    //             // LOG_INF("Jump valve control completed");
+                LOG_INF("Jump valve control completed");
                 
-    //             k_mutex_unlock(&valve_mutex);
+                k_mutex_unlock(&valve_mutex);
           
-    //         break;
-    //     }
-    //     k_msleep(1);
-    // }
+            break;
+        }
+        k_msleep(2);
+    }
 	
 	while(1)
 	{
 
-		if(fabsf((motor_get_sum_angle(motor4))) > TOP_ANGLE)
+		if(fabsf((motor_get_sum_angle(motor6))) > TOP_ANGLE)
 		{
-			motor_set_torque(motor4, 0.0f);
+			motor_set_torque(motor6, 0.0f);
 			break;
 		}
 		k_msleep(1);
@@ -282,20 +283,20 @@ void jump(void)
 	while(1)
 	{
 
-		angle4 = motor_get_sum_angle(motor4);
+		angle6 = motor_get_sum_angle(motor6);
 
-  		float speed_rpm = motor_get_speed(motor4);
+  		float speed_rpm = motor_get_speed(motor6);
   
   		float current_velocity_dps = speed_rpm * RPM_TO_DEG_PER_SEC;
-
-  		spring_damper_landing(angle4, current_velocity_dps);
+        // LOG_INF("landing is ready");
+  		spring_damper_landing(angle6, current_velocity_dps);
 
 		if(damper_finished) {
 			LOG_INF("Damper finished, exiting jump loop");
 			break;
 		}
 
-		k_msleep(10);
+		k_msleep(1);
 	}
 }
 
@@ -306,6 +307,9 @@ int main(void)
 	k_msleep(1000);
 
     k_thread_priority_set(k_current_get(), 1);
+
+    gpio_pin_configure_dt(&emvalve1, GPIO_OUTPUT_ACTIVE);
+    gpio_pin_configure_dt(&emvalve2, GPIO_OUTPUT_ACTIVE);
 
 	motor_set_mode(motor1, MIT);
     k_sleep(K_MSEC(1));
@@ -349,7 +353,7 @@ while (1) {
             lift();
         }
         else{
-            motor_set_torque(motor4, 0.0f);
+            motor_set_torque(motor6, 0.0f);
         }
 
 
@@ -364,7 +368,7 @@ while (1) {
 		LOG_INF("torque1: %.2f, torque3: %.2f, torque4: %.2f, torque6: %.2f",
 			(double)torque1, (double)torque3, (double)torque4, (double)torque6);
 
-		k_msleep(50);
+		k_msleep(25);
 		
 	}
 }

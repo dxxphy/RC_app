@@ -87,7 +87,7 @@ void execute_ball_movement(void)
     k_msleep(1000);
     motor_set_speed(motor7, 0);
     motor_set_speed(motor8, 0);
-    k_msleep(1100);
+    k_msleep(1000);
     
 cleanup:
     // 确保电机停止

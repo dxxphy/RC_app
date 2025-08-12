@@ -17,7 +17,7 @@
 			steer-motor = <&motor_steer0>;
 			wheel-motor = <&motor_wheel0>;
 			wheel-radius = "0.555";
-			angle-offset = "124";
+			angle-offset = "126";
 		};
 
 		steerwheel2: steerwheel2 {
@@ -27,7 +27,7 @@
 			steer-motor = <&motor_steer1>;
 			wheel-motor = <&motor_wheel1>;
 			wheel-radius = "0.555";
-			angle-offset = "215";
+			angle-offset = "36";
 		};
 
 		steerwheel3: steerwheel3 {
@@ -37,7 +37,7 @@
 			steer-motor = <&motor_steer2>;
 			wheel-motor = <&motor_wheel2>;
 			wheel-radius = "0.555";
-			angle-offset = "78";
+			angle-offset = "81";
 		};
 	};
 
@@ -76,7 +76,7 @@
             tx_id = <0x200>;
 			gear_ratio = "15.7647";
 			status = "okay";
-			can_channel = <&can1>;
+			can_channel = <&can2>;
 			controllers = <&wheel_angle_pid &wheel_speed_pid>;
 			capabilities = "angle", "speed";
 		};
@@ -117,7 +117,7 @@
 			tx_id = <0x1FF>;
 			gear_ratio = "36.0";
 			status = "okay";
-			can_channel = <&can1>;
+			can_channel = <&can2>;
 			controllers = <&steer_angle_pid &steer_speed_pid>;
 			capabilities = "angle", "speed";
 			minor_arc;
@@ -217,8 +217,8 @@
 		steer_speed_pid: steer_speed_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "2.0";
-			k_d = "10.5";
+			k_p = "0.85";
+			k_d = "10.0";
 			detri_lpf = "0.95";
 			out_max = "1.2";
 		};
@@ -226,7 +226,7 @@
 		steer_angle_pid: steer_angle_pid {
 			#controller-cells = <0>;
 			compatible = "pid,single";
-			k_p = "10.0";
+			k_p = "0.25";
 			k_d = "12.0";
 			detri_lpf = "0.9985";
 		};

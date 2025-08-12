@@ -13,7 +13,7 @@
 			is_dm_motor;
 			dm_i_max = "100";
 			dm_torque_ratio = "-0.061538";
-			follow = <&motor4>;
+			follow = <&motor6>;
 		};
 		// motor2: motor2 {
 		// 	compatible = "dji,motor";
@@ -28,7 +28,7 @@
 		// 	is_dm_motor;
 		// 	dm_i_max = "100";
 		// 	dm_torque_ratio = "-0.061538";
-		// 	follow = <&motor4>;
+		// 	follow = <&motor6>;
 		// };
 		motor3: motor3 {
 			compatible = "dji,motor";
@@ -43,7 +43,7 @@
 			dm_torque_ratio = "-0.061538";
 			controllers = <>;
 			capabilities = "";
-			follow = <&motor4>;
+			follow = <&motor6>;
 		};
 
 
@@ -60,6 +60,7 @@
 			dm_torque_ratio = "0.061538";
 			controllers = <>;
 			capabilities = "";
+			follow = <&motor6>;
 		};
 		// motor5: motor5 {
 		// 	compatible = "dji,motor";
@@ -74,7 +75,7 @@
 		// 	dm_torque_ratio = "0.061538";
 		// 	controllers = <>;
 		// 	capabilities = "";
-		// 	follow = <&motor4>;
+		// 	follow = <&motor6>;
 		// };
 		motor6: motor6 {
 			compatible = "dji,motor";
@@ -89,7 +90,6 @@
 			dm_torque_ratio = "0.061538";
 			controllers = <>;
 			capabilities = "";
-			follow = <&motor4>;
 		};
 	};
 
@@ -104,11 +104,11 @@
 	emvalve {
 		compatible = "gpio-keys";
 		emvalve1: emvalve1 {
-			gpios = <&gpiob 12 GPIO_ACTIVE_LOW>;//c板1口，推射
+			gpios = <&gpiob 14 GPIO_ACTIVE_LOW>;//c板1口，推射
 			label = "emvalve1";
 		};
 		emvalve2: emvalve2 {
-			gpios = <&gpiob 13 GPIO_ACTIVE_LOW>;//c板3口，吸球
+			gpios = <&gpiob 15 GPIO_ACTIVE_LOW>;//c板3口，吸球
 			label = "emvalve2";
 		};
 	};

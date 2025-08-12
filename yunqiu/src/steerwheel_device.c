@@ -63,9 +63,10 @@ void calibration_button_pressed(const struct device *dev, struct gpio_callback *
 void calibration_thread_entry(void *p1, void *p2, void *p3)
 {
 	struct motor_calibration_data *data = (struct motor_calibration_data *)p1;
-
+	k_msleep(100);
 	motor_control(data->motor_dev, ENABLE_MOTOR);
-	motor_set_speed(data->motor_dev, 25);
+	k_msleep(200);
+	motor_set_speed(data->motor_dev, 15);
 
 	LOG_INF("%s Steer torque is %f.", data->motor_dev->name, (double)motor_get_torque(data->motor_dev));
 
@@ -138,21 +139,21 @@ int calibrate_motor_start(const struct device *motor_dev, const struct gpio_dt_s
 	return 0;
 }
 
-// int vel_func_cb(uint32_t arg1, uint32_t arg2, uint32_t arg3)
-// {
-// #ifdef CHASSIS_SRC_USB
-// 	chassis_ctrl[0] = TO_FLOAT(arg1);
-// 	chassis_ctrl[1] = TO_FLOAT(arg2);
-// 	chassis_ctrl[2] = TO_FLOAT(arg3);
-// 	if (usb_cnt++ % 100 == 0) {
-// 		// LOG_INF("Arg1: 0x%08x Arg2: 0x%08x Arg3: 0x%08x", arg1, arg2, arg3);
-// 		LOG_INF("X: %f Y: %f Gyro: %f", (double)TO_FLOAT(arg1), (double)TO_FLOAT(arg2),
-// 			(double)TO_FLOAT(arg3));
-// 	}
-// 	prev_vel_upd_time = k_uptime_get_32();
-// #endif
-// 	return 0;
-// }
+int vel_func_cb(uint32_t arg1, uint32_t arg2, uint32_t arg3)
+{
+#ifdef CHASSIS_SRC_USB
+	chassis_ctrl[0] = TO_FLOAT(arg1);
+	chassis_ctrl[1] = TO_FLOAT(arg2);
+	chassis_ctrl[2] = TO_FLOAT(arg3);
+	if (usb_cnt++ % 100 == 0) {
+		// LOG_INF("Arg1: 0x%08x Arg2: 0x%08x Arg3: 0x%08x", arg1, arg2, arg3);
+		LOG_INF("X: %f Y: %f Gyro: %f", (double)TO_FLOAT(arg1), (double)TO_FLOAT(arg2),
+			(double)TO_FLOAT(arg3));
+	}
+	prev_vel_upd_time = k_uptime_get_32();
+#endif
+	return 0;
+}
 
 void chassis_thread_(void *arg1, void *arg2, void *arg3)
 {

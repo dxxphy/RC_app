@@ -53,19 +53,19 @@ K_THREAD_DEFINE(chassis_, 3072, chassis_thread_, NULL, NULL, NULL, 1, 0, 100);
 K_THREAD_DEFINE(ball_thread, 4096, ball_movement_thread, NULL, NULL, NULL, 1, 0, 0);
 
 // USB速度控制回调函数
-int vel_func_cb(uint32_t arg1, uint32_t arg2, uint32_t arg3)
-{
-    // 把收到的二进制参数转回浮点数，并控制底盘
-    chassis_set_speed(chassis, TO_FLOAT(arg1) * 8, -TO_FLOAT(arg2) * 8);
-    chassis_set_gyro(chassis, TO_FLOAT(arg3) * 12.0f);
+// int vel_func_cb(uint32_t arg1, uint32_t arg2, uint32_t arg3)
+// {
+//     // 把收到的二进制参数转回浮点数，并控制底盘
+//     chassis_set_speed(chassis, TO_FLOAT(arg1) * 8, -TO_FLOAT(arg2) * 8);
+//     chassis_set_gyro(chassis, TO_FLOAT(arg3) * 12.0f);
     
-    // 每隔一段时间打印一下收到的数据
-    if (usb_cnt++ % 200 == 0) {
-        LOG_INF("X: %f Y: %f Gyro: %f", (double)TO_FLOAT(arg1), (double)TO_FLOAT(arg2),
-               (double)TO_FLOAT(arg3));
-    }
-    return 0;
-}
+//     // 每隔一段时间打印一下收到的数据
+//     if (usb_cnt++ % 200 == 0) {
+//         LOG_INF("X: %f Y: %f Gyro: %f", (double)TO_FLOAT(arg1), (double)TO_FLOAT(arg2),
+//                (double)TO_FLOAT(arg3));
+//     }
+//     return 0;
+// }
 
 // 1. 定义通信协议和USB接口实例
 DUAL_PROPOSE_PROTOCOL_DEFINE(dual_protocol);
@@ -75,7 +75,7 @@ int main(void)
 {   
 
     k_msleep(1000);
-    
+
     // 2. 绑定协议和接口
     ares_bind_interface(&usb_bulk_interface, &dual_protocol);
 
